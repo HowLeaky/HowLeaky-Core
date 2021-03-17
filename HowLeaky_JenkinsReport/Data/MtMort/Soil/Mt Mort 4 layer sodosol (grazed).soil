@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SoilDataTemplate>
+  <SoilType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Mt Mort grazing\Soils\Mt Mort 4 layer sodosol (grazed).soil" text="Mt Mort 4 layer sodosol (Grazed)" Description="Mt Mort 4 layer sodosol (Grazed)">
+    <HorizonCount>4</HorizonCount>
+    <SoilCaptions>Lay1</SoilCaptions>
+    <LayerDepth Count="4" value1="100" value2="300" value3="600" value4="1600" Units="mm" LastModified="07/12/2011"/>
+    <InSituAirDryMoist Count="4" value1="1.1" value2="0.6" value3="0.6" value4="5.7" Units="%Vol"/>
+    <WiltingPoint Count="4" value1="4.6" value2="4.7" value3="12.8" value4="22.6" Units="%Vol"/>
+    <FieldCapacity Count="4" value1="25.5" value2="24.4" value3="25" value4="32" Units="%Vol"/>
+    <SatWaterCont Count="4" value1="54.6" value2="47.9" value3="43.8" value4="40.2" Units="%Vol"/>
+    <MaxDailyDrainRate Count="4" value1="100" value2="100" value3="24" value4="24" Units="mm/day"/>
+    <BulkDensity Count="4" value1="1.2" value2="1.2" value3="1.2" value4="1" Units="g/cm^3"/>
+    <PAWC Count="4" value1="20.9" value2="39.4" value3="36.6" default3="36.6" value4="94" default4="94" Units="mm" Comments=" (Total = 191mm)"/>
+    <MaxDailyDrainVolume Count="4" value1="29.1" value2="47" value3="56.4" default3="56.4" value4="82" default4="82" Units="mm"/>
+    <Stage2SoilEvap_Cona LastModified="08/12/2011">10</Stage2SoilEvap_Cona>
+    <Stage1SoilEvap_U>0</Stage1SoilEvap_U>
+    <RunoffCurveNumber default="90" LastModified="09/12/2011">75</RunoffCurveNumber>
+    <RedInCNAtFullCover default="22" LastModified="09/12/2011">0</RedInCNAtFullCover>
+    <MaxRedInCNDueToTill default="10" LastModified="09/12/2011">0</MaxRedInCNDueToTill>
+    <RainToRemoveRough default="400" LastModified="09/12/2011">0</RainToRemoveRough>
+    <USLE_K default="0.6" LastModified="20/02/2012">0.45</USLE_K>
+    <USLE_P>1</USLE_P>
+    <FieldSlope LastModified="07/12/2011">12</FieldSlope>
+    <SlopeLength>10</SlopeLength>
+    <RillRatio>1</RillRatio>
+    <SoilCrack state="false"/>
+    <MaxInfiltIntoCracks>15</MaxInfiltIntoCracks>
+    <SedDelivRatio>0.14</SedDelivRatio>
+  </SoilType>
+</SoilDataTemplate>

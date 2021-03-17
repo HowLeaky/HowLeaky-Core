@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project CreatedBy="David Freebairn" CreationDate="04/02/2009 16/49/31" ContactDetails="Natural Solutions - david.freebairn@gmail.com" ModifiedBy="DF">
+  <Name>Wallumbilla</Name>
+  <CompanyName>Conics Environment and CLiamte change</CompanyName>
+  <CompanyDetails>www.naturalsolutions.com.au</CompanyDetails>
+  <MapURI href="$(HOWLEAKY)Maps\Australia.tee" Description="Australia.tee" minx="0.0000" maxx="0.0000" miny="0.0000" maxy="0.0000"/>
+  <LogoURI href="C:\Documents and Settings\dfreebairn\My Documents\My Pictures\Natural Solutions projects\Natural Solutions logo.jpg" Description="Natural Solutions logo.jpg"/>
+  <ClimateData LastSourcePath="C:\Howleaky\Wallumbilla\Climate\">
+    <DataFile href="C:\Sena\Climate\Wallumbilla 1900-2005.p51" StartDate="01/01/1900" EndDate="07/12/2006" Latitude="-26.58" Longitude="149.19"/>
+    <DataFile href="C:\Sena\Climate\Fairlands 1983-2000.p51" StartDate="01/01/1982" EndDate="31/12/2000" Latitude="-26.28" Longitude="149.06"/>
+    <DataFile href="C:\Sena\Climate\Fairlands.p51" StartDate="01/01/1982" EndDate="31/12/2000" Latitude="-26.28" Longitude="149.06"/>
+  </ClimateData>
+  <ImportedData LastSourcePath="C:\4-HowLeaky\paper\model\Wallumbilla\Imported\">
+    <DataFile href="C:\4-HowLeaky\paper\model\Wallumbilla\Imported\1 Plant harvest Yield.sim" StartDate="01/05/1983" EndDate="02/11/1999"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Wallumbilla\Imported\2 Cover.sim" StartDate="29/03/1983" EndDate="12/05/2000"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Wallumbilla\Imported\3 Soil water.sim" StartDate="11/11/1982" EndDate="12/05/2000"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Wallumbilla\Imported\Runoff Sed loss.sim" StartDate="04/05/1983" EndDate="16/12/1997"/>
+  </ImportedData>
+  <SoilTemplates LastSourcePath="C:\Howleaky\Wallumbilla\Soil\">
+    <SoilType href="C:\Sena\Soil\Brown sodosol simple.soil" text="Brown sodosol simple" Description="Brown sodosol simple" Comments="Simple soil description for Wallumbilla Tillage and catchment study&#xA;Experimetnal soil description using a four (4) parameter description&#xA;PAW % in surface, depth of this surface layer, depth of soil amnd depth to rooting&#xA;26/10/11&#xA;DMF"/>
+    <SoilType href="C:\Sena\Soil\Brown Sodosol 4.soil" text="Brown Sodosol  4" Description="Brown Sodosol  4" Comments="Truncated verwion of 6 layer &#xA;Layer 4 same as layer 6, layers 5,6 deleted"/>
+    <SoilType href="C:\Sena\Soil\Brown Sodosol  6.soil" text="Brown Sodosol  6" Description="Brown Sodosol  6" Comments="Wallumbilla Tillage and catchmetn study reference soil description - cropped catchment&#xA;Best bet PAW description based on new LL and density from base file (.xls)&#xA;CN  of 85 and CN cover response of 10 best good fit&#xA;K factor 0.4 for the site, delivery ratio of 50%  as low sediment source resulting in higher proportion being fines&#xA;Freebairn et al 2011, Aust. J Soil Research&#xA; 24/2/2018&#xA;DMF"/>
+    <SoilType href="C:\Sena\Soil\Brown Sodosol pasture 6.soil" text="Brown Sodosol pasture 6" Description="Brown Sodosol pasture 6"/>
+    <SoilType href="C:\Sena\Soil\Brown Sodosol pasture 4.soil" text="Brown Sodosol pasture 4" Description="Brown Sodosol pasture 4"/>
+  </SoilTemplates>
+  <CropTemplates LastSourcePath="C:\Howleaky\Wallumbilla\Vegetation\">
+    <VegetationType href="C:\Sena\Vegetation\Pasture good.vege" text="Pasture good" Description="Pasture good">
+      <ModelType index="1"/>
+    </VegetationType>
+    <VegetationType href="C:\Sena\Vegetation\Wheat May 25.vege" text="Wheat May25" Description="Wheat May25" Comments="Generic wheat crop tuned for Wallumbilla Catchment study observations&#xA;Planting date 25th May sits in midller of field planting&#xA;Harvest dates are within 14 days of field harvest&#xA;Modellign yields are approximetatly 18% &gt; than field havests&#xA;&#xA;&#xA;D Freebairn  RPS  15th November 2011"/>
+    <VegetationType href="C:\Sena\Vegetation\Winter crop -stubble tilled.vege" text="Winter crop -stubble tilled" Description="Winter crop -stubble tilled">
+      <ModelType index="1"/>
+    </VegetationType>
+  </CropTemplates>
+  <TillageTemplates LastSourcePath="\\BNEFS04\Environment$\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Wallumbilla\Tillage\">
+    <TillageType href="C:\Sena\Tillage\Chisel.till" text="Chisel" Description="Chisel"/>
+    <TillageType href="C:\Sena\Tillage\Scarify.till" text="Scarify" Description="Scarify"/>
+    <TillageType href="C:\Sena\Tillage\Minimum.till" text="Minimum" Description="Minimum"/>
+  </TillageTemplates>
+  <NitratesTemplates LastSourcePath="\\BNEFS04\Environment$\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Data - Nitrate\">
+    <NitratesType href="C:\Sena\Nitrate\N-std.nitr" text="N crop" Description="N crop" Comments="Based on Annual target N appliction of 250 kg N/ha/year applied fortnightly (26 applications) Peak of 10 kgnitrate N/ha at time of application, declining to say 5 use mean of 8 kg/ha available&#xA;Source: J Armour, interpretation D Freebairn"/>
+  </NitratesTemplates>
+  <ModelOptions LastSourcePath="\\BNEFS04\Environment$\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Data - Model Options\">
+    <ModelOptions href="C:\Sena\ModelOptions\Default.mopt" text="Reset PAW date" Description="Reset PAW date"/>
+  </ModelOptions>
+  <Simulations>
+    <Folder Name="Calibration 1983-95" Expanded="true">
+      <SimulationObject Active="false" ID="0">
+        <ptrStation href="C:\Sena\Climate\Fairlands.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\Sena\Soil\Brown Sodosol  6.soil"/>
+        <ptrVegeOption1 href="C:\Sena\Vegetation\Wheat May 25.vege"/>
+        <ptrTillageOption1 href="C:\Sena\Tillage\Chisel.till"/>
+        <StartYear Checked="true">1983</StartYear>
+        <EndYear Checked="true">1995</EndYear>
+      </SimulationObject>
+      <SimulationObject Active="false" ID="1">
+        <ptrStation href="C:\Sena\Climate\Fairlands.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\Sena\Soil\Brown Sodosol  6.soil"/>
+        <ptrVegeOption1 href="C:\Sena\Vegetation\Wheat May 25.vege"/>
+        <ptrTillageOption1 href="C:\Sena\Tillage\Scarify.till"/>
+        <StartYear Checked="true">1983</StartYear>
+        <EndYear Checked="true">1995</EndYear>
+      </SimulationObject>
+      <SimulationObject Active="false" ID="4">
+        <ptrStation href="C:\Sena\Climate\Fairlands.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\Sena\Soil\Brown Sodosol  6.soil"/>
+        <ptrVegeOption1 href="C:\Sena\Vegetation\Wheat May 25.vege"/>
+        <ptrTillageOption1 href="C:\Sena\Tillage\Minimum.till"/>
+        <StartYear Checked="true">1983</StartYear>
+        <EndYear Checked="true" LastModified="03/12/2018">1995</EndYear>
+      </SimulationObject>
+      <SimulationObject Active="false" ID="35">
+        <ptrStation href="C:\Sena\Climate\Fairlands.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\Sena\Soil\Brown Sodosol pasture 6.soil"/>
+        <ptrVegeOption1 href="C:\Sena\Vegetation\Pasture good.vege"/>
+        <StartYear Checked="true" LastModified="27/02/2018">1990</StartYear>
+        <EndYear Checked="true">1995</EndYear>
+      </SimulationObject>
+    </Folder>
+  </Simulations>
+  <SensitivityAnalyses>
+    <SensitivityAnalysisObject href="C:\Program Files (x86)\HowLeaky\Sensitivity Analyses\1 uni-parameter analysis (1 parameters) 2018-02-27_16.53.17.sen" Name="1.  Fairlands.p51, Brown Sodosol  6, Wheat May25, Chisel, Jan 1983 to Dec 1995" ID="0"/>
+  </SensitivityAnalyses>
+  <ParameterFilterSettings>
+    <SoilParameters>
+      <HorizonCount visible="true"/>
+      <SoilCaptions visible="false"/>
+      <LayerDepth visible="true"/>
+      <InSituAirDryMoist visible="true"/>
+      <WiltingPoint visible="true"/>
+      <FieldCapacity visible="true"/>
+      <SatWaterCont visible="true"/>
+      <MaxDailyDrainRate visible="true"/>
+      <BulkDensity visible="false"/>
+      <Stage2SoilEvap_Cona visible="true"/>
+      <Stage1SoilEvap_U visible="true"/>
+      <RunoffCurveNumber visible="true"/>
+      <RedInCNAtFullCover visible="true"/>
+      <MaxRedInCNDueToTill visible="false"/>
+      <RainToRemoveRough visible="false"/>
+      <USLE_K visible="false"/>
+      <USLE_P visible="false"/>
+      <FieldSlope visible="false"/>
+      <SlopeLength visible="false"/>
+      <RillRatio visible="false"/>
+      <SoilCrack visible="false"/>
+      <MaxInfiltIntoCracks visible="false"/>
+      <SedDelivRatio visible="false"/>
+      <OrganicCarbon visible="false"/>
+      <CarbonNitrogenRatio visible="false"/>
+      <NitrateMineralisationCoefficient visible="false"/>
+    </SoilParameters>
+    <VegetationParameters>
+      <CropFactorMatrix visible="true"/>
+      <UseDefinedCropFactors visible="true"/>
+      <CoverInputOptions visible="true"/>
+      <CropFactorInputOptions visible="true"/>
+      <EvaporationInputOptions visible="true"/>
+      <PotMaxLai visible="true"/>
+      <PropGrowSeaForMaxLai visible="true"/>
+      <PercentOfMaxLai1 visible="true"/>
+      <PercentOfGrowSeason1 visible="true"/>
+      <PercentOfMaxLai2 visible="true"/>
+      <PercentOfGrowSeason2 visible="true"/>
+      <SenesenceCoef visible="true"/>
+      <DegreeDaysPlantToHarvest visible="true"/>
+      <RadUseEffic visible="true"/>
+      <HarvestIndex visible="true"/>
+      <BaseTemp visible="true"/>
+      <OptTemp visible="true"/>
+      <MaxRootDepth visible="true"/>
+      <DailyRootGrowth visible="true"/>
+      <WatStressForDeath visible="true"/>
+      <DaysOfStressToDeath visible="true"/>
+      <WaterUseEffic visible="true"/>
+      <PanHarvestIndex visible="true"/>
+      <DaysPlantingToHarvest visible="true"/>
+      <PanPlantDay visible="true"/>
+      <SWPropForNoStress visible="true"/>
+      <SourceData visible="true"/>
+      <LinkToGreenCover visible="true"/>
+      <LinkToResidueCover visible="true"/>
+      <LinkToRootDepth visible="true"/>
+      <LinkToCropFactors visible="true"/>
+      <GreenBioMassToCoverFactor visible="true"/>
+      <CropFactorConversionFactor visible="true"/>
+      <ResidueBioMassToCoverFactor visible="true"/>
+      <RootBioMassToDepthFactor visible="true"/>
+      <MaxAllowTotalCover visible="true"/>
+      <PanEvapMultiplier visible="true"/>
+      <RainfallMultiplier visible="true"/>
+      <Waterlogging visible="true"/>
+      <WaterLoggingFactor1 visible="true"/>
+      <WaterLoggingFactor2 visible="true"/>
+      <MaxResidueLoss visible="true"/>
+      <BiomassAtFullCover visible="true"/>
+      <PropGGDEnd visible="true"/>
+      <PlantingFormat visible="true"/>
+      <StartPlantWindow visible="true"/>
+      <EndPlantWindow visible="true"/>
+      <ForcePlanting visible="true"/>
+      <MultiPlantInWindow visible="true"/>
+      <PlantDate visible="true"/>
+      <PlantingDates visible="true"/>
+      <RotationOptions visible="false"/>
+      <MinContinuousRotations visible="true"/>
+      <MaxContinuousRotations visible="true"/>
+      <SowingDelay visible="true"/>
+      <MinYearsBetweenSowing visible="true"/>
+      <FallowSwitch visible="true"/>
+      <MinFallowLength visible="true"/>
+      <RainfallSwitch visible="true"/>
+      <PlantingRain visible="true"/>
+      <DaysToTotalRain visible="true"/>
+      <SoilWaterSwitch visible="true"/>
+      <MinSoilWaterRatio visible="true"/>
+      <MaxSoilWaterRatio visible="true"/>
+      <AvailSWAtPlanting visible="true"/>
+      <SoilDepthToSumPlantingSW visible="true"/>
+      <RatoonCrop visible="false"/>
+      <RatoonCount visible="false"/>
+      <RatoonScaleFactor visible="false"/>
+    </VegetationParameters>
+    <PlantingParameters>
+      <PlantingFormat visible="true"/>
+      <StartPlantWindow visible="true"/>
+      <EndPlantWindow visible="true"/>
+      <ForcePlanting visible="true"/>
+      <MultiPlantInWindow visible="true"/>
+      <PlantDate visible="true"/>
+      <PlantingDates visible="true"/>
+      <RotationOptions visible="false"/>
+      <MinContinuousRotations visible="true"/>
+      <MaxContinuousRotations visible="true"/>
+      <SowingDelay visible="true"/>
+      <MinYearsBetweenSowing visible="true"/>
+      <FallowSwitch visible="true"/>
+      <MinFallowLength visible="true"/>
+      <RainfallSwitch visible="true"/>
+      <PlantingRain visible="true"/>
+      <DaysToTotalRain visible="true"/>
+      <SoilWaterSwitch visible="true"/>
+      <MinSoilWaterRatio visible="true"/>
+      <MaxSoilWaterRatio visible="true"/>
+      <AvailSWAtPlanting visible="true"/>
+      <SoilDepthToSumPlantingSW visible="true"/>
+      <RatoonCrop visible="false"/>
+      <RatoonCount visible="false"/>
+      <RatoonScaleFactor visible="false"/>
+    </PlantingParameters>
+    <TillageParameters>
+      <TillageFormat visible="true"/>
+      <PrimaryTillType visible="true"/>
+      <PrimaryCropResMultiplier visible="true"/>
+      <PrimaryRoughnessRatio visible="true"/>
+      <StartTillWindow visible="true"/>
+      <EndTillWindow visible="true"/>
+      <PrimaryTillDate visible="true"/>
+      <SecondaryTillDate1 visible="true"/>
+      <SecondaryTillDate2 visible="true"/>
+      <SecondaryTillDate3 visible="true"/>
+      <PrimaryTillageDates visible="true"/>
+      <RainForPrimaryTill visible="true"/>
+      <NoDaysToTotalRain visible="true"/>
+      <MinDaysBetweenTills visible="true"/>
+    </TillageParameters>
+    <PesticideParameters>
+      <PestApplicationTiming visible="true"/>
+      <tbPestVegIndex1 visible="true"/>
+      <tbPestVegIndex2 visible="true"/>
+      <tbPestVegIndex3 visible="true"/>
+      <tbPestVegIndex4 visible="true"/>
+      <tbPestVegIndex5 visible="true"/>
+      <tbPestVegIndex6 visible="true"/>
+      <tbPestVegIndex7 visible="true"/>
+      <tbPestVegIndex8 visible="true"/>
+      <tbPestVegIndex9 visible="true"/>
+      <tbPestVegIndex10 visible="true"/>
+      <PesticideDatesAndRates visible="true"/>
+      <TriggerGGDFirst visible="true"/>
+      <TriggerGGDSubsequent visible="true"/>
+      <TriggerDaysFirst visible="true"/>
+      <TriggerDaysSubsequent visible="true"/>
+      <CritPestConc visible="true"/>
+      <ConcActiveIngred visible="true"/>
+      <ProductRate visible="true"/>
+      <SubsequentProductRate visible="true"/>
+      <PestEfficiency visible="true"/>
+      <HalfLife visible="true"/>
+      <RefTempHalfLifeSoil visible="true"/>
+      <HalfLifeVeg visible="true"/>
+      <RefTempHalfLifeVeg visible="true"/>
+      <HalfLifeStubble visible="true"/>
+      <RefTempHalfLifeStubble visible="true"/>
+      <DegradationActivationEnergy visible="true"/>
+      <MixLayerThickness visible="true"/>
+      <SorptionCoefficient visible="true"/>
+      <ExtractCoefficient visible="true"/>
+      <CoverWashoffFraction visible="true"/>
+      <BandSpraying visible="true"/>
+      <ApplicationDate visible="true"/>
+      <PestApplicationPosition visible="true"/>
+    </PesticideParameters>
+    <PhosphorusParameters>
+      <ColwellP visible="true"/>
+      <TotalPConc visible="true"/>
+      <ClayPercentage visible="true"/>
+      <EnrichmentRatio visible="true"/>
+      <PEnrichmentConstant visible="true"/>
+      <DissolvedPOption visible="true"/>
+      <PEnrichmentOption visible="true"/>
+      <DissolvePCoefficient visible="true"/>
+      <PBI visible="true"/>
+      <DissolvedPCategory visible="true"/>
+    </PhosphorusParameters>
+    <NitratesParameters>
+      <FertilizerInputDateSequences visible="true"/>
+      <DissolvedNinRunoffOptions visible="true"/>
+      <Nk visible="true"/>
+      <Ncv visible="true"/>
+      <NAlpha visible="true"/>
+      <NDepthTopLayer1 visible="true"/>
+      <NitrateSourceData visible="true"/>
+      <SoilNitrateTimeseries visible="true"/>
+      <SoilNitrateLevels visible="true"/>
+      <SoilNitrateLoadWeighting1 visible="true"/>
+      <DissolvedNinLeachingOptions visible="true"/>
+      <NitrateLeachingEfficiency visible="true"/>
+      <NitrateSourceData visible="true"/>
+      <DepthBottomLayer visible="true"/>
+      <SoilNitrateTimeseries visible="true"/>
+      <SoilNitrateLevels visible="true"/>
+      <SoilNitrateLoadWeighting2 visible="true"/>
+      <ParticulateNinRunoffOptions visible="true"/>
+      <NDepthTopLayer2 visible="true"/>
+      <NEnrichmentRatio visible="true"/>
+      <NBeta visible="true"/>
+      <SoilNitrateLevels visible="true"/>
+      <NitrateSourceData visible="true"/>
+      <InorganicNitrateNTimeseries visible="true"/>
+      <InorganicAmmoniumNTimeseries visible="true"/>
+      <OrganicNTimeseries visible="true"/>
+      <SoilNitrateLoadWeighting3 visible="true"/>
+      <N_DanRat_Alpha visible="true"/>
+      <N_DanRat_Beta visible="true"/>
+      <N_DanRat_MaxRunOffConc visible="true"/>
+      <N_DanRat_MinRunOffConc visible="true"/>
+      <N_GraFraz_DL visible="true"/>
+      <N_GraFraz_RL visible="true"/>
+      <N_GraFraz_LowLimitDINConc visible="true"/>
+    </NitratesParameters>
+    <IrrigationParameters>
+      <IrrigationFormat visible="true"/>
+      <IrrigationRunoffOptions visible="true"/>
+      <IrrigationEvaporationOptions visible="true"/>
+      <IrrigationEvaporationProportion visible="true"/>
+      <IrrigationDates visible="true"/>
+      <IrrigationRunoffSequence visible="true"/>
+      <AdditionalInflowDateSequences visible="true"/>
+      <StartIrrigationWindow visible="true"/>
+      <EndIrrigationWindow visible="true"/>
+      <IrrigationAmount visible="true"/>
+      <IrrigationRunoffProportion1 visible="true"/>
+      <IrrigationRunoffProportion2 visible="true"/>
+      <IrrigationBufferPeriod visible="true"/>
+      <TargetAmountOptions visible="true"/>
+      <SWDToIrrigate visible="true"/>
+      <tbIrrigationCoverEffects visible="true"/>
+      <Ponding visible="true"/>
+      <UseRingTank visible="true"/>
+      <RingTankDepth visible="true"/>
+      <RingTankArea visible="true"/>
+      <CatchmentArea visible="true"/>
+      <IrrigatedArea visible="true"/>
+      <AdditionalInflowFormat visible="true"/>
+      <AdditionalInflow visible="true"/>
+      <RunoffCaptureRate visible="true"/>
+      <RingTankSeepage visible="true"/>
+      <RingTankEvapCoeficient visible="true"/>
+      <IrrigationDeliveryEfficiency visible="true"/>
+      <CapactityAtReset visible="true"/>
+      <RingTankResetDate visible="true"/>
+      <ResetRingTank visible="true"/>
+    </IrrigationParameters>
+  </ParameterFilterSettings>
+  <LastSensitivityAnalysisSetupConfig>
+    <ObjectiveFunctionType>0</ObjectiveFunctionType>
+    <AnalysisType>0</AnalysisType>
+    <SimulationName>1.  Fairlands.p51, Brown Sodosol  6, Wheat May25, Chisel, Jan 1983 to Dec 1995</SimulationName>
+    <SelectedParameterNames>CN Reduction 100% cover (Brown Sodosol  6)  &lt;model-value = 10 &gt;
+</SelectedParameterNames>
+    <SelectedOutputNames>Runoff
+Soil Erosion
+Off Site Sediment Delivery
+N03 N Runoff Load
+</SelectedOutputNames>
+  </LastSensitivityAnalysisSetupConfig>
+</Project>

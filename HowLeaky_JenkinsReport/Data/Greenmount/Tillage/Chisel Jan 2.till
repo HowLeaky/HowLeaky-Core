@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TillageDataTemplate>
+  <TillageType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Cropping Greenmount\Tillage\Chisel Jan 2.till" text="Chisel Jan 2" Description="Chisel Jan 2" Multipliers="1,0.05,0.4,0.6,0.825,0.65,0.5,0.8,0.9" RoughnessRatio="0,0,1,0.7,0.3,0.6,0,0.3,0.2">
+    <TillageFormat index="1" text="Fixed Dates (annual)" default="0"/>
+    <PrimaryTillType index="5" text="Chisel" default="0">
+      <PrimaryCropResMultiplier>0.65</PrimaryCropResMultiplier>
+      <PrimaryRoughnessRatio>0.6</PrimaryRoughnessRatio>
+    </PrimaryTillType>
+    <StartTillWindow Enabled="true" Day="1" Month="1"/>
+    <EndTillWindow Enabled="true" Day="1" Month="1"/>
+    <PrimaryTillDate Enabled="true" Day="2" Month="1" LastModified="11/03/2013"/>
+    <SecondaryTillDate1 Enabled="false" Day="1" Month="1"/>
+    <SecondaryTillDate2 Enabled="false" Day="1" Month="1"/>
+    <SecondaryTillDate3 Enabled="false" Day="1" Month="1"/>
+  </TillageType>
+</TillageDataTemplate>

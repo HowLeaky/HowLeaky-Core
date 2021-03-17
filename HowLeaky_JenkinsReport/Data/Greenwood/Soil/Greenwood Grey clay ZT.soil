@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SoilDataTemplate>
+  <SoilType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Greenwood\Soils\Greenwood Grey clay ZT.soil" text="Greenwood Grey clay ZT" Description="Greenwood Grey clay ZT" Comments="6 layer profile Based on measured soil water 1978 -1984  Zero tillage&#xA;PAWC 240 mm&#xA;Measured using gravimetric soil cores to 150 cm depth in 0-10, 10,30, 30-60, 60-90,90-120, 120-150 cm increments&#xA;CN addjusted from 88 to 90 for Zero till reflecting lower roughness and higher runoff cf. stubble mulch&#xA;DMF 16/1/2012">
+    <HorizonCount>6</HorizonCount>
+    <SoilCaptions>Lay1</SoilCaptions>
+    <LayerDepth Count="6" value1="150" value2="300" value3="600" value4="900" value5="1200" value6="1500" Units="mm"/>
+    <InSituAirDryMoist Count="6" value1="8" value2="8" value3="10" value4="10" value5="10" value6="10" Units="%Vol"/>
+    <WiltingPoint Count="6" value1="21" value2="25" value3="25" value4="23" value5="22" value6="23" Units="%Vol"/>
+    <FieldCapacity Count="6" value1="33" value2="43" value3="43" value4="43" value5="39" value6="34" Units="%Vol"/>
+    <SatWaterCont Count="6" value1="43" value2="53" value3="53" value4="53" value5="49" value6="44" Units="%Vol"/>
+    <MaxDailyDrainRate Count="6" value1="100" value2="100" value3="100" value4="100" value5="100" value6="12" Units="mm/day"/>
+    <BulkDensity Count="6" value1="1" value2="1.2" value3="1.4" value4="1.5" value5="1.5" value6="1.5" Units="g/cm^3"/>
+    <PAWC Count="6" value1="18" value2="27" value3="54" value4="60" value5="51" value6="33" Units="mm" Comments=" (Total = 243mm)"/>
+    <MaxDailyDrainVolume Count="6" value1="15" value2="15" value3="30" value4="30" value5="30" value6="30" Units="mm"/>
+    <Stage2SoilEvap_Cona LastModified="21/02/2012">6</Stage2SoilEvap_Cona>
+    <Stage1SoilEvap_U LastModified="21/02/2012">0</Stage1SoilEvap_U>
+    <RunoffCurveNumber LastModified="21/02/2012">90</RunoffCurveNumber>
+    <RedInCNAtFullCover LastModified="21/02/2012">10</RedInCNAtFullCover>
+    <MaxRedInCNDueToTill LastModified="21/02/2012">0</MaxRedInCNDueToTill>
+    <RainToRemoveRough LastModified="21/02/2012">0</RainToRemoveRough>
+    <USLE_K LastModified="21/02/2012">0.4</USLE_K>
+    <USLE_P LastModified="21/02/2012">1</USLE_P>
+    <FieldSlope LastModified="21/02/2012">5</FieldSlope>
+    <SlopeLength LastModified="21/02/2012">35</SlopeLength>
+    <RillRatio LastModified="21/02/2012">1</RillRatio>
+    <SoilCrack state="false"/>
+    <MaxInfiltIntoCracks LastModified="21/02/2012">15</MaxInfiltIntoCracks>
+    <SedDelivRatio LastModified="21/02/2012">0.14</SedDelivRatio>
+  </SoilType>
+</SoilDataTemplate>

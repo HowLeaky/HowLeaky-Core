@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TillageDataTemplate>
+  <TillageType href="C:\Program Files\HowLeaky\Projects\Wallumbilla\Tillage\Chisel.till" text="Chisel" Description="Chisel" Multipliers="1,0.05,0.4,0.6,0.825,0.6,0.5,0.8,0.9" RoughnessRatio="0,0,1,0.7,0.3,0,0,0.3,0.2">
+    <TillageFormat index="1" text="Fixed Dates (annual)" LastModified="22/02/2006"/>
+    <PrimaryTillType index="5" text="Chisel" LastModified="15/01/2007">
+      <PrimaryCropResMultiplier LastModified="15/11/2011">0.6</PrimaryCropResMultiplier>
+      <PrimaryRoughnessRatio LastModified="15/11/2011">0</PrimaryRoughnessRatio>
+    </PrimaryTillType>
+    <StartTillWindow Enabled="true" Day="1" Month="1" LastModified="20/05/2007"/>
+    <EndTillWindow Enabled="true" Day="31" Month="12" LastModified="22/11/2005"/>
+    <PrimaryTillDate Enabled="true" Day="15" Month="12" LastModified="15/11/2011"/>
+    <SecondaryTillDate1 Enabled="true" Day="1" Month="2"/>
+    <SecondaryTillDate2 Enabled="true" Day="15" Month="4" LastModified="15/11/2011"/>
+    <SecondaryTillDate3 Enabled="true" Day="15" Month="5" LastModified="15/11/2011"/>
+    <PrimaryTillageDates></PrimaryTillageDates>
+    <RainForPrimaryTill LastModified="15/11/2011">75</RainForPrimaryTill>
+    <NoDaysToTotalRain LastModified="15/01/2007">30</NoDaysToTotalRain>
+    <MinDaysBetweenTills LastModified="15/01/2007">50</MinDaysBetweenTills>
+  </TillageType>
+</TillageDataTemplate>

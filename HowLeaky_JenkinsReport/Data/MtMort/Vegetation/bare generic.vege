@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CoverVegTemplate>
+  <VegetationType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Mt Mort grazing\Vegetation\bare generic.vege" text="Bare generic" Description="Bare generic">
+    <ModelType index="1"/>
+    <TimeSeriesList>undefined</TimeSeriesList>
+    <PanPlantDay>1</PanPlantDay>
+    <DaysPlantingToHarvest>10000</DaysPlantingToHarvest>
+    <CoverInputOptions index="0" text="User-defined"/>
+    <CropFactorMatrix Count="12">
+      <Data x="1" y="7" z="7" a="0"/>
+      <Data x="31" y="7" z="7" a="0"/>
+      <Data x="59" y="7" z="7" a="0"/>
+      <Data x="90" y="7" z="7" a="0"/>
+      <Data x="120" y="7" z="7" a="0"/>
+      <Data x="151" y="7" z="7" a="0"/>
+      <Data x="181" y="7" z="7" a="0"/>
+      <Data x="212" y="7" z="7" a="0"/>
+      <Data x="243" y="7" z="7" a="0"/>
+      <Data x="273" y="7" z="7" a="0"/>
+      <Data x="304" y="7" z="7" a="0"/>
+      <Data x="334" y="7" z="7" a="0"/>
+    </CropFactorMatrix>
+    <SourceData index="0" text="undefined"/>
+    <LinkToGreenCover index="0" text="undefined"/>
+    <GreenBioMassToCoverFactor>0</GreenBioMassToCoverFactor>
+    <LinkToResidueCover index="0" text="undefined"/>
+    <ResidueBioMassToCoverFactor>0</ResidueBioMassToCoverFactor>
+    <LinkToRootDepth index="0" text="undefined"/>
+    <RootBioMassToDepthFactor>0</RootBioMassToDepthFactor>
+    <MaxRootDepth>1</MaxRootDepth>
+    <WaterUseEffic>10</WaterUseEffic>
+    <PanHarvestIndex>0.35</PanHarvestIndex>
+  </VegetationType>
+</CoverVegTemplate>

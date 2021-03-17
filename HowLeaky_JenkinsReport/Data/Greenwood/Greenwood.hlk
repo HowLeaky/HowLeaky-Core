@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project CreatedBy="David Freebairn" CreationDate="04/02/2009 17/14/34" ContactDetails="Natural Solutions - david.freebairn@gmail.com" ModifiedBy="s">
+  <Name>Greenwood</Name>
+  <MapURI href="$(HOWLEAKY)Maps\Queensland.TEE" Description="Queensland.TEE" minx="0.0000" maxx="0.0000" miny="0.0000" maxy="0.0000"/>
+  <ClimateData LastSourcePath="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Greenwood\Climate Files\">
+    <DataFile href="C:\4-HowLeaky\paper\model\Greenwood\Climate\Oakey.p51" StartDate="01/01/1900" EndDate="01/12/2006" Latitude="-27.4" Longitude="151.74"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Greenwood\Climate\Greenwood.p51" StartDate="01/01/1977" EndDate="31/12/1984" Latitude="-27.33" Longitude="151.62"/>
+  </ClimateData>
+  <ImportedData LastSourcePath="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Greenwood\Observed Data\">
+    <DataFile href="C:\4-HowLeaky\paper\model\Greenwood\Imported\Greenwood Plant harvest date wheat yield.sim" StartDate="25/05/1979" EndDate="09/11/1983"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Greenwood\Imported\Greenwood_Cover.sim" StartDate="07/09/1978" EndDate="08/04/1984"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Greenwood\Imported\Greenwood soil water.sim" StartDate="19/12/1978" EndDate="23/03/1984"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Greenwood\Imported\Greenwood Runoff_Soil_loss_Sediment.sim" StartDate="01/01/1978" EndDate="31/12/1984"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Greenwood\Imported\Greenwood Runoff_Soil_loss_Sediment 1979 .sim" StartDate="16/03/1979" EndDate="09/04/1984"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Greenwood\Imported\Greenwood Runoff_Soil_loss_Sediment 1980.sim" StartDate="28/01/1980" EndDate="09/04/1984"/>
+  </ImportedData>
+  <SoilTemplates LastSourcePath="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Greenwood\Soils\">
+    <SoilType href="C:\4-HowLeaky\paper\model\Greenwood\Soil\Greenwood Grey clay.soil" text="Greenwood Grey clay" Description="Greenwood Grey clay" Comments="6 layer profile Based on measured soil water 1978 -1984&#xA;PAWC 240 mm&#xA;Measured using gravimetric soil cores to 150 cm depth in 0-10, 10,30, 30-60, 60-90,90-120, 120-150 cm increments&#xA;DMF 16/1/2012"/>
+    <SoilType href="C:\4-HowLeaky\paper\model\Greenwood\Soil\Greenwood Grey clay ZT.soil" text="Greenwood Grey clay ZT" Description="Greenwood Grey clay ZT" Comments="6 layer profile Based on measured soil water 1978 -1984  Zero tillage&#xA;PAWC 240 mm&#xA;Measured using gravimetric soil cores to 150 cm depth in 0-10, 10,30, 30-60, 60-90,90-120, 120-150 cm increments&#xA;CN addjusted from 88 to 90 for Zero till reflecting lower roughness and higher runoff cf. stubble mulch&#xA;DMF 16/1/2012"/>
+  </SoilTemplates>
+  <CropTemplates LastSourcePath="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Greenwood\Vegetation\">
+    <VegetationType href="C:\4-HowLeaky\paper\model\Greenwood\Vegetation\wheat stubble burnt.vege" text="Wheat stubble burnt" Description="Wheat stubble burnt">
+      <ModelType index="1"/>
+    </VegetationType>
+    <VegetationType href="C:\4-HowLeaky\paper\model\Greenwood\Vegetation\wheat stubble incorporated.vege" text="Wheat stubble incorporated" Description="Wheat stubble incorporated">
+      <ModelType index="1"/>
+    </VegetationType>
+    <VegetationType href="C:\4-HowLeaky\paper\model\Greenwood\Vegetation\wheat stubble mulch.vege" text="Wheat stubble mulch" Description="Wheat stubble mulch">
+      <ModelType index="1"/>
+    </VegetationType>
+    <VegetationType href="C:\4-HowLeaky\paper\model\Greenwood\Vegetation\wheat stubble zero till.vege" text="Wheat stubble zero till" Description="Wheat stubble zero till">
+      <ModelType index="1"/>
+    </VegetationType>
+  </CropTemplates>
+  <Simulations>
+    <Folder Name="Runoff_Sediment_Cover" Expanded="true">
+      <SimulationObject Active="true" ID="4">
+        <ptrStation href="C:\4-HowLeaky\paper\model\Greenwood\Climate\Oakey.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\4-HowLeaky\paper\model\Greenwood\Soil\Greenwood Grey clay.soil"/>
+        <ptrVegeOption1 href="C:\4-HowLeaky\paper\model\Greenwood\Vegetation\wheat stubble burnt.vege"/>
+        <StartYear Checked="true">1900</StartYear>
+        <EndYear Checked="true">1999</EndYear>
+        <OutputObject/>
+      </SimulationObject>
+      <SimulationObject Active="false" ID="5">
+        <ptrStation href="C:\4-HowLeaky\paper\model\Greenwood\Climate\Oakey.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\4-HowLeaky\paper\model\Greenwood\Soil\Greenwood Grey clay.soil"/>
+        <ptrVegeOption1 href="C:\4-HowLeaky\paper\model\Greenwood\Vegetation\wheat stubble incorporated.vege"/>
+        <StartYear Checked="true">1900</StartYear>
+        <EndYear Checked="true">1999</EndYear>
+        <OutputObject/>
+      </SimulationObject>
+      <SimulationObject Active="false" ID="6">
+        <ptrStation href="C:\4-HowLeaky\paper\model\Greenwood\Climate\Oakey.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\4-HowLeaky\paper\model\Greenwood\Soil\Greenwood Grey clay.soil"/>
+        <ptrVegeOption1 href="C:\4-HowLeaky\paper\model\Greenwood\Vegetation\wheat stubble mulch.vege"/>
+        <StartYear Checked="true">1900</StartYear>
+        <EndYear Checked="true">1999</EndYear>
+        <OutputObject/>
+      </SimulationObject>
+      <SimulationObject Active="false" ID="7">
+        <ptrStation href="C:\4-HowLeaky\paper\model\Greenwood\Climate\Oakey.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\4-HowLeaky\paper\model\Greenwood\Soil\Greenwood Grey clay.soil"/>
+        <ptrVegeOption1 href="C:\4-HowLeaky\paper\model\Greenwood\Vegetation\wheat stubble zero till.vege"/>
+        <StartYear Checked="true">1900</StartYear>
+        <EndYear Checked="true">1999</EndYear>
+        <OutputObject/>
+      </SimulationObject>
+    </Folder>
+  </Simulations>
+  <ParameterFilterSettings>
+    <SoilParameters>
+      <HorizonCount visible="false"/>
+      <SoilCaptions visible="false"/>
+      <LayerDepth visible="true"/>
+      <InSituAirDryMoist visible="true"/>
+      <WiltingPoint visible="true"/>
+      <FieldCapacity visible="true"/>
+      <SatWaterCont visible="true"/>
+      <MaxDailyDrainRate visible="true"/>
+      <BulkDensity visible="false"/>
+      <Stage2SoilEvap_Cona visible="true"/>
+      <Stage1SoilEvap_U visible="true"/>
+      <RunoffCurveNumber visible="true"/>
+      <RedInCNAtFullCover visible="true"/>
+      <MaxRedInCNDueToTill visible="true"/>
+      <RainToRemoveRough visible="true"/>
+      <USLE_K visible="true"/>
+      <USLE_P visible="true"/>
+      <FieldSlope visible="true"/>
+      <SlopeLength visible="true"/>
+      <RillRatio visible="true"/>
+      <SoilCrack visible="true"/>
+      <MaxInfiltIntoCracks visible="true"/>
+      <SedDelivRatio visible="true"/>
+      <OrganicCarbon visible="true"/>
+      <CarbonNitrogenRatio visible="true"/>
+      <NitrateMineralisationCoefficient visible="true"/>
+    </SoilParameters>
+    <VegetationParameters>
+      <CropFactorMatrix visible="true"/>
+      <UseDefinedCropFactors visible="true"/>
+      <CoverInputOptions visible="true"/>
+      <CropFactorInputOptions visible="true"/>
+      <EvaporationInputOptions visible="true"/>
+      <PotMaxLai visible="true"/>
+      <PropGrowSeaForMaxLai visible="true"/>
+      <PercentOfMaxLai1 visible="true"/>
+      <PercentOfGrowSeason1 visible="true"/>
+      <PercentOfMaxLai2 visible="true"/>
+      <PercentOfGrowSeason2 visible="true"/>
+      <SenesenceCoef visible="true"/>
+      <DegreeDaysPlantToHarvest visible="true"/>
+      <RadUseEffic visible="true"/>
+      <HarvestIndex visible="true"/>
+      <BaseTemp visible="true"/>
+      <OptTemp visible="true"/>
+      <MaxRootDepth visible="true"/>
+      <DailyRootGrowth visible="true"/>
+      <WatStressForDeath visible="true"/>
+      <DaysOfStressToDeath visible="true"/>
+      <WaterUseEffic visible="true"/>
+      <PanHarvestIndex visible="true"/>
+      <DaysPlantingToHarvest visible="true"/>
+      <PanPlantDay visible="true"/>
+      <SWPropForNoStress visible="true"/>
+      <SourceData visible="true"/>
+      <LinkToGreenCover visible="true"/>
+      <LinkToResidueCover visible="true"/>
+      <LinkToRootDepth visible="true"/>
+      <LinkToCropFactors visible="true"/>
+      <GreenBioMassToCoverFactor visible="true"/>
+      <CropFactorConversionFactor visible="true"/>
+      <ResidueBioMassToCoverFactor visible="true"/>
+      <RootBioMassToDepthFactor visible="true"/>
+      <MaxAllowTotalCover visible="true"/>
+      <PanEvapMultiplier visible="true"/>
+      <RainfallMultiplier visible="true"/>
+      <Waterlogging visible="true"/>
+      <WaterLoggingFactor1 visible="true"/>
+      <WaterLoggingFactor2 visible="true"/>
+      <MaxResidueLoss visible="true"/>
+      <BiomassAtFullCover visible="true"/>
+      <PropGGDEnd visible="true"/>
+      <PlantingFormat visible="true"/>
+      <StartPlantWindow visible="true"/>
+      <EndPlantWindow visible="true"/>
+      <ForcePlanting visible="true"/>
+      <MultiPlantInWindow visible="true"/>
+      <PlantDate visible="true"/>
+      <PlantingDates visible="true"/>
+      <RotationOptions visible="true"/>
+      <MinContinuousRotations visible="true"/>
+      <MaxContinuousRotations visible="true"/>
+      <SowingDelay visible="true"/>
+      <MinYearsBetweenSowing visible="true"/>
+      <FallowSwitch visible="true"/>
+      <MinFallowLength visible="true"/>
+      <RainfallSwitch visible="true"/>
+      <PlantingRain visible="true"/>
+      <DaysToTotalRain visible="true"/>
+      <SoilWaterSwitch visible="true"/>
+      <MinSoilWaterRatio visible="true"/>
+      <MaxSoilWaterRatio visible="true"/>
+      <AvailSWAtPlanting visible="true"/>
+      <SoilDepthToSumPlantingSW visible="true"/>
+      <RatoonCrop visible="true"/>
+      <RatoonCount visible="true"/>
+      <RatoonScaleFactor visible="true"/>
+    </VegetationParameters>
+    <PlantingParameters>
+      <PlantingFormat visible="true"/>
+      <StartPlantWindow visible="true"/>
+      <EndPlantWindow visible="true"/>
+      <ForcePlanting visible="true"/>
+      <MultiPlantInWindow visible="true"/>
+      <PlantDate visible="true"/>
+      <PlantingDates visible="true"/>
+      <RotationOptions visible="true"/>
+      <MinContinuousRotations visible="true"/>
+      <MaxContinuousRotations visible="true"/>
+      <SowingDelay visible="true"/>
+      <MinYearsBetweenSowing visible="true"/>
+      <FallowSwitch visible="true"/>
+      <MinFallowLength visible="true"/>
+      <RainfallSwitch visible="true"/>
+      <PlantingRain visible="true"/>
+      <DaysToTotalRain visible="true"/>
+      <SoilWaterSwitch visible="true"/>
+      <MinSoilWaterRatio visible="true"/>
+      <MaxSoilWaterRatio visible="true"/>
+      <AvailSWAtPlanting visible="true"/>
+      <SoilDepthToSumPlantingSW visible="true"/>
+      <RatoonCrop visible="true"/>
+      <RatoonCount visible="true"/>
+      <RatoonScaleFactor visible="true"/>
+    </PlantingParameters>
+    <TillageParameters>
+      <TillageFormat visible="true"/>
+      <PrimaryTillType visible="true"/>
+      <PrimaryCropResMultiplier visible="true"/>
+      <PrimaryRoughnessRatio visible="true"/>
+      <StartTillWindow visible="true"/>
+      <EndTillWindow visible="true"/>
+      <PrimaryTillDate visible="true"/>
+      <SecondaryTillDate1 visible="true"/>
+      <SecondaryTillDate2 visible="true"/>
+      <SecondaryTillDate3 visible="true"/>
+      <PrimaryTillageDates visible="true"/>
+      <RainForPrimaryTill visible="true"/>
+      <NoDaysToTotalRain visible="true"/>
+      <MinDaysBetweenTills visible="true"/>
+    </TillageParameters>
+    <PesticideParameters>
+      <PestApplicationTiming visible="true"/>
+      <tbPestVegIndex1 visible="true"/>
+      <tbPestVegIndex2 visible="true"/>
+      <tbPestVegIndex3 visible="true"/>
+      <tbPestVegIndex4 visible="true"/>
+      <tbPestVegIndex5 visible="true"/>
+      <tbPestVegIndex6 visible="true"/>
+      <tbPestVegIndex7 visible="true"/>
+      <tbPestVegIndex8 visible="true"/>
+      <tbPestVegIndex9 visible="true"/>
+      <tbPestVegIndex10 visible="true"/>
+      <PesticideDatesAndRates visible="true"/>
+      <TriggerGGDFirst visible="true"/>
+      <TriggerGGDSubsequent visible="true"/>
+      <TriggerDaysFirst visible="true"/>
+      <TriggerDaysSubsequent visible="true"/>
+      <CritPestConc visible="true"/>
+      <ConcActiveIngred visible="true"/>
+      <ProductRate visible="true"/>
+      <SubsequentProductRate visible="true"/>
+      <PestEfficiency visible="true"/>
+      <HalfLife visible="true"/>
+      <RefTempHalfLifeSoil visible="true"/>
+      <HalfLifeVeg visible="true"/>
+      <RefTempHalfLifeVeg visible="true"/>
+      <HalfLifeStubble visible="true"/>
+      <RefTempHalfLifeStubble visible="true"/>
+      <DegradationActivationEnergy visible="true"/>
+      <MixLayerThickness visible="true"/>
+      <SorptionCoefficient visible="true"/>
+      <ExtractCoefficient visible="true"/>
+      <CoverWashoffFraction visible="true"/>
+      <BandSpraying visible="true"/>
+      <ApplicationDate visible="true"/>
+      <PestApplicationPosition visible="true"/>
+    </PesticideParameters>
+    <PhosphorusParameters>
+      <ColwellP visible="true"/>
+      <TotalPConc visible="true"/>
+      <ClayPercentage visible="true"/>
+      <EnrichmentRatio visible="true"/>
+      <PEnrichmentConstant visible="true"/>
+      <DissolvedPOption visible="true"/>
+      <PEnrichmentOption visible="true"/>
+      <DissolvePCoefficient visible="true"/>
+      <PBI visible="true"/>
+      <DissolvedPCategory visible="true"/>
+    </PhosphorusParameters>
+    <NitratesParameters>
+      <FertilizerInputDateSequences visible="true"/>
+      <DissolvedNinRunoffOptions visible="true"/>
+      <Nk visible="true"/>
+      <Ncv visible="true"/>
+      <NAlpha visible="true"/>
+      <NDepthTopLayer1 visible="true"/>
+      <NitrateSourceData visible="true"/>
+      <SoilNitrateTimeseries visible="true"/>
+      <SoilNitrateLevels visible="true"/>
+      <SoilNitrateLoadWeighting1 visible="true"/>
+      <DissolvedNinLeachingOptions visible="true"/>
+      <NitrateLeachingEfficiency visible="true"/>
+      <NitrateSourceData visible="true"/>
+      <DepthBottomLayer visible="true"/>
+      <SoilNitrateTimeseries visible="true"/>
+      <SoilNitrateLevels visible="true"/>
+      <SoilNitrateLoadWeighting2 visible="true"/>
+      <ParticulateNinRunoffOptions visible="true"/>
+      <NDepthTopLayer2 visible="true"/>
+      <NEnrichmentRatio visible="true"/>
+      <NBeta visible="true"/>
+      <SoilNitrateLevels visible="true"/>
+      <NitrateSourceData visible="true"/>
+      <InorganicNitrateNTimeseries visible="true"/>
+      <InorganicAmmoniumNTimeseries visible="true"/>
+      <OrganicNTimeseries visible="true"/>
+      <SoilNitrateLoadWeighting3 visible="true"/>
+      <N_DanRat_Alpha visible="true"/>
+      <N_DanRat_Beta visible="true"/>
+      <N_DanRat_MaxRunOffConc visible="true"/>
+      <N_DanRat_MinRunOffConc visible="true"/>
+      <N_GraFraz_DL visible="true"/>
+      <N_GraFraz_RL visible="true"/>
+      <N_GraFraz_LowLimitDINConc visible="true"/>
+    </NitratesParameters>
+    <IrrigationParameters>
+      <IrrigationFormat visible="true"/>
+      <IrrigationRunoffOptions visible="true"/>
+      <IrrigationEvaporationOptions visible="true"/>
+      <IrrigationEvaporationProportion visible="true"/>
+      <IrrigationDates visible="true"/>
+      <IrrigationRunoffSequence visible="true"/>
+      <AdditionalInflowDateSequences visible="true"/>
+      <StartIrrigationWindow visible="true"/>
+      <EndIrrigationWindow visible="true"/>
+      <IrrigationAmount visible="true"/>
+      <IrrigationRunoffProportion1 visible="true"/>
+      <IrrigationRunoffProportion2 visible="true"/>
+      <IrrigationBufferPeriod visible="true"/>
+      <TargetAmountOptions visible="true"/>
+      <SWDToIrrigate visible="true"/>
+      <tbIrrigationCoverEffects visible="true"/>
+      <Ponding visible="true"/>
+      <UseRingTank visible="true"/>
+      <RingTankDepth visible="true"/>
+      <RingTankArea visible="true"/>
+      <CatchmentArea visible="true"/>
+      <IrrigatedArea visible="true"/>
+      <AdditionalInflowFormat visible="true"/>
+      <AdditionalInflow visible="true"/>
+      <RunoffCaptureRate visible="true"/>
+      <RingTankSeepage visible="true"/>
+      <RingTankEvapCoeficient visible="true"/>
+      <IrrigationDeliveryEfficiency visible="true"/>
+      <CapactityAtReset visible="true"/>
+      <RingTankResetDate visible="true"/>
+      <ResetRingTank visible="true"/>
+    </IrrigationParameters>
+  </ParameterFilterSettings>
+  <LastSensitivityAnalysisSetupConfig>
+    <ObjectiveFunctionType>0</ObjectiveFunctionType>
+    <AnalysisType>0</AnalysisType>
+    <SimulationName></SimulationName>
+    <SelectedParameterNames></SelectedParameterNames>
+    <SelectedOutputNames></SelectedOutputNames>
+  </LastSensitivityAnalysisSetupConfig>
+</Project>

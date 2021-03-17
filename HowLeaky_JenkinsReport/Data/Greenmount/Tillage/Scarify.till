@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TillageDataTemplate>
+  <TillageType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Greenmount\Tillage\Scarify.till" text="Scarify" Description="Scarify" Multipliers="1,0.05,0.4,0.7,0.825,0.65,0.5,0.8,0.9" RoughnessRatio="0,0,1,1,0.3,0.6,0,0.3,0.2">
+    <TillageFormat index="1" text="Fixed Dates (annual)" default="0"/>
+    <PrimaryTillType index="3" text="Scarify">
+      <PrimaryCropResMultiplier LastModified="17/02/2012">0.7</PrimaryCropResMultiplier>
+      <PrimaryRoughnessRatio LastModified="17/02/2012">1</PrimaryRoughnessRatio>
+    </PrimaryTillType>
+    <StartTillWindow Enabled="true" Day="1" Month="1"/>
+    <EndTillWindow Enabled="true" Day="1" Month="6"/>
+    <PrimaryTillDate Enabled="true" Day="1" Month="12"/>
+    <SecondaryTillDate1 Enabled="true" Day="15" Month="1" LastModified="17/02/2012"/>
+    <SecondaryTillDate2 Enabled="true" Day="1" Month="3"/>
+    <SecondaryTillDate3 Enabled="false" Day="1" Month="1"/>
+    <PrimaryTillageDates></PrimaryTillageDates>
+    <RainForPrimaryTill LastModified="18/01/2012">100</RainForPrimaryTill>
+    <NoDaysToTotalRain LastModified="17/01/2012">30</NoDaysToTotalRain>
+    <MinDaysBetweenTills LastModified="17/01/2012">45</MinDaysBetweenTills>
+  </TillageType>
+</TillageDataTemplate>

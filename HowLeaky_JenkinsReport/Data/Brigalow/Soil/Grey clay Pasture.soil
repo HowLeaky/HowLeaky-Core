@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SoilDataTemplate>
+  <SoilType href="C:\4-HowLeaky\paper\model\Brigalow\Soil\Grey clay Pasture.soil" text="Grey clay Pasture" Description="Grey clay Pasture">
+    <HorizonCount>4</HorizonCount>
+    <SoilCaptions>Lay1</SoilCaptions>
+    <LayerDepth Count="4" value1="100" value2="400" value3="1000" value4="2000" Units="mm"/>
+    <InSituAirDryMoist Count="4" value1="5" value2="7" value3="7" value4="7" Units="%Vol"/>
+    <WiltingPoint Count="4" value1="20" value2="20" value3="25" value4="28" Units="%Vol" LastModified="29/05/2018"/>
+    <FieldCapacity Count="4" value1="32" value2="32" value3="30" value4="34" Units="%Vol" LastModified="29/05/2018"/>
+    <SatWaterCont Count="4" value1="52" value2="40" value3="38" value4="40" Units="%Vol" LastModified="29/05/2018"/>
+    <MaxDailyDrainRate Count="4" value1="200" value2="100" value3="25" value4="5" Units="mm/day" LastModified="29/05/2018"/>
+    <BulkDensity Count="4" value1="1.2" value2="1.2" value3="1.2" value4="1" Units="g/cm^3"/>
+    <PAWC Count="4" value1="12" value2="36" value3="30" value4="60" Units="mm" Comments=" (Total = 138mm)"/>
+    <MaxDailyDrainVolume Count="4" value1="20" value2="24" value3="48" value4="60" Units="mm"/>
+    <Stage2SoilEvap_Cona LastModified="29/05/2018">3</Stage2SoilEvap_Cona>
+    <Stage1SoilEvap_U LastModified="29/05/2018">8</Stage1SoilEvap_U>
+    <RunoffCurveNumber default="85" LastModified="29/05/2018">79</RunoffCurveNumber>
+    <RedInCNAtFullCover LastModified="29/05/2018">0</RedInCNAtFullCover>
+    <MaxRedInCNDueToTill>0</MaxRedInCNDueToTill>
+    <RainToRemoveRough>0</RainToRemoveRough>
+    <USLE_K default="0.3" LastModified="30/05/2018">0.24</USLE_K>
+    <USLE_P>1</USLE_P>
+    <FieldSlope default="3">2.5</FieldSlope>
+    <SlopeLength LastModified="29/05/2018">100</SlopeLength>
+    <RillRatio>1</RillRatio>
+    <SoilCrack state="false"/>
+    <MaxInfiltIntoCracks>15</MaxInfiltIntoCracks>
+    <SedDelivRatio>0.14</SedDelivRatio>
+    <OrganicCarbon>0</OrganicCarbon>
+    <CarbonNitrogenRatio>0</CarbonNitrogenRatio>
+    <NitrateMineralisationCoefficient>0</NitrateMineralisationCoefficient>
+  </SoilType>
+</SoilDataTemplate>

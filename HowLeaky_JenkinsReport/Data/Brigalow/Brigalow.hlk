@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project CreatedBy="Unknown Author" CreationDate="02/03/2006 18/00/10" ContactDetails="Unknown Contact Details" ModifiedBy="DF" minx="0.0000" maxx="0.0000" miny="0.0000" maxy="0.0000">
+  <Name>Brigalow Catchment Study</Name>
+  <ClimateData LastSourcePath="C:\4-HowLeaky\paper\model\Brigalow\Climate\">
+    <DataFile href="C:\4-HowLeaky\paper\model\Brigalow\Climate\BCS.p51" StartDate="01/01/1963" EndDate="16/10/2016" Latitude="-24.84" Longitude="149.8"/>
+  </ClimateData>
+  <ImportedData LastSourcePath="C:\4-HowLeaky\paper\model\Brigalow\Imported\">
+    <DataFile href="C:\4-HowLeaky\paper\model\Brigalow\Imported\1965-2018_Obs_Runoff_C1.sim" StartDate="04/01/1965" EndDate="04/02/2018"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Brigalow\Imported\1984-2018_Obs_Runoff_C2.sim" StartDate="27/07/1984" EndDate="05/02/2018"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Brigalow\Imported\1984-2018_Obs_Runoff_C3.sim" StartDate="27/07/1984" EndDate="04/02/2018"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Brigalow\Imported\2000_2018_TSS_C2.sim" StartDate="09/01/2000" EndDate="03/02/2018"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Brigalow\Imported\2000_2018_TSS_C3.sim" StartDate="19/11/2000" EndDate="16/07/2016"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Brigalow\Imported\2000_2018_TSS_C1.sim" StartDate="05/11/2000" EndDate="24/11/2013"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Brigalow\Imported\2011_2015_Tebuthiuron_C3.sim" StartDate="23/02/2012" EndDate="28/01/2015" Comments="these cover most of the large evenets"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Brigalow\Imported\2004_2_4-D_C2.sim" StartDate="15/01/2004" EndDate="23/02/2004"/>
+    <DataFile href="C:\4-HowLeaky\paper\model\Brigalow\Imported\2004__2007_Atrazine_C2.sim" StartDate="23/02/2004" EndDate="16/02/2007"/>
+  </ImportedData>
+  <Maps>
+    <Map href="$(HOWLEAKY)Projects\Brigalow\Maps\Queensland.TEE" Description="Queensland" minx="0.0000" maxx="0.0000" miny="0.0000" maxy="0.0000"/>
+  </Maps>
+  <SoilTemplates LastSourcePath="C:\4-HowLeaky\paper\model\Brigalow\Soil\">
+    <SoilType href="C:\4-HowLeaky\paper\model\Brigalow\Soil\Grey clay Brigalow.soil" text="Grey clay Brigalow scrub" Description="Grey clay Brigalow scrub" Comments="best fit 1984 to 2004 brigalow&#xA;CN = 78 , leave cover response out&#xA;This WQ assessment has been supported by the Reef Rescue Water Quality Research and Development Program [RRRD011] and The Grains Research and Development Corporation [RPS00002]&#xA;DMF 12/2/2012"/>
+    <SoilType href="C:\4-HowLeaky\paper\model\Brigalow\Soil\Grey clay long term Buffel Grass Pasture.soil" text="Grey clay Crop &amp; Pasture" Description="Grey clay Crop &amp; Pasture"/>
+    <SoilType href="C:\4-HowLeaky\paper\model\Brigalow\Soil\Grey clay Pasture.soil" text="Grey clay Pasture" Description="Grey clay Pasture"/>
+  </SoilTemplates>
+  <CropTemplates LastSourcePath="C:\4-HowLeaky\paper\model\veg\">
+    <VegetationType href="C:\4-HowLeaky\paper\model\Brigalow\Vegetation\Brigalow Scrub.vege" text="Brigalow scrub" Description="Brigalow scrub" Comments="Based on Brigalow scrub cumulative, canopy, scrub and ground cover percentages for Regional Ecosystem 11.4.9a (DEHP 2014).">
+      <ModelType index="1"/>
+    </VegetationType>
+    <VegetationType href="C:\4-HowLeaky\paper\model\Brigalow\Vegetation\Buffel grass.vege" text="Buffel grass pasture" Description="Buffel grass pasture">
+      <ModelType index="1"/>
+    </VegetationType>
+    <VegetationType href="C:\4-HowLeaky\paper\model\Brigalow\Vegetation\Cropping catchment.vege" text="Cropping catchment" Description="Cropping catchment">
+      <ModelType index="1"/>
+    </VegetationType>
+    <VegetationType href="C:\4-HowLeaky\paper\model\Brigalow\Vegetation\Opportunity crop LAI.vege" text="Opportunity crop LAI" Description="Opportunity crop LAI" Comments="Planting dates based on actual including summer and winter crops (per Craig Thornton 2014)"/>
+  </CropTemplates>
+  <PesticideTemplates LastSourcePath="C:\4-HowLeaky\paper\model\Brigalow\Pesticide\">
+    <PesticideType href="C:\4-HowLeaky\paper\model\Brigalow\Pesticide\TebuthiuronCraig Thorton ai 625.pest" text="Tebuthiuron dates and rates Craig Thorton_a.i of 625 g/L" Description="Tebuthiuron dates and rates Craig Thorton_a.i of 625 g/L" Comments="This file built 13/06/2013 by Brett Robinson, based on the work of Mel Shaw and Mark Silburn, and product information available on the web.&#xA;&#xA;For details of the pesticide model see Shaw et al. 2011. Modelling pesticide runoff from paddocks in the GBR using HowLeaky. http://mssanz.org.au/modsim2011&#xA;&#xA;Application for registration:&#xA;http://www.apvma.gov.au/registration/assessment/docs/tan_glyphosate_sorghum.pdf"/>
+    <PesticideType href="C:\4-HowLeaky\paper\model\Brigalow\Pesticide\2-4D Craig Thorton ai 625.pest" text="2-4D dates and rates Craig Thorton_a.i of 625 g/L" Description="2-4D dates and rates Craig Thorton_a.i of 625 g/L" Comments="This file built 13/06/2013 by Brett Robinson, based on the work of Mel Shaw and Mark Silburn, and product information available on the web.&#xA;&#xA;For details of the pesticide model see Shaw et al. 2011. Modelling pesticide runoff from paddocks in the GBR using HowLeaky. http://mssanz.org.au/modsim2011&#xA;&#xA;Application for registration:&#xA;http://www.apvma.gov.au/registration/assessment/docs/tan_glyphosate_sorghum.pdf"/>
+    <PesticideType href="C:\4-HowLeaky\paper\model\Brigalow\Pesticide\Atrazine dates and rates Craig Thorton.pest" text="Atrazine dates and rates Craig Thorton" Description="Atrazine dates and rates Craig Thorton" Comments="This file built 13/06/2013 by Brett Robinson, based on the work of Mel Shaw and Mark Silburn, and product information available on the web.&#xA;&#xA;For details of the pesticide model see Shaw et al. 2011. Modelling pesticide runoff from paddocks in the GBR using HowLeaky. http://mssanz.org.au/modsim2011&#xA;&#xA;Application for registration:&#xA;http://www.apvma.gov.au/registration/assessment/docs/tan_glyphosate_sorghum.pdf"/>
+  </PesticideTemplates>
+  <PhosphorusTemplates LastSourcePath="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Data - Phosphorus\JBR\">
+    <PhosphorusType href="C:\4-HowLeaky\paper\model\Brigalow\Phosphorus\Grey Vertosol (grey clay) - medium fertility.phos" text="Med fert grey clay" Description="Med fert grey clay" Comments="based on Grey Vertosol (grey clay) medium fertility -Group III per Brett Robinson DNRM 2014"/>
+  </PhosphorusTemplates>
+  <NitratesTemplates LastSourcePath="C:\Howleaky\Brigalow_2015\Nitrate\">
+    <NitratesType href="C:\4-HowLeaky\paper\model\Brigalow\Nitrate\C2 - cropping.nitr" text="C2 - Cropping catchment" Description="C2 - Cropping catchment"/>
+    <NitratesType href="C:\4-HowLeaky\paper\model\Brigalow\Nitrate\C1 - briglow catchment.nitr" text="C1 - briglow catchment" Description="C1 - briglow catchment"/>
+    <NitratesType href="C:\4-HowLeaky\paper\model\Brigalow\Nitrate\C3 - pasture catchment.nitr" text="C3 - pasture catchment" Description="C3 - pasture catchment"/>
+    <NitratesType href="C:\4-HowLeaky\paper\model\Brigalow\Nitrate\Nitrate 4-4-4.nitr" text="Nitrate 4-4-4" Description="Nitrate 4-4-4" Comments="Cropped surface soil, based on soil samples which were highly variable, therfore used a fixed value  4 kg/ha nitrate N in surface 10 cm&#xA; Minimalist Nitrate parameter desription as not a lot of data to base on&#xA;DMF 13/2/2015"/>
+    <NitratesType href="C:\4-HowLeaky\paper\model\Brigalow\Nitrate\Nitrate 10-10-10.nitr" text="Nitrate 10_10_10" Description="Nitrate 10_10_10" Comments="Brigalow scrub (legume) surface soil, based on soil samples which were highly variable, therfore used a fixed value  10 kg/ha nitrate N in surface 10 cm&#xA; Minimalist Nitrate parameter desription as not a lot of data to base on&#xA;DMF 13/2/2015"/>
+    <NitratesType href="C:\4-HowLeaky\paper\model\Brigalow\Nitrate\Nitrate 1-1-1.nitr" text="Nitrate 1-1-1" Description="Nitrate 1-1-1" Comments="Pasture surface soil, based on soil samples which were highly variable, therfore used a fixed value  1 kg/ha nitrate N in surface 10 cm&#xA; Minimalist Nitrate parameter desription as not a lot of data to base on&#xA;DMF 13/2/2015"/>
+  </NitratesTemplates>
+  <Simulations>
+    <Folder Name="Brigalow_Runoff_Sediment" Expanded="true">
+      <SimulationObject Active="false" ID="4" Comments="JC final for brigalow scrub C1">
+        <ptrStation href="C:\4-HowLeaky\paper\model\Brigalow\Climate\BCS.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\4-HowLeaky\paper\model\Brigalow\Soil\Grey clay Brigalow.soil"/>
+        <ptrVegeOption1 href="C:\4-HowLeaky\paper\model\Brigalow\Vegetation\Brigalow Scrub.vege"/>
+        <StartYear Checked="true" LastModified="13/08/2018">1965</StartYear>
+        <EndYear Checked="true" LastModified="13/08/2018">2018</EndYear>
+      </SimulationObject>
+      <SimulationObject Active="false" ID="1" Comments="JC final for cropping  with Cover model C2&#xA;">
+        <ptrStation href="C:\4-HowLeaky\paper\model\Brigalow\Climate\BCS.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\4-HowLeaky\paper\model\Brigalow\Soil\Grey clay long term Buffel Grass Pasture.soil"/>
+        <ptrVegeOption1 href="C:\4-HowLeaky\paper\model\Brigalow\Vegetation\Cropping catchment.vege"/>
+        <StartYear Checked="true" LastModified="13/08/2018">1984</StartYear>
+        <EndYear Checked="true" LastModified="13/08/2018">2018</EndYear>
+      </SimulationObject>
+      <SimulationObject Active="false" ID="2" Comments="JC final for pasture C3">
+        <ptrStation href="C:\4-HowLeaky\paper\model\Brigalow\Climate\BCS.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\4-HowLeaky\paper\model\Brigalow\Soil\Grey clay Pasture.soil"/>
+        <ptrVegeOption1 href="C:\4-HowLeaky\paper\model\Brigalow\Vegetation\Buffel grass.vege"/>
+        <StartYear Checked="true" LastModified="13/08/2018">1984</StartYear>
+        <EndYear Checked="true" LastModified="13/08/2018">2018</EndYear>
+      </SimulationObject>
+    </Folder>
+    <Folder Name="Brigalow_Atrazine_cropping_catchement" Expanded="true">
+      <SimulationObject Active="false" ID="15">
+        <ptrStation href="C:\4-HowLeaky\paper\model\Brigalow\Climate\BCS.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\4-HowLeaky\paper\model\Brigalow\Soil\Grey clay long term Buffel Grass Pasture.soil"/>
+        <ptrVegeOption1 href="C:\4-HowLeaky\paper\model\Brigalow\Vegetation\Cropping catchment.vege"/>
+        <ptrPestOption1 href="C:\4-HowLeaky\paper\model\Brigalow\Pesticide\Atrazine dates and rates Craig Thorton.pest"/>
+        <ptrPhosphorus href="C:\4-HowLeaky\paper\model\Brigalow\Phosphorus\Grey Vertosol (grey clay) - medium fertility.phos"/>
+        <ptrNitrate href="C:\4-HowLeaky\paper\model\Brigalow\Nitrate\C2 - cropping.nitr"/>
+        <StartYear Checked="true" LastModified="13/08/2018">2004</StartYear>
+        <EndYear Checked="true" LastModified="13/08/2018">2007</EndYear>
+      </SimulationObject>
+    </Folder>
+    <Folder Name="Brigalow_2_4_D_cropping_catchement" Expanded="true">
+      <SimulationObject Active="false" ID="16">
+        <ptrStation href="C:\4-HowLeaky\paper\model\Brigalow\Climate\BCS.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\4-HowLeaky\paper\model\Brigalow\Soil\Grey clay long term Buffel Grass Pasture.soil"/>
+        <ptrVegeOption1 href="C:\4-HowLeaky\paper\model\Brigalow\Vegetation\Cropping catchment.vege"/>
+        <ptrPestOption1 href="C:\4-HowLeaky\paper\model\Brigalow\Pesticide\2-4D Craig Thorton ai 625.pest"/>
+        <ptrPhosphorus href="C:\4-HowLeaky\paper\model\Brigalow\Phosphorus\Grey Vertosol (grey clay) - medium fertility.phos"/>
+        <ptrNitrate href="C:\4-HowLeaky\paper\model\Brigalow\Nitrate\C2 - cropping.nitr"/>
+        <StartYear Checked="true">2004</StartYear>
+        <EndYear Checked="true" LastModified="13/08/2018">2004</EndYear>
+      </SimulationObject>
+    </Folder>
+    <Folder Name="Brigalow_Tebuthiuron_grassland_catchement" Expanded="true">
+      <SimulationObject Active="false" ID="19">
+        <ptrStation href="C:\4-HowLeaky\paper\model\Brigalow\Climate\BCS.p51">
+          <EvaporationInputOptions index="0" text="Use EPan"/>
+          <PanEvapMultiplier>1</PanEvapMultiplier>
+          <RainfallMultiplier>1</RainfallMultiplier>
+        </ptrStation>
+        <ptrSoilType href="C:\4-HowLeaky\paper\model\Brigalow\Soil\Grey clay Pasture.soil"/>
+        <ptrVegeOption1 href="C:\4-HowLeaky\paper\model\Brigalow\Vegetation\Buffel grass.vege"/>
+        <ptrPestOption1 href="C:\4-HowLeaky\paper\model\Brigalow\Pesticide\TebuthiuronCraig Thorton ai 625.pest"/>
+        <ptrPhosphorus href="C:\4-HowLeaky\paper\model\Brigalow\Phosphorus\Grey Vertosol (grey clay) - medium fertility.phos"/>
+        <ptrNitrate href="C:\4-HowLeaky\paper\model\Brigalow\Nitrate\C3 - pasture catchment.nitr"/>
+        <StartYear Checked="true">2011</StartYear>
+        <EndYear Checked="true" LastModified="13/08/2018">2016</EndYear>
+      </SimulationObject>
+    </Folder>
+  </Simulations>
+  <ParameterFilterSettings>
+    <SoilParameters>
+      <HorizonCount visible="true"/>
+      <SoilCaptions visible="true"/>
+      <LayerDepth visible="true"/>
+      <InSituAirDryMoist visible="true"/>
+      <WiltingPoint visible="true"/>
+      <FieldCapacity visible="true"/>
+      <SatWaterCont visible="true"/>
+      <MaxDailyDrainRate visible="true"/>
+      <BulkDensity visible="true"/>
+      <Stage2SoilEvap_Cona visible="true"/>
+      <Stage1SoilEvap_U visible="true"/>
+      <RunoffCurveNumber visible="true"/>
+      <RedInCNAtFullCover visible="true"/>
+      <MaxRedInCNDueToTill visible="false"/>
+      <RainToRemoveRough visible="false"/>
+      <USLE_K visible="true"/>
+      <USLE_P visible="true"/>
+      <FieldSlope visible="true"/>
+      <SlopeLength visible="true"/>
+      <RillRatio visible="false"/>
+      <SoilCrack visible="false"/>
+      <MaxInfiltIntoCracks visible="false"/>
+      <SedDelivRatio visible="true"/>
+      <OrganicCarbon visible="true"/>
+      <CarbonNitrogenRatio visible="true"/>
+      <NitrateMineralisationCoefficient visible="true"/>
+    </SoilParameters>
+    <VegetationParameters>
+      <CropFactorMatrix visible="true"/>
+      <UseDefinedCropFactors visible="true"/>
+      <CoverInputOptions visible="true"/>
+      <CropFactorInputOptions visible="true"/>
+      <EvaporationInputOptions visible="true"/>
+      <PotMaxLai visible="true"/>
+      <PropGrowSeaForMaxLai visible="true"/>
+      <PercentOfMaxLai1 visible="true"/>
+      <PercentOfGrowSeason1 visible="true"/>
+      <PercentOfMaxLai2 visible="true"/>
+      <PercentOfGrowSeason2 visible="true"/>
+      <SenesenceCoef visible="true"/>
+      <DegreeDaysPlantToHarvest visible="true"/>
+      <RadUseEffic visible="true"/>
+      <HarvestIndex visible="true"/>
+      <BaseTemp visible="true"/>
+      <OptTemp visible="true"/>
+      <MaxRootDepth visible="true"/>
+      <DailyRootGrowth visible="true"/>
+      <WatStressForDeath visible="true"/>
+      <DaysOfStressToDeath visible="true"/>
+      <WaterUseEffic visible="true"/>
+      <PanHarvestIndex visible="true"/>
+      <DaysPlantingToHarvest visible="true"/>
+      <PanPlantDay visible="true"/>
+      <SWPropForNoStress visible="true"/>
+      <SourceData visible="true"/>
+      <LinkToGreenCover visible="true"/>
+      <LinkToResidueCover visible="true"/>
+      <LinkToRootDepth visible="true"/>
+      <LinkToCropFactors visible="true"/>
+      <GreenBioMassToCoverFactor visible="true"/>
+      <CropFactorConversionFactor visible="true"/>
+      <ResidueBioMassToCoverFactor visible="true"/>
+      <RootBioMassToDepthFactor visible="true"/>
+      <MaxAllowTotalCover visible="true"/>
+      <PanEvapMultiplier visible="true"/>
+      <RainfallMultiplier visible="true"/>
+      <Waterlogging visible="true"/>
+      <WaterLoggingFactor1 visible="true"/>
+      <WaterLoggingFactor2 visible="true"/>
+      <MaxResidueLoss visible="true"/>
+      <BiomassAtFullCover visible="true"/>
+      <PropGGDEnd visible="true"/>
+      <PlantingFormat visible="true"/>
+      <StartPlantWindow visible="true"/>
+      <EndPlantWindow visible="true"/>
+      <ForcePlanting visible="true"/>
+      <MultiPlantInWindow visible="true"/>
+      <PlantDate visible="true"/>
+      <PlantingDates visible="true"/>
+      <RotationOptions visible="true"/>
+      <MinContinuousRotations visible="true"/>
+      <MaxContinuousRotations visible="true"/>
+      <SowingDelay visible="true"/>
+      <MinYearsBetweenSowing visible="true"/>
+      <FallowSwitch visible="true"/>
+      <MinFallowLength visible="true"/>
+      <RainfallSwitch visible="true"/>
+      <PlantingRain visible="true"/>
+      <DaysToTotalRain visible="true"/>
+      <SoilWaterSwitch visible="true"/>
+      <MinSoilWaterRatio visible="true"/>
+      <MaxSoilWaterRatio visible="true"/>
+      <AvailSWAtPlanting visible="true"/>
+      <SoilDepthToSumPlantingSW visible="true"/>
+      <RatoonCrop visible="true"/>
+      <RatoonCount visible="true"/>
+      <RatoonScaleFactor visible="true"/>
+    </VegetationParameters>
+    <PlantingParameters>
+      <PlantingFormat visible="true"/>
+      <StartPlantWindow visible="true"/>
+      <EndPlantWindow visible="true"/>
+      <ForcePlanting visible="true"/>
+      <MultiPlantInWindow visible="true"/>
+      <PlantDate visible="true"/>
+      <PlantingDates visible="true"/>
+      <RotationOptions visible="true"/>
+      <MinContinuousRotations visible="true"/>
+      <MaxContinuousRotations visible="true"/>
+      <SowingDelay visible="true"/>
+      <MinYearsBetweenSowing visible="true"/>
+      <FallowSwitch visible="true"/>
+      <MinFallowLength visible="true"/>
+      <RainfallSwitch visible="true"/>
+      <PlantingRain visible="true"/>
+      <DaysToTotalRain visible="true"/>
+      <SoilWaterSwitch visible="true"/>
+      <MinSoilWaterRatio visible="true"/>
+      <MaxSoilWaterRatio visible="true"/>
+      <AvailSWAtPlanting visible="true"/>
+      <SoilDepthToSumPlantingSW visible="true"/>
+      <RatoonCrop visible="true"/>
+      <RatoonCount visible="true"/>
+      <RatoonScaleFactor visible="true"/>
+    </PlantingParameters>
+    <TillageParameters>
+      <TillageFormat visible="true"/>
+      <PrimaryTillType visible="true"/>
+      <PrimaryCropResMultiplier visible="true"/>
+      <PrimaryRoughnessRatio visible="true"/>
+      <StartTillWindow visible="true"/>
+      <EndTillWindow visible="true"/>
+      <PrimaryTillDate visible="true"/>
+      <SecondaryTillDate1 visible="true"/>
+      <SecondaryTillDate2 visible="true"/>
+      <SecondaryTillDate3 visible="true"/>
+      <PrimaryTillageDates visible="true"/>
+      <RainForPrimaryTill visible="true"/>
+      <NoDaysToTotalRain visible="true"/>
+      <MinDaysBetweenTills visible="true"/>
+    </TillageParameters>
+    <PesticideParameters>
+      <PestApplicationTiming visible="true"/>
+      <tbPestVegIndex1 visible="true"/>
+      <tbPestVegIndex2 visible="true"/>
+      <tbPestVegIndex3 visible="true"/>
+      <tbPestVegIndex4 visible="true"/>
+      <tbPestVegIndex5 visible="true"/>
+      <tbPestVegIndex6 visible="true"/>
+      <tbPestVegIndex7 visible="true"/>
+      <tbPestVegIndex8 visible="true"/>
+      <tbPestVegIndex9 visible="true"/>
+      <tbPestVegIndex10 visible="true"/>
+      <PesticideDatesAndRates visible="true"/>
+      <TriggerGGDFirst visible="true"/>
+      <TriggerGGDSubsequent visible="true"/>
+      <TriggerDaysFirst visible="true"/>
+      <TriggerDaysSubsequent visible="true"/>
+      <CritPestConc visible="true"/>
+      <ConcActiveIngred visible="true"/>
+      <ProductRate visible="true"/>
+      <SubsequentProductRate visible="true"/>
+      <PestEfficiency visible="true"/>
+      <HalfLife visible="true"/>
+      <RefTempHalfLifeSoil visible="true"/>
+      <HalfLifeVeg visible="true"/>
+      <RefTempHalfLifeVeg visible="true"/>
+      <HalfLifeStubble visible="true"/>
+      <RefTempHalfLifeStubble visible="true"/>
+      <DegradationActivationEnergy visible="true"/>
+      <MixLayerThickness visible="true"/>
+      <SorptionCoefficient visible="true"/>
+      <ExtractCoefficient visible="true"/>
+      <CoverWashoffFraction visible="true"/>
+      <BandSpraying visible="true"/>
+      <ApplicationDate visible="true"/>
+      <PestApplicationPosition visible="true"/>
+    </PesticideParameters>
+    <PhosphorusParameters>
+      <ColwellP visible="true"/>
+      <TotalPConc visible="true"/>
+      <ClayPercentage visible="true"/>
+      <EnrichmentRatio visible="true"/>
+      <PEnrichmentConstant visible="true"/>
+      <DissolvedPOption visible="true"/>
+      <PEnrichmentOption visible="true"/>
+      <DissolvePCoefficient visible="true"/>
+      <PBI visible="true"/>
+      <DissolvedPCategory visible="true"/>
+    </PhosphorusParameters>
+    <NitratesParameters>
+      <FertilizerInputDateSequences visible="true"/>
+      <DissolvedNinRunoffOptions visible="true"/>
+      <Nk visible="true"/>
+      <Ncv visible="true"/>
+      <NAlpha visible="true"/>
+      <NDepthTopLayer1 visible="true"/>
+      <NitrateSourceData visible="true"/>
+      <SoilNitrateTimeseries visible="true"/>
+      <SoilNitrateLevels visible="true"/>
+      <SoilNitrateLoadWeighting1 visible="true"/>
+      <DissolvedNinLeachingOptions visible="true"/>
+      <NitrateLeachingEfficiency visible="true"/>
+      <NitrateSourceData visible="true"/>
+      <DepthBottomLayer visible="true"/>
+      <SoilNitrateTimeseries visible="true"/>
+      <SoilNitrateLevels visible="true"/>
+      <SoilNitrateLoadWeighting2 visible="true"/>
+      <ParticulateNinRunoffOptions visible="true"/>
+      <NDepthTopLayer2 visible="true"/>
+      <NEnrichmentRatio visible="true"/>
+      <NBeta visible="true"/>
+      <SoilNitrateLevels visible="true"/>
+      <NitrateSourceData visible="true"/>
+      <InorganicNitrateNTimeseries visible="true"/>
+      <InorganicAmmoniumNTimeseries visible="true"/>
+      <OrganicNTimeseries visible="true"/>
+      <SoilNitrateLoadWeighting3 visible="true"/>
+      <N_DanRat_Alpha visible="true"/>
+      <N_DanRat_Beta visible="true"/>
+      <N_DanRat_MaxRunOffConc visible="true"/>
+      <N_DanRat_MinRunOffConc visible="true"/>
+      <N_GraFraz_DL visible="true"/>
+      <N_GraFraz_RL visible="true"/>
+      <N_GraFraz_LowLimitDINConc visible="true"/>
+    </NitratesParameters>
+    <IrrigationParameters>
+      <IrrigationFormat visible="true"/>
+      <IrrigationRunoffOptions visible="true"/>
+      <IrrigationEvaporationOptions visible="true"/>
+      <IrrigationEvaporationProportion visible="true"/>
+      <IrrigationDates visible="true"/>
+      <IrrigationRunoffSequence visible="true"/>
+      <AdditionalInflowDateSequences visible="true"/>
+      <StartIrrigationWindow visible="true"/>
+      <EndIrrigationWindow visible="true"/>
+      <IrrigationAmount visible="true"/>
+      <IrrigationRunoffProportion1 visible="true"/>
+      <IrrigationRunoffProportion2 visible="true"/>
+      <IrrigationBufferPeriod visible="true"/>
+      <TargetAmountOptions visible="true"/>
+      <SWDToIrrigate visible="true"/>
+      <tbIrrigationCoverEffects visible="true"/>
+      <Ponding visible="true"/>
+      <UseRingTank visible="true"/>
+      <RingTankDepth visible="true"/>
+      <RingTankArea visible="true"/>
+      <CatchmentArea visible="true"/>
+      <IrrigatedArea visible="true"/>
+      <AdditionalInflowFormat visible="true"/>
+      <AdditionalInflow visible="true"/>
+      <RunoffCaptureRate visible="true"/>
+      <RingTankSeepage visible="true"/>
+      <RingTankEvapCoeficient visible="true"/>
+      <IrrigationDeliveryEfficiency visible="true"/>
+      <CapactityAtReset visible="true"/>
+      <RingTankResetDate visible="true"/>
+      <ResetRingTank visible="true"/>
+    </IrrigationParameters>
+  </ParameterFilterSettings>
+  <LastSensitivityAnalysisSetupConfig>
+    <ObjectiveFunctionType>0</ObjectiveFunctionType>
+    <AnalysisType>0</AnalysisType>
+    <SimulationName>2.  BCS.p51, Grey clay Crop &amp; Pasture, Cropping catchment, Med fert grey clay, C2 - Cropping catchment, Jan 1984 to Dec 2010</SimulationName>
+    <SelectedParameterNames>CN Reduction 100% cover (Grey clay Crop &amp; Pasture)  &lt;model-value = 0 &gt;
+</SelectedParameterNames>
+    <SelectedOutputNames>Runoff
+Soil Erosion
+Bioavailable particulate P Conc
+</SelectedOutputNames>
+  </LastSensitivityAnalysisSetupConfig>
+</Project>

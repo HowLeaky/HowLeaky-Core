@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NitratesDataTemplate>
+  <NitratesType href="\\BNEFS04\Environment$\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Brigalow RS\Nitrate\winter mineralisation summer uptake.nitr" text="Winter mineralisation summer uptake (~100 kg/ha/year)" Description="Winter mineralisation summer uptake (~100 kg/ha/year)">
+    <DissolvedNinRunoffOptions index="2" text="User-defined profile">
+      <NDepthTopLayer1 LastModified="09/01/2014">300</NDepthTopLayer1>
+      <Nk Comments="calibrated to Brigalow RS data ( C Thornton) by J Cutajar" LastModified="09/01/2014">0.36</Nk>
+      <Ncv LastModified="09/01/2014">0.2</Ncv>
+      <NAlpha LastModified="09/01/2014">1</NAlpha>
+      <NitrateSourceData>-1  <SoilNitrateTimeseries>-1</SoilNitrateTimeseries>
+      </NitrateSourceData>
+      <SoilNitrateLevels Count="13">
+        <Data x="1" y="85" z="0" a="0"/>
+        <Data x="32" y="43.73" z="0" a="0"/>
+        <Data x="60" y="18.33" z="0" a="0"/>
+        <Data x="91" y="5" z="0" a="0"/>
+        <Data x="121" y="5" z="0" a="0"/>
+        <Data x="152" y="8.17" z="0" a="0"/>
+        <Data x="182" y="11.98" z="0" a="0"/>
+        <Data x="213" y="13.25" z="0" a="0"/>
+        <Data x="244" y="17.7" z="0" a="0"/>
+        <Data x="274" y="26.59" z="0" a="0"/>
+        <Data x="305" y="64.17" z="0" a="0"/>
+        <Data x="335" y="80.56" z="0" a="0"/>
+        <Data x="365" y="85" z="0" a="0"/>
+      </SoilNitrateLevels>
+      <SoilNitrateLoadWeighting1 LastModified="09/01/2014">0.5</SoilNitrateLoadWeighting1>
+    </DissolvedNinRunoffOptions>
+    <DissolvedNinLeachingOptions index="2" text="User-defined profile">
+      <DepthBottomLayer LastModified="09/01/2014">300</DepthBottomLayer>
+      <NitrateLeachingEfficiency LastModified="09/01/2014">0.5</NitrateLeachingEfficiency>
+      <NitrateSourceData>-1  <SoilNitrateTimeseries>-1</SoilNitrateTimeseries>
+      </NitrateSourceData>
+      <SoilNitrateLevels Count="13">
+        <Data x="1" y="30" z="0" a="0"/>
+        <Data x="32" y="27.47" z="0" a="0"/>
+        <Data x="60" y="6.66" z="0" a="0"/>
+        <Data x="91" y="1.01" z="0" a="0"/>
+        <Data x="121" y="1" z="0" a="0"/>
+        <Data x="152" y="1.01" z="0" a="0"/>
+        <Data x="182" y="1.24" z="0" a="0"/>
+        <Data x="213" y="1.95" z="0" a="0"/>
+        <Data x="244" y="2.98" z="0" a="0"/>
+        <Data x="274" y="3.53" z="0" a="0"/>
+        <Data x="305" y="5.6" z="0" a="0"/>
+        <Data x="335" y="10.67" z="0" a="0"/>
+        <Data x="365" y="30" z="0" a="0"/>
+      </SoilNitrateLevels>
+      <SoilNitrateLoadWeighting2 LastModified="09/01/2014">1</SoilNitrateLoadWeighting2>
+    </DissolvedNinLeachingOptions>
+    <ParticulateNinRunoffOptions index="0" text="None">
+      <NDepthTopLayer2 LastModified="09/01/2014">20</NDepthTopLayer2>
+      <NEnrichmentRatio LastModified="09/01/2014">2</NEnrichmentRatio>
+      <NAlpha LastModified="09/01/2014">1</NAlpha>
+      <NBeta LastModified="09/01/2014">1</NBeta>
+      <NitrateSourceData index="0" text="undefined">
+        <InorganicNitrateNTimeseries>-1</InorganicNitrateNTimeseries>
+        <InorganicAmmoniumNTimeseries>-1</InorganicAmmoniumNTimeseries>
+        <OrganicNTimeseries>-1</OrganicNTimeseries>
+      </NitrateSourceData>
+      <SoilNitrateLoadWeighting3 LastModified="09/01/2014">1</SoilNitrateLoadWeighting3>
+    </ParticulateNinRunoffOptions>
+  </NitratesType>
+</NitratesDataTemplate>

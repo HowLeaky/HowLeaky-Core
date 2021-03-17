@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CoverVegTemplate>
+  <VegetationType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Capella\Vegetation\Opp crop No till (A).vege" text="A Opp crop No till" Description="A Opp crop No till">
+    <ModelType index="1"/>
+    <CropCover href="D:\Brett Robinson\HowLeakyV2\Reports\Images\Temp\Cotton - crop factor_Cover0.bmp" Description="Sorghum_Cover0.bmp"/>
+    <PanPlantDay LastModified="22/08/2007">1</PanPlantDay>
+    <DaysPlantingToHarvest LastModified="23/08/2007">10000</DaysPlantingToHarvest>
+    <CoverInputOptions index="0" text="User-defined"/>
+    <CropFactorMatrix Count="14" Comments="Cotton crop factor data from&#xA;FAO Irrigation and drainage paper 56 - Cotton (Texas)&#xA;35% 0-30 DAS&#xA;rising to &#xA;115% 80-135 DAS&#xA;falling to &#xA;60% 180 DAS&#xA;Philip H. Jost and J. Tom Cothren, Crop Sci. 40:430–435 (2000):&#xA;8% ground cover at 50 DAS&#xA;51% at 61 DAS&#xA;72% at 73 DAS&#xA;Also N Dag.delen, E lmaz, F Sezgin, T Gurbuz Ag water mngmnt 2006&#xA;70% (LAI=1) at 70 DAS&#xA;90% (LAI=2.5) at 100 DAS&#xA;70% (LAI=1) at 130 DAS&#xA;W T. Pettigrew and M A. Jones 2001 Agron J&#xA;25% at 45 DAS&#xA;45% at 58 DAS&#xA;90% at 85 DAS&#xA;&#xA;Decline is consistent with AEt/PEt falling rapidly after 1 April (data from J Montgomery). ">
+      <Data x="1" y="80" z="30" a="2000"/>
+      <Data x="32" y="73.8499985" z="36.8400002" a="2000"/>
+      <Data x="60" y="56.9199982" z="47.3699989" a="2000"/>
+      <Data x="91" y="21.5400009" z="65.4100037" a="1921.8800049"/>
+      <Data x="121" y="5" z="70" a="468.75"/>
+      <Data x="152" y="6.02" z="66.9199982" a="1"/>
+      <Data x="182" y="31.5400009" z="57.1399994" a="0"/>
+      <Data x="213" y="41.5400009" z="47.3699989" a="0"/>
+      <Data x="244" y="41.5400009" z="39.8499985" a="0"/>
+      <Data x="274" y="15.3800001" z="30.0799999" a="0"/>
+      <Data x="305" y="23.3099995" z="21.0499992" a="10"/>
+      <Data x="335" y="60.9000015" z="15.04" a="700"/>
+      <Data x="350" y="75" z="19.5499992" a="1400"/>
+      <Data x="365" y="80" z="30" a="2000"/>
+    </CropFactorMatrix>
+    <SourceData index="0" text="undefined"/>
+    <LinkToGreenCover>-1</LinkToGreenCover>
+    <GreenBioMassToCoverFactor>1</GreenBioMassToCoverFactor>
+    <LinkToResidueCover>-1</LinkToResidueCover>
+    <ResidueBioMassToCoverFactor>1</ResidueBioMassToCoverFactor>
+    <LinkToRootDepth>-1</LinkToRootDepth>
+    <RootBioMassToDepthFactor>1</RootBioMassToDepthFactor>
+    <MaxAllowTotalCover>1</MaxAllowTotalCover>
+    <WaterUseEffic>0.1</WaterUseEffic>
+    <PanHarvestIndex>0.35</PanHarvestIndex>
+  </VegetationType>
+</CoverVegTemplate>

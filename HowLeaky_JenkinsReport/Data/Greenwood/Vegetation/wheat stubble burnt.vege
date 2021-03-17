@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CoverVegTemplate>
+  <VegetationType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Greenwood\Vegetation\wheat stubble burnt.vege" text="Wheat stubble burnt" Description="Wheat stubble burnt">
+    <ModelType index="1"/>
+    <TimeSeriesList>undefined</TimeSeriesList>
+    <PanPlantDay default="1" LastModified="20/02/2012">150</PanPlantDay>
+    <DaysPlantingToHarvest default="365" LastModified="20/02/2012">150</DaysPlantingToHarvest>
+    <CoverInputOptions index="0" text="User-defined"/>
+    <CropFactorMatrix Count="13">
+      <Data x="1" y="0" z="2" a="0"/>
+      <Data x="31" y="0" z="2" a="0"/>
+      <Data x="61" y="0" z="2" a="0"/>
+      <Data x="91" y="0" z="2" a="0"/>
+      <Data x="121" y="0" z="2" a="0"/>
+      <Data x="151" y="0" z="2" a="0"/>
+      <Data x="182" y="0" z="2" a="12"/>
+      <Data x="212" y="10" z="2" a="336"/>
+      <Data x="243" y="25" z="2" a="696"/>
+      <Data x="273" y="80" z="2" a="1320"/>
+      <Data x="305" y="96" z="2" a="1500"/>
+      <Data x="335" y="0" z="25" a="0"/>
+      <Data x="365" y="0" z="2" a="0"/>
+    </CropFactorMatrix>
+    <SourceData index="0" text="undefined"/>
+    <LinkToGreenCover index="0" text="undefined"/>
+    <GreenBioMassToCoverFactor>0</GreenBioMassToCoverFactor>
+    <LinkToResidueCover index="0" text="undefined"/>
+    <ResidueBioMassToCoverFactor>0</ResidueBioMassToCoverFactor>
+    <LinkToRootDepth index="0" text="undefined"/>
+    <RootBioMassToDepthFactor>0</RootBioMassToDepthFactor>
+    <MaxRootDepth>1</MaxRootDepth>
+    <WaterUseEffic default="3" LastModified="20/02/2012">5</WaterUseEffic>
+    <PanHarvestIndex default="0.35" LastModified="17/01/2012">0.3</PanHarvestIndex>
+  </VegetationType>
+</CoverVegTemplate>

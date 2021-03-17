@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TillageDataTemplate>
+  <TillageType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Greenmount\Tillage\Planting.till" text="Plant" Description="Plant" Multipliers="0.6,0.05,0.4,0.6,0.825,0.65,0.5,0.8,0.9" RoughnessRatio="1,0,1,0.7,0.3,0.6,0,0.3,0.2">
+    <TillageFormat index="2" text="At Planting (All Crops)"/>
+    <PrimaryTillType index="0" text="none- ZeroTill">
+      <PrimaryCropResMultiplier LastModified="18/01/2012">0.6</PrimaryCropResMultiplier>
+      <PrimaryRoughnessRatio LastModified="18/01/2012">1</PrimaryRoughnessRatio>
+    </PrimaryTillType>
+    <StartTillWindow Enabled="true" Day="1" Month="12"/>
+    <EndTillWindow Enabled="true" Day="1" Month="1" LastModified="29/11/2011"/>
+    <PrimaryTillDate Enabled="true" Day="1" Month="12"/>
+    <SecondaryTillDate1 Enabled="true" Day="1" Month="1" LastModified="29/11/2011"/>
+    <SecondaryTillDate2 Enabled="true" Day="15" Month="3" LastModified="29/11/2011"/>
+    <SecondaryTillDate3 Enabled="true" Day="1" Month="4"/>
+    <PrimaryTillageDates></PrimaryTillageDates>
+  </TillageType>
+</TillageDataTemplate>

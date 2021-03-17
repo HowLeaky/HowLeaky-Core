@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NitratesDataTemplate>
+  <NitratesType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Data - Nitrate\N-std.nitr" text="N crop" Description="N crop" Comments="Based on Annual target N appliction of 250 kg N/ha/year applied fortnightly (26 applications) Peak of 10 kgnitrate N/ha at time of application, declining to say 5 use mean of 8 kg/ha available&#xA;Source: J Armour, interpretation D Freebairn">
+    <DissolvedNinRunoffOptions index="2" text="User-defined profile" default="0">
+      <NDepthTopLayer1 default="20" LastModified="21/09/2012">100</NDepthTopLayer1>
+      <Nk default="0.5" LastModified="21/09/2012">0.1</Nk>
+      <Ncv default="0.2" LastModified="21/09/2012">1</Ncv>
+      <NAlpha>1</NAlpha>
+      <NitrateSourceData>-1  <SoilNitrateTimeseries>-1</SoilNitrateTimeseries>
+      </NitrateSourceData>
+      <SoilNitrateLevels Count="3">
+        <Data x="1" y="10" z="0" a="0"/>
+        <Data x="180" y="10" z="0" a="0"/>
+        <Data x="365" y="10" z="0" a="0"/>
+      </SoilNitrateLevels>
+    </DissolvedNinRunoffOptions>
+    <DissolvedNinLeachingOptions index="2" text="User-defined profile" default="0">
+      <DepthBottomLayer>100</DepthBottomLayer>
+      <NitrateLeachingEfficiency>0.5</NitrateLeachingEfficiency>
+      <NitrateSourceData>-1  <SoilNitrateTimeseries>-1</SoilNitrateTimeseries>
+      </NitrateSourceData>
+      <SoilNitrateLevels Count="3">
+        <Data x="1" y="10" z="0" a="0"/>
+        <Data x="180" y="10" z="0" a="0"/>
+        <Data x="365" y="10" z="0" a="0"/>
+      </SoilNitrateLevels>
+    </DissolvedNinLeachingOptions>
+    <ParticulateNinRunoffOptions index="2" text="User-defined profile" default="0">
+      <NDepthTopLayer2 LastModified="21/09/2012">20</NDepthTopLayer2>
+      <NEnrichmentRatio LastModified="21/09/2012">1</NEnrichmentRatio>
+      <NAlpha>1</NAlpha>
+      <NBeta>1</NBeta>
+      <NitrateSourceData>-1  <InorganicNitrateNTimeseries>-1</InorganicNitrateNTimeseries>
+        <InorganicAmmoniumNTimeseries>-1</InorganicAmmoniumNTimeseries>
+        <OrganicNTimeseries>-1</OrganicNTimeseries>
+      </NitrateSourceData>
+      <SoilNitrateLevels Count="3">
+        <Data x="1" y="10" z="0" a="0"/>
+        <Data x="180" y="10" z="0" a="0"/>
+        <Data x="365" y="10" z="0" a="0"/>
+      </SoilNitrateLevels>
+    </ParticulateNinRunoffOptions>
+  </NitratesType>
+</NitratesDataTemplate>

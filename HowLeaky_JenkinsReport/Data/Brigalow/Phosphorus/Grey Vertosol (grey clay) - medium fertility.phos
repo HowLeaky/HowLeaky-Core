@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PhosphorusDataTemplate>
+  <PhosphorusType href="C:\Howleaky\Brigalow_2015\Phosphorus\Grey Vertosol (grey clay) - medium fertility.phos" text="Med fert grey clay" Description="Med fert grey clay" Comments="based on Grey Vertosol (grey clay) medium fertility -Group III per Brett Robinson DNRM 2014">
+    <DissolvedPOption index="1" text="QLD REEF"/>
+    <TotalPConc Comments="Estimated total p range described for a grey vertosol (Norrish and Prosser)" LastModified="17/10/2014">500</TotalPConc>
+    <ColwellP Comments="average used between low (12 mg/kg) and high (21 mg/kg) nutrient status clay soils (group III - non acidic) (Moody 2007)" LastModified="17/10/2014">16</ColwellP>
+    <PBI Comments="Nominal PBI defined for Clay Group III (non acidic) soils" LastModified="17/10/2014">50</PBI>
+    <PEnrichmentOption index="1" text="Empirical Clay fn.">
+      <EnrichmentRatio Comments="Calibrated to data. However these are Vertosols , which are well structured and therefore reasonable" LastModified="17/10/2014">0.8</EnrichmentRatio>
+      <ClayPercentage Comments="This is the average clay content in the topsoil (0-0.2 m) of Vertosols identified at the Brigalow research Station (Cowie et al 2007)." LastModified="17/10/2014">39</ClayPercentage>
+    </PEnrichmentOption>
+  </PhosphorusType>
+</PhosphorusDataTemplate>

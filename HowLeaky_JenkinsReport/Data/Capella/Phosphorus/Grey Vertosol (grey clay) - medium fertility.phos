@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PhosphorusDataTemplate>
+  <PhosphorusType href="\\BNEFS04\Environment$\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Capella\Phosporous\Grey Vertosol (grey clay) - medium fertility.phos" text="Grey Vertosol (grey clay) - medium fertility - Group III" Description="Grey Vertosol (grey clay) - medium fertility - Group III" Comments="Grey Vertosol (grey clay) - medium fertiligy - Group III">
+    <DissolvedPOption index="1" text="QLD REEF" default="0"/>
+    <TotalPConc default="520" Comments="Estimated total p described for a grey vertosol (Norrish and Prosser)" LastModified="07/01/2014">524</TotalPConc>
+    <ColwellP Comments="average used between low (12 mg/kg) and high (21 mg/kg) nutrient status clay soils (group III - non acidic) (Moody 2007)" LastModified="07/01/2014">16</ColwellP>
+    <PBI Comments="Nominal PBI defined for Clay Group III (non acidic) soils" LastModified="07/01/2014">50</PBI>
+    <PEnrichmentOption index="1" text="Empirical Clay fn." default="0">
+      <EnrichmentRatio default="1.2" Comments="Calibrated to data. However these are Vertosols , which are well structured and therefore reasonable" LastModified="07/01/2014">0.8</EnrichmentRatio>
+      <ClayPercentage default="0" Comments="This is the average clay content in the topsoil (0-0.2 m) of Vertosols identified at the Brigalow research Station (Cowie et al 2007)." LastModified="07/01/2014">38</ClayPercentage>
+    </PEnrichmentOption>
+  </PhosphorusType>
+</PhosphorusDataTemplate>

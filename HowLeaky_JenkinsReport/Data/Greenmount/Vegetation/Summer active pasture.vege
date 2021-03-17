@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CoverVegTemplate>
+  <VegetationType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Greenmount\Vegetation\Summer active pasture.vege" text="Summer active pasture" Description="Summer active pasture">
+    <ModelType index="1"/>
+    <TimeSeriesList>undefined</TimeSeriesList>
+    <CropCover href="$(HOWLEAKY)Reports\Images\Temp\pasture_Cover3.bmp" Description="Sorghum_Cover0.bmp"/>
+    <PanPlantDay LastModified="19/03/2006">1</PanPlantDay>
+    <DaysPlantingToHarvest>100000</DaysPlantingToHarvest>
+    <CoverInputOptions index="0" text="User-defined"/>
+    <CropFactorMatrix Count="13">
+      <Data x="1" y="75" z="30" a="1800"/>
+      <Data x="32" y="72.3099976" z="30" a="1800"/>
+      <Data x="60" y="61.5400009" z="42" a="1800"/>
+      <Data x="91" y="43.0800018" z="53.8499985" a="1800"/>
+      <Data x="121" y="16.9200001" z="58.4599991" a="1800"/>
+      <Data x="152" y="12.3100004" z="71.5400009" a="1800"/>
+      <Data x="182" y="10" z="79.2300034" a="1800"/>
+      <Data x="213" y="11.54" z="74.6200027" a="1800"/>
+      <Data x="244" y="13.8500004" z="64.6200027" a="1800"/>
+      <Data x="274" y="18.4599991" z="48.4599991" a="1800"/>
+      <Data x="305" y="40" z="40" a="1800"/>
+      <Data x="335" y="67.6900024" z="35.3800011" a="1800"/>
+      <Data x="365" y="75" z="30" a="1800"/>
+    </CropFactorMatrix>
+    <SourceData index="0" text="undefined"/>
+    <LinkToGreenCover>-1</LinkToGreenCover>
+    <LinkToResidueCover>-1</LinkToResidueCover>
+    <LinkToRootDepth>-1</LinkToRootDepth>
+    <MaxRootDepth LastModified="15/12/2005">2000</MaxRootDepth>
+    <WaterUseEffic>0.4</WaterUseEffic>
+    <PanHarvestIndex>0.35</PanHarvestIndex>
+  </VegetationType>
+</CoverVegTemplate>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CoverVegTemplate>
+  <VegetationType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Capella\Vegetation\Winter conventional till (D).vege" text="D Winter aggressive till" Description="D Winter aggressive till">
+    <ModelType index="1"/>
+    <PanPlantDay>120</PanPlantDay>
+    <DaysPlantingToHarvest>200</DaysPlantingToHarvest>
+    <CoverInputOptions index="0" text="User-defined"/>
+    <CropFactorMatrix Count="12">
+      <Data x="1" y="0" z="30" a="0"/>
+      <Data x="32" y="0" z="25" a="0"/>
+      <Data x="91" y="0" z="20" a="0"/>
+      <Data x="121" y="14" z="18" a="168"/>
+      <Data x="152" y="32" z="15" a="504"/>
+      <Data x="182" y="62" z="9" a="952"/>
+      <Data x="213" y="77" z="5" a="1200"/>
+      <Data x="244" y="89" z="4" a="1400"/>
+      <Data x="274" y="70" z="8.46" a="1120"/>
+      <Data x="288" y="2.3099999" z="28.4599991" a="0"/>
+      <Data x="335" y="0" z="28.4599991" a="0"/>
+      <Data x="365" y="0" z="30" a="0"/>
+    </CropFactorMatrix>
+    <SourceData index="0" text="undefined"/>
+    <LinkToGreenCover>-1</LinkToGreenCover>
+    <GreenBioMassToCoverFactor>1</GreenBioMassToCoverFactor>
+    <LinkToResidueCover>-1</LinkToResidueCover>
+    <ResidueBioMassToCoverFactor>1</ResidueBioMassToCoverFactor>
+    <LinkToRootDepth>-1</LinkToRootDepth>
+    <RootBioMassToDepthFactor>1</RootBioMassToDepthFactor>
+    <MaxAllowTotalCover>1</MaxAllowTotalCover>
+    <MaxRootDepth>1</MaxRootDepth>
+    <WaterUseEffic>5</WaterUseEffic>
+    <PanHarvestIndex>0.4</PanHarvestIndex>
+  </VegetationType>
+</CoverVegTemplate>

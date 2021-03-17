@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TillageDataTemplate>
+  <TillageType href="\\BNEFS04\Environment$\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Gatton UQ CTF\Tillage\Planting.till" text="Plant" Description="Plant" Multipliers="0.6,0.05,0.4,0.6,0.825,0.65,0.7,0.8,0.9" RoughnessRatio="1,0,1,0.7,0.3,0.6,0,0.3,0.2">
+    <TillageFormat index="3" text="At Planting (Crop 1)" default="2"/>
+    <PrimaryTillType index="6" text="Plant" default="0">
+      <PrimaryCropResMultiplier default="0.6" LastModified="13/02/2013">0.7</PrimaryCropResMultiplier>
+      <PrimaryRoughnessRatio default="1" LastModified="18/01/2012">0</PrimaryRoughnessRatio>
+    </PrimaryTillType>
+    <StartTillWindow Enabled="true" Day="1" Month="12"/>
+    <EndTillWindow Enabled="true" Day="1" Month="1" LastModified="29/11/2011"/>
+    <PrimaryTillDate Enabled="true" Day="1" Month="12"/>
+    <SecondaryTillDate1 Enabled="true" Day="1" Month="1" LastModified="29/11/2011"/>
+    <SecondaryTillDate2 Enabled="true" Day="15" Month="3" LastModified="29/11/2011"/>
+    <SecondaryTillDate3 Enabled="true" Day="1" Month="4"/>
+    <PrimaryTillageDates></PrimaryTillageDates>
+  </TillageType>
+</TillageDataTemplate>

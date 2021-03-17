@@ -1,0 +1,18 @@
+Cover.sim,Date,null,null
+Cover.sim,Green_cover_bare,null,null
+Cover.sim,Residue_cover_bare,null,null
+Cover.sim,Green_cover_grazed,null,null
+Cover.sim,Residue_cover_grazed,null,null
+Cover.sim,Green_cover_exclosed,null,null
+Cover.sim,Residue_cover_exclosed,null,null
+PAW.sim,Date,null,null
+PAW.sim,ASW_bare,null,null
+PAW.sim,ASW_grazed,null,null
+PAW.sim,ASW_exclosure,null,null
+Runoff.sim,Date,null,null
+Runoff.sim,RO_Bare  RO_Grazed,null,null
+Runoff.sim,RO_Exclosure,null,null
+Soil loss Cum.sim,Date,null,null
+Soil loss Cum.sim,Cum_SL_Grzd,null,null
+Soil loss Cum.sim,Cum_SL_Excl,null,null
+Soil loss Cum.sim,Cum_SL_Bare,null,null

@@ -1,0 +1,117 @@
+﻿Rainfall mm,Rain,true
+Maximum temperature oC,MaxTemp,true
+Minimum temperatures oC,MinTemp,true
+Pan evaporation mm,PanEvap,true
+Solar radiation MJ/m2/day,SolarRadiation,false
+Runoff mm,Runoff,true
+Soil evaporation mm,SoilEvap,true
+Transpiration mm,Transpiration,true
+Evapotranspiration mm,EvapoTransp,true
+Deep drainage mm,DeepDrainage,true
+Overflow mm,Overflow,false
+Potential soil evaporation mm,PotSoilEvap,false
+Irrigation mm,Irrigation,true
+Runoff from Irrigation mm,RunoffFromIrrigation,false
+Runoff from rainfall mm,RunoffFromRainfall,false
+Lateral flow mm,LateralFlow,false
+Volume balance error %,VBE,false
+Runoff Curve No,RunoffCurveNo,false
+Runoff Rention No,RunoffRetentionNumber,false
+Layer 1 Sat Index,Layer1SatIndex,false
+Hillslope erosion t/ha,HillSlopeErosion,true
+Off-site sediment delivery t/ha,OffSiteSedDelivery,true
+Total available soil water mm,TotalSoilWater,false
+Soil water deficit mm,SoilWaterDeficit,false
+Total crop residue kg/ha,TotalCropResidue,false
+Total Residue Cover %,TotalResidueCover,false
+Total Cover %,TotalCoverAllCrops,false
+Layer Outputs: Available soil water mm,SoilWater,false
+Layer Outputs: Drainage mm,Drainage,false
+Days since planting days,DaysSincePlanting,false
+Leaf Area Index (if applicable) ,LAI,false
+Crop cover %,GreenCover,false
+Residue cover %,ResidueCover,false
+Total cover %,TotalCover,false
+Crop residue kg/ha,ResidueAmount,false
+Dry matter kg/ha,DryMatter,false
+Root depth mm,RootDepth,false
+Yield t/ha,Yield,false
+Potential transpiration mm,PotTranspiration,false
+Growth regulator,GrowthRegulator,false
+Water Stress Index,WaterStressIndex,false
+Temperature Stress Index,TempStressIndex,false
+In-crop rainfall mm,CropRainfall,false
+In-crop irrigation mm,CropIrrigation,false
+In-crop runoff mm,CropRunoff,false
+In-crop soil evaporation mm,SoilEvaporation,false
+In-crop Transpiration mm,CropTranspiration,false
+In-crop evapotranspiration mm,CropEvapoTranspiration,false
+In-crop Drainage,Crop,mm,CropDrainage,false
+In-crop LateralFlow,Crop,mm,CropLateralFlow,false
+In-crop Overflow,Crop,mm,CropOverflow,false
+In-crop SoilErosion,Crop,mm,CropSoilErosion,false
+In-crop SedimentDelivery,Crop,mm,CropSedimentDelivery,false
+PlantingCount,Crop,mm,PlantingCount,false
+HarvestCount,Crop,mm,HarvestCount,false
+CropDeathCount,Crop,mm,CropDeathCount,false
+FallowCount,Crop,mm,FallowCount,false
+IrrigationRunoff mm,IrrigationRunoff,false
+IrrigationApplied mm,IrrigationApplied,false
+IrrigationInfiltration mm,IrrigationInfiltration,false
+Evaporation losses ML,RingTankEvaporationLosses,false
+Seepage losses ML,RingTankSeepageLosses,false
+Overtopping losses ML,RingTankOvertoppingLosses,false
+Irrigation losses ML,RingTankIrrigationLosses,false
+Total losses ML,RingTankTotalLosses,false
+Captured runoff inflow ML,RingTankRunoffCaptureInflow,false
+Rainfall inflow ML,RingTankRainfalInflow,false
+Effective additional inflow ML,RingTankEffectiveAdditionalInflow,false
+Total additional inflow ML,RingTankTotalAdditionalInflow,false
+Total inflow ML,RingTankTotalInflow,false
+Ineffective additional inflow ML,RingTankIneffectiveAdditionalInflow,false
+Storage volume ML,RingTankStorageVolume,false
+Irrigation storage level %,RingTankStorageLevel,false
+Particulate concentration mg/L,ParticulateConc,false
+Dissolved concentration mg/L,DissolvedConc,false
+Bioavailable particulate P concentration mg/L,BioAvailParticPConc,false
+Bioavailable P concentration mg/L,BioAvailPConc,false
+Total P concentration mg/L,TotalPConc,false
+Particulate P export kg/ha,ParticPExport,false
+Dissolved export kg/ha,PhosExportDissolve,false
+Bioavailable particulate P export kg/ha,BioAvailParticPExport,false
+Total bioavailable export kg/ha,TotalBioAvailExport,false
+Total phosphorus export kg/ha,TotalP,false
+PPHLC kg/ha,PPHLC,false
+Applied pest on veg g/ha,AppliedPestOnVeg,false
+Applied pest on stubble g/ha,AppliedPestOnStubble,false
+Applied pest on soil g/ha,AppliedPestOnSoil,false
+Pest on veg g/ha,PestOnVeg,false
+Pest on stubble g/ha,PestOnStubble,false
+Pest in soil g/ha,PestInSoil,false
+Pest soil conc. mg/kg,PestSoilConc,false
+Pest sediment phase conc. mg/kg,PestSedPhaseConc,false
+Pest water phase conc. ug/L,PestWaterPhaseConc,false
+Pest runoff conc. ug/L,PestRunoffConc,false
+Pest lost in runoff water g/ha,PestLostInRunoffWater,false
+Pest lost in runoff sediment g/ha,PestLostInRunoffSediment,false
+Total pest lost in runoff g/ha,TotalPestLostInRunoff,false
+Pest lost in leaching g/ha,PestLostInLeaching,false
+Pest losses as percent of last input %,PestLossesPercentOfInput,false
+Dissolved NO3 N in Runoff mg/L,NO3NDissolvedInRunoff,false
+NO3 Runoff Load kg/ha,NO3NRunoffLoad,false
+Dissolved NO3 N in Leaching mg/L,NO3NDissolvedLeaching,false
+NO3 N Leaching Load kg/ha,NO3NLeachingLoad,false
+Particulate N in Runoff kg/ha,ParticNInRunoff,false
+PNHLC kg/ha,PNHLCa,false
+NO3 N Store (top layer) kg/ha,NO3NStoreTopLayer,false
+NO3 N Store (bot layer) kg/ha,NO3NStoreBotLayer,false
+Total N Store (top layer) kg/ha,TotalNStoreTopLayer,false
+Drainage in NO3 period mm,DrainageInNO3Period,false
+Runoff in NO3 period mm,RunoffInNO3Period,false
+Total Soil Solute kg/ha,TotalSoilSolute,false
+Total Soil Water Solute (Concentration) mg/L_soil-water,??,false
+Layer Solute (Load) kg/ha,LayerSoluteLoad,false
+Layer Solute (Concentration) mg/L_soil-water,LayerSoluteConcmgPerL,false
+Layer Solute (Concentration) mg/kg soil,LayerSoluteConcmgPerkg,false
+Leachate Solute Concentration mg/L soil-water,LeachateSoluteConcmgPerL,false
+Leachate Solute Load kg/ha,LeachateSoluteLoadkgPerha,false

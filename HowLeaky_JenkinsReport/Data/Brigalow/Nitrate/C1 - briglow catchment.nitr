@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NitratesDataTemplate>
+  <NitratesType href="C:\Howleaky\Brigalow_2015\Nitrate\C1 - briglow catchment.nitr" text="C1 - briglow catchment" Description="C1 - briglow catchment">
+    <DissolvedNinRunoffOptions index="2" text="User-defined profile">
+      <NDepthTopLayer1 default="300" LastModified="01/02/2015">100</NDepthTopLayer1>
+      <Nk default="0.34" LastModified="01/02/2015">1.3</Nk>
+      <Ncv>0.2</Ncv>
+      <NAlpha>1</NAlpha>
+      <NitrateSourceData>-1  <SoilNitrateTimeseries>-1</SoilNitrateTimeseries>
+      </NitrateSourceData>
+      <SoilNitrateLevels Count="13">
+        <Data x="1" y="21.25" z="0" a="0"/>
+        <Data x="32" y="10.932" z="0" a="0"/>
+        <Data x="60" y="4.582" z="0" a="0"/>
+        <Data x="91" y="1.25" z="0" a="0"/>
+        <Data x="121" y="1.25" z="0" a="0"/>
+        <Data x="152" y="2.042" z="0" a="0"/>
+        <Data x="182" y="2.995" z="0" a="0"/>
+        <Data x="213" y="3.313" z="0" a="0"/>
+        <Data x="244" y="4.425" z="0" a="0"/>
+        <Data x="274" y="6.647" z="0" a="0"/>
+        <Data x="305" y="16.043" z="0" a="0"/>
+        <Data x="335" y="20.14" z="0" a="0"/>
+        <Data x="365" y="21.25" z="0" a="0"/>
+      </SoilNitrateLevels>
+      <SoilNitrateLoadWeighting1 LastModified="01/02/2015">0.5</SoilNitrateLoadWeighting1>
+    </DissolvedNinRunoffOptions>
+    <DissolvedNinLeachingOptions index="2" text="User-defined profile">
+      <DepthBottomLayer>300</DepthBottomLayer>
+      <NitrateLeachingEfficiency>0.5</NitrateLeachingEfficiency>
+      <NitrateSourceData>-1  <SoilNitrateTimeseries>-1</SoilNitrateTimeseries>
+      </NitrateSourceData>
+      <SoilNitrateLevels Count="13">
+        <Data x="1" y="30" z="0" a="0"/>
+        <Data x="32" y="27.47" z="0" a="0"/>
+        <Data x="60" y="6.66" z="0" a="0"/>
+        <Data x="91" y="1.01" z="0" a="0"/>
+        <Data x="121" y="1" z="0" a="0"/>
+        <Data x="152" y="1.01" z="0" a="0"/>
+        <Data x="182" y="1.24" z="0" a="0"/>
+        <Data x="213" y="1.95" z="0" a="0"/>
+        <Data x="244" y="2.98" z="0" a="0"/>
+        <Data x="274" y="3.53" z="0" a="0"/>
+        <Data x="305" y="5.6" z="0" a="0"/>
+        <Data x="335" y="10.67" z="0" a="0"/>
+        <Data x="365" y="30" z="0" a="0"/>
+      </SoilNitrateLevels>
+      <SoilNitrateLoadWeighting2>1</SoilNitrateLoadWeighting2>
+    </DissolvedNinLeachingOptions>
+    <ParticulateNinRunoffOptions index="0" text="None">
+      <NDepthTopLayer2>20</NDepthTopLayer2>
+      <NEnrichmentRatio>2</NEnrichmentRatio>
+      <NAlpha>1</NAlpha>
+      <NBeta>1</NBeta>
+      <NitrateSourceData index="0" text="undefined">
+        <InorganicNitrateNTimeseries>-1</InorganicNitrateNTimeseries>
+        <InorganicAmmoniumNTimeseries>-1</InorganicAmmoniumNTimeseries>
+        <OrganicNTimeseries>-1</OrganicNTimeseries>
+      </NitrateSourceData>
+      <SoilNitrateLoadWeighting3>1</SoilNitrateLoadWeighting3>
+    </ParticulateNinRunoffOptions>
+  </NitratesType>
+</NitratesDataTemplate>

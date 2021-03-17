@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TillageDataTemplate>
+  <TillageType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Greenmount\Tillage\Disc.till" text="Disc" Description="Disc" Multipliers="1,0.05,0.6,0.6,0.825,0.65,0.5,0.8,0.9" RoughnessRatio="0,0,1,0.7,0.3,0.6,0,0.3,0.2">
+    <TillageFormat index="1" text="Fixed Dates (annual)"/>
+    <PrimaryTillType index="2" text="Disc" LastModified="17/01/2006">
+      <PrimaryCropResMultiplier LastModified="18/01/2012">0.6</PrimaryCropResMultiplier>
+      <PrimaryRoughnessRatio LastModified="18/01/2012">1</PrimaryRoughnessRatio>
+    </PrimaryTillType>
+    <StartTillWindow Enabled="true" Day="1" Month="1"/>
+    <EndTillWindow Enabled="true" Day="31" Month="12" LastModified="17/01/2012"/>
+    <PrimaryTillDate Enabled="true" Day="1" Month="12" LastModified="17/01/2012"/>
+    <SecondaryTillDate1 Enabled="true" Day="15" Month="1" LastModified="17/02/2012"/>
+    <SecondaryTillDate2 Enabled="true" Day="1" Month="3" LastModified="17/01/2006"/>
+    <SecondaryTillDate3 Enabled="false" Day="1" Month="4" LastModified="17/01/2006"/>
+    <PrimaryTillageDates></PrimaryTillageDates>
+    <RainForPrimaryTill LastModified="18/01/2012">75</RainForPrimaryTill>
+    <NoDaysToTotalRain LastModified="17/01/2012">45</NoDaysToTotalRain>
+    <MinDaysBetweenTills LastModified="17/01/2012">30</MinDaysBetweenTills>
+  </TillageType>
+</TillageDataTemplate>

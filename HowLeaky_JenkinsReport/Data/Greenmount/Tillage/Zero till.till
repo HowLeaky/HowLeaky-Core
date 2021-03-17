@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TillageDataTemplate>
+  <TillageType href="X:\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Cropping Greenmount\Tillage\Zero till.till" text="Zero till" Description="Zero till" Multipliers="1,0.05,0.4,0.6,0.825,0.65,0.5,0.8,0.9" RoughnessRatio="1,0,1,0.7,0.3,0.6,0,0.3,0.2">
+    <TillageFormat index="1" text="Fixed Dates (annual)" default="0"/>
+    <PrimaryTillType index="0" text="none- ZeroTill">
+      <PrimaryCropResMultiplier LastModified="11/03/2013">1</PrimaryCropResMultiplier>
+      <PrimaryRoughnessRatio LastModified="11/03/2013">1</PrimaryRoughnessRatio>
+    </PrimaryTillType>
+    <StartTillWindow Enabled="true" Day="1" Month="1"/>
+    <EndTillWindow Enabled="true" Day="1" Month="1"/>
+    <PrimaryTillDate Enabled="true" Day="2" Month="1" LastModified="11/03/2013"/>
+    <SecondaryTillDate1 Enabled="false" Day="1" Month="1"/>
+    <SecondaryTillDate2 Enabled="false" Day="1" Month="1"/>
+    <SecondaryTillDate3 Enabled="false" Day="1" Month="1"/>
+  </TillageType>
+</TillageDataTemplate>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ModelOptionsTemplate>
+  <ModelOptions href="\\BNEFS04\Environment$\ECC Projects\Conics\PR102000\PR102473_1_Historic Reef WQ Studies_DMF\Project Data\HowLeaky\Projects\Gatton UQ CTF\Soils\Std.mopt" text="Std" Description="Std">
+    <ResetResidueMass state="false">
+      <ResetDateForResidue Enabled="true" Day="1" Month="1"/>
+    </ResetResidueMass>
+    <ResetSoilWater state="false">
+      <ResetDateForSoilWater Enabled="true" Day="1" Month="1"/>
+    </ResetSoilWater>
+    <UpdateSWAfterPlanting state="false"/>
+    <CalculateLateralFlow state="false"/>
+    <IgnoreCropDeath state="false"/>
+    <Use_PERFECT_DryMatter state="false"/>
+    <Use_PERFECT_GCovEqn state="false"/>
+    <Use_PERFECT_PotSE state="false"/>
+    <Use_PERFECT_DLAI state="false"/>
+    <Use_PERFECT_Residue state="false"/>
+    <Use_PERFECT_USLE_LSFactor state="true"/>
+    <Use_PERFECT_CN state="true"/>
+    <InitialPAWC default="0.5" Comments="based on estimated soil water from PERFECT setup per Lisha Li&#xA;DMF 14/2/2013" LastModified="14/02/2013">0.9</InitialPAWC>
+  </ModelOptions>
+</ModelOptionsTemplate>
