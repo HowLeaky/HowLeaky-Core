@@ -21,13 +21,19 @@ namespace HowLeaky_ValidationEngine
     {
         static void Main(string[] args)
         {
-            var version = "Version 6.01";
+            //var version = "Version 6.01";
             var argstrings = string.Join(",", args);
+            var branch= args.Count()>0?args[0]:"Visual Studio Build";
+            var buildnumber= args.Count() > 1 ? args[1] : "Unknown Build#";
+            var username= args.Count()>2?args[2]:"Developer";
             var prepareProjects = argstrings.Contains("-p");
-            var generateBaseData = argstrings.Contains("-b");
+
+            var version=$"{branch}: {buildnumber} ({username})";
+
+           // var generateBaseData = argstrings.Contains("-b");
 
             var consoleoutput = new ConsoleOutputLogger(true);
-            var controller = new SimulationController();
+           // var controller = new SimulationController();
 
             var report = new PostModel();
             report.Report.BaseName = "Initial";
@@ -61,7 +67,7 @@ namespace HowLeaky_ValidationEngine
 
         private static string PostResults(PostModel report)
         {
-            string url = "http://howleaky.dhmsoftware.com.au/api/JenkinsAPI/PostJenkinsReport";
+            string url = "http://howleaky.com/api/JenkinsAPI/PostJenkinsReport";
             //string url = "https://localhost:44331/api/JenkinsAPI/PostJenkinsReport";
             var webrequest = (HttpWebRequest)WebRequest.Create(url);
             webrequest.Method = "POST";

@@ -17,6 +17,17 @@
     <ProjectReference Include="..\HowLeaky_IO\HowLeaky_IO.csproj" />
   </ItemGroup>
 
+ 
+  <ItemGroup>
+    <Folder Include="Data\Capella\Outputs\initial\NOSUBCATCH_NOFU\" />
+    <Folder Include="Data\Capella\Outputs\Version 6.01\NOSUBCATCH_NOFU\" />
+    <Folder Include="Data\Gatton\Outputs\Version 6.01\NOSUBCATCH_NOFU\" />
+    <Folder Include="Data\Greenmount\Outputs\initial\NOSUBCATCH_NOFU\" />
+    <Folder Include="Data\Greenmount\Outputs\Version 6.01\NOSUBCATCH_NOFU\" />
+    <Folder Include="Data\Kairi\Outputs\initial\NOSUBCATCH_NOFU\" />
+    <Folder Include="Data\Kairi\Outputs\Version 6.01\NOSUBCATCH_NOFU\" />
+  </ItemGroup>
+
   
 
 </Project>
