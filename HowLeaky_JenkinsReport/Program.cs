@@ -28,7 +28,7 @@ namespace HowLeaky_ValidationEngine
             var username= args.Count()>2?args[2]:"Developer";
             var prepareProjects = argstrings.Contains("-p");
 
-            var version=$"{branch}: {buildnumber} ({username})";
+            var version=$"{branch}: {buildnumber}";// ({username})";
 
            // var generateBaseData = argstrings.Contains("-b");
 
