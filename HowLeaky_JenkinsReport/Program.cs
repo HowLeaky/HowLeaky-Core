@@ -61,7 +61,7 @@ namespace HowLeaky_ValidationEngine
 
         private static string PostResults(PostModel report)
         {
-            string url = "http://howleaky.dhmsoftware.com.au/api/JenkinsAPI/PostJenkinsReport";
+            string url = "http://howleaky.com/api/JenkinsAPI/PostJenkinsReport";
             //string url = "https://localhost:44331/api/JenkinsAPI/PostJenkinsReport";
             var webrequest = (HttpWebRequest)WebRequest.Create(url);
             webrequest.Method = "POST";
