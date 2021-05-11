@@ -36,7 +36,7 @@ namespace HowLeaky_ValidationEngine
            // var controller = new SimulationController();
 
             var report = new PostModel();
-            report.Report.BaseName = "Initial";
+            report.Report.BaseName = "Origin";
             report.Report.BranchName = version;
 
             var directories = ExtractDirectories();
