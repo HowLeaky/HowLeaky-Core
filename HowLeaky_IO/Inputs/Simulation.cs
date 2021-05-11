@@ -28,8 +28,8 @@ namespace HowLeaky_IO
 
         public string GenerateBinaryPathName()
         {
-            var subcatchment=!String.IsNullOrEmpty(SubCatchmentId)?SubCatchmentId:"NOSUBCATCH";
-            var functionunit=!String.IsNullOrEmpty(FunctionalUnit)?FunctionalUnit:"NOFU";
+            var subcatchment=(!String.IsNullOrEmpty(SubCatchmentId)?SubCatchmentId:"NOSUBCATCH").Replace("\n", "");
+            var functionunit=(!String.IsNullOrEmpty(FunctionalUnit)?FunctionalUnit:"NOFU").Replace("\n","");
             var path1=CheckCreatePath(Project.OutputsDirectory,$"{subcatchment}_{functionunit}");                    
             var binaryFilePath=Path.Combine(path1,$"{GenerateOutputName()}.hlkbinout");
             return binaryFilePath;
