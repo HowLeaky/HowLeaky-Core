@@ -23,12 +23,12 @@ namespace HowLeaky_ValidationEngine
         {
             //var version = "Version 6.01";
             var argstrings = string.Join(",", args);
-            var branch= args.Count()>0?args[0]:"Visual Studio Build";
+            var branch= (args.Count()>0?args[0]:"Visual Studio Build").Replace("/","_");
             var buildnumber= args.Count() > 1 ? args[1] : "Unknown Build#";
             var username= args.Count()>2?args[2]:"Developer";
             var prepareProjects = argstrings.Contains("-p");
 
-            var version=$"{branch}: {buildnumber}";// ({username})";
+            var version=$"{branch}_{buildnumber}";// ({username})";
 
            // var generateBaseData = argstrings.Contains("-b");
 
