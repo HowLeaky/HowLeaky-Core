@@ -67,24 +67,36 @@ namespace HowLeaky_ValidationEngine
 
         private static string PostResults(PostModel report)
         {
-            string url = "http://howleaky.com/api/JenkinsAPI/PostJenkinsReport";
-            //string url = "https://localhost:44331/api/JenkinsAPI/PostJenkinsReport";
-            var webrequest = (HttpWebRequest)WebRequest.Create(url);
-            webrequest.Method = "POST";
-            webrequest.ContentType = "application/json";
-            using (var stream = new StreamWriter(webrequest.GetRequestStream()))
+            long length = 0;
+            try
             {
-                var serialized = JsonConvert.SerializeObject(report);
-                stream.Write(serialized);
-            }
+                string url = "http://howleaky.com/api/JenkinsAPI/PostJenkinsReport";
+                //string url = "https://localhost:44331/api/JenkinsAPI/PostJenkinsReport";
+                var webrequest = (HttpWebRequest)WebRequest.Create(url);
+                webrequest.Method = "POST";
+                webrequest.ContentType = "application/json";
+               
+                using (var stream = new StreamWriter(webrequest.GetRequestStream()))
+                {
+                    var serialized = JsonConvert.SerializeObject(report);
+                    stream.Write(serialized);
+                    length=stream.BaseStream.Length;
+                }
 
-            HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
-            var enc = System.Text.Encoding.GetEncoding("utf-8");
-            StreamReader responseStream = new StreamReader(webresponse.GetResponseStream(), enc);
-            string result = string.Empty;
-            result = responseStream.ReadToEnd();
-            webresponse.Close();
-            return result;
+                HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
+                var enc = System.Text.Encoding.GetEncoding("utf-8");
+                StreamReader responseStream = new StreamReader(webresponse.GetResponseStream(), enc);
+                string result = string.Empty;
+                result = responseStream.ReadToEnd();
+                webresponse.Close();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Stream Length: {length}");
+                Console.Write(ex);
+            }
+            return "";
 
 
         }
