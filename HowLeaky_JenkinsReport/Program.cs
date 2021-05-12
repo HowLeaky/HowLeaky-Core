@@ -78,10 +78,7 @@ namespace HowLeaky_ValidationEngine
                 Console.WriteLine($"****** Projects:{report.Projects.Count}");
                 Console.WriteLine($"****** CumulativePlots:{report.CumulativePlots.Count}");
                 Console.WriteLine($"****** ScatterPlots:{report.ScatterPlots.Count}");
-                foreach(var plot in report.ScatterPlots)
-                {
-                    plot.DataCsv="";
-                }
+                
 
                 string url = "http://howleaky.com/api/JenkinsAPI/PostJenkinsReport";
                 //string url = "https://localhost:44331/api/JenkinsAPI/PostJenkinsReport";
@@ -404,10 +401,13 @@ namespace HowLeaky_ValidationEngine
                 var versionPath = Path.Combine(outputsPath, postmodel.Report.BranchName);
                 var baseFiles = Directory.GetFiles(basePath, "*.csv");
                 var versionFiles = Directory.GetFiles(versionPath, "*.csv");
+
                 if (versionFiles.Count() > 0)
                 {
+                    Console.WriteLine($"+++++ Scatterplot Creation  - Version Files Count = {versionFiles.Count()} ");
                     var headers = ExtractHeaders(versionFiles[0]);
                     var index = 0;
+                    Console.WriteLine($"+++++ Scatterplot Creation  - Headers Count = {headers.Count} ");
                     foreach (var header in headers)
                     {
                         ++index;
@@ -472,6 +472,7 @@ namespace HowLeaky_ValidationEngine
                         scatterplotmodel.NamesCsv = string.Join("|", simnames);
                         scatterplotmodel.ColorsCsv = string.Join("|", colors);
                         scatterplotmodel.DataCsv = ConvertDataToCsv(biglist);
+                        Console.WriteLine($"+++++ Scatterplot Creation - {biglist.Count} ");
                     }
                 }
             }
