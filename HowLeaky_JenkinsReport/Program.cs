@@ -12,6 +12,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -67,7 +69,7 @@ namespace HowLeaky_ValidationEngine
 
         private static string PostResults(PostModel report)
         {
-            //long length = 0;
+           
             try
             {
                 string url = "http://howleaky.com/api/JenkinsAPI/PostJenkinsReport";
@@ -80,7 +82,9 @@ namespace HowLeaky_ValidationEngine
                 {
                     var serialized = JsonConvert.SerializeObject(report);
                     stream.Write(serialized);
-                    //length=stream.BaseStream.Length;
+                   
+                    decimal megabyteSize = ((decimal)Encoding.Unicode.GetByteCount(serialized) / 1048576);
+                    Console.WriteLine($"****** Posted Content Size: {megabyteSize} MB");
                 }
 
                 HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
@@ -97,7 +101,7 @@ namespace HowLeaky_ValidationEngine
                
                 Console.Write(ex);
             }
-            return "";
+            throw new Exception("Couldn't Post to server.");
 
 
         }
