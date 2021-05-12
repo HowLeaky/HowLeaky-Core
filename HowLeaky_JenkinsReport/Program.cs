@@ -73,6 +73,13 @@ namespace HowLeaky_ValidationEngine
            
             try
             {
+                Console.WriteLine($"****** Preparing to Post Report");
+                
+                Console.WriteLine($"****** Projects:{report.Projects.Count}");
+                Console.WriteLine($"****** CumulativePlots:{report.CumulativePlots.Count}");
+                Console.WriteLine($"****** ScatterPlots:{report.ScatterPlots.Count}");
+
+
                 string url = "http://howleaky.com/api/JenkinsAPI/PostJenkinsReport";
                 //string url = "https://localhost:44331/api/JenkinsAPI/PostJenkinsReport";
                 var webrequest = (HttpWebRequest)WebRequest.Create(url);
