@@ -23,6 +23,7 @@ namespace HowLeaky_ValidationEngine
     {
         static void Main(string[] args)
         {
+            var basePath= AppDomain.CurrentDomain.BaseDirectory;
             //var version = "Version 6.01";
             var argstrings = string.Join(",", args);
             var branch= (args.Count()>0?args[0]:"Visual Studio Build").Replace("/","_");
@@ -85,6 +86,15 @@ namespace HowLeaky_ValidationEngine
                    
                     decimal megabyteSize = ((decimal)Encoding.Unicode.GetByteCount(serialized) / 1048576);
                     Console.WriteLine($"****** Posted Content Size: {megabyteSize} MB");
+                    var path = AppDomain.CurrentDomain.BaseDirectory;
+                    var keyword = "HowLeaky_JenkinsReport";
+                    var basePath = path.Substring(0, path.LastIndexOf(keyword) + keyword.Length);
+                    var datapath = Path.Combine(basePath, "Data");
+            
+                    var filePath=Path.Combine(datapath, "JenkinsReportResponse.json");
+                    Console.WriteLine($"****** Path to serialised report: {filePath}");
+                    File.WriteAllText(filePath, serialized);
+
                 }
 
                 HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
