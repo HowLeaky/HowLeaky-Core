@@ -78,7 +78,10 @@ namespace HowLeaky_ValidationEngine
                 Console.WriteLine($"****** Projects:{report.Projects.Count}");
                 Console.WriteLine($"****** CumulativePlots:{report.CumulativePlots.Count}");
                 Console.WriteLine($"****** ScatterPlots:{report.ScatterPlots.Count}");
-
+                foreach(var plot in report.ScatterPlots)
+                {
+                    plot.DataCsv="";
+                }
 
                 string url = "http://howleaky.com/api/JenkinsAPI/PostJenkinsReport";
                 //string url = "https://localhost:44331/api/JenkinsAPI/PostJenkinsReport";
