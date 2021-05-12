@@ -67,7 +67,7 @@ namespace HowLeaky_ValidationEngine
 
         private static string PostResults(PostModel report)
         {
-            long length = 0;
+            //long length = 0;
             try
             {
                 string url = "http://howleaky.com/api/JenkinsAPI/PostJenkinsReport";
@@ -80,7 +80,7 @@ namespace HowLeaky_ValidationEngine
                 {
                     var serialized = JsonConvert.SerializeObject(report);
                     stream.Write(serialized);
-                    length=stream.BaseStream.Length;
+                    //length=stream.BaseStream.Length;
                 }
 
                 HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
@@ -88,12 +88,13 @@ namespace HowLeaky_ValidationEngine
                 StreamReader responseStream = new StreamReader(webresponse.GetResponseStream(), enc);
                 string result = string.Empty;
                 result = responseStream.ReadToEnd();
+                Console.WriteLine($"Response: {result}");
                 webresponse.Close();
                 return result;
             }
             catch(Exception ex)
             {
-                Console.WriteLine($"Stream Length: {length}");
+               
                 Console.Write(ex);
             }
             return "";
