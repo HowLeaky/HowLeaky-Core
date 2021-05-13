@@ -1,6 +1,7 @@
 ﻿using Figgle;
 using HowLeaky_IO;
 using HowLeaky_IO.Outputs;
+using HowLeaky_SimulationEngine.Engine;
 using HowLeaky_ValidationEngine.Maths.Regression;
 using HowLeaky_ValidationEngine.Models;
 using HowLeaky_ValidationEngine.Models.Validation;
@@ -26,46 +27,59 @@ namespace HowLeaky_ValidationEngine
             var basePath= AppDomain.CurrentDomain.BaseDirectory;
             //var version = "Version 6.01";
             var argstrings = string.Join(",", args);
-            var branch= (args.Count()>0?args[0]:"Visual Studio Build").Replace("/","_");
-            var buildnumber= args.Count() > 1 ? args[1] : "Unknown Build#";
+            var branch= $"{GetCurrentHowLeakyVersion()}_{(args.Count()>0?args[0]:"VS").Replace("/","_")}"; //VS stands for Visual Studio
+            var buildnumber= args.Count() > 1 ? args[1] : "UB";//UB stands for Unknown Build
             var username= args.Count()>2?args[2]:"Developer";
             var prepareProjects = argstrings.Contains("-p");
 
-            var version=$"{branch}_{buildnumber}";// ({username})";
-
-           // var generateBaseData = argstrings.Contains("-b");
-
+            var version=$"{branch}_{buildnumber}";
             var consoleoutput = new ConsoleOutputLogger(true);
-           // var controller = new SimulationController();
+           
 
             var report = new PostModel();
-            report.Report.BaseName = "Origin";
-            report.Report.BranchName = version;
+            // *******************************************************************************************
+            // BASE Versions - Enter in the version number that you would like to use as the Base version
+            // NOTE - there must be a folder mataching this name in the Data directory.
+            report.Report.BaseName = "V6_0_1_VS";
+            // *******************************************************************************************
 
-            var directories = ExtractDirectories();
-            foreach (var directory in directories)
-            {
-                consoleoutput.ErrorOutputList.Clear();
-                var name = Path.GetFileName(directory);
-                consoleoutput.AddConsoleOutput(FiggleFonts.Standard.Render($"Preparing {name}"), false);
-                //   consoleoutput.AddConsoleOutput($"Preparing {name}", false);
-                PrepareSimulatedOutputsList(consoleoutput, directory, prepareProjects);
-                PrepareMeasuredDataList(consoleoutput, directory, prepareProjects);
+            if (branch!=report.Report.BaseName)
+            { 
+                report.Report.BranchName = version;
 
-                //if (generateBaseData)
-                // {
-                RunSimulations(consoleoutput, directory, version);
-                // }
-                //  else
-                // {
-                var projectvm = report.CreateProjectModel(directory, consoleoutput.ErrorOutputList);
-                ExecuteProjectValidations(consoleoutput, report,projectvm, directory);
-                ExecuteProjectValidations2(consoleoutput, report,projectvm, directory);
-                //}
-                consoleoutput.AddConsoleOutput("");
-                consoleoutput.AddConsoleOutput("");
-            }
+                var directories = ExtractDirectories();
+                foreach (var directory in directories)
+                {
+                    consoleoutput.ErrorOutputList.Clear();
+                    var name = Path.GetFileName(directory);
+                    consoleoutput.AddConsoleOutput(FiggleFonts.Standard.Render($"Preparing {name}"), false);
+                    PrepareSimulatedOutputsList(consoleoutput, directory, prepareProjects);
+                    PrepareMeasuredDataList(consoleoutput, directory, prepareProjects);
+
+                    //if (generateBaseData)
+                    // {
+                    RunSimulations(consoleoutput, directory, version);
+                    // }
+                    //  else
+                    // {
+                    var projectvm = report.CreateProjectModel(directory, consoleoutput.ErrorOutputList);
+                    ExecuteProjectValidations(consoleoutput, report,projectvm, directory);
+                    ExecuteProjectValidations2(consoleoutput, report,projectvm, directory);
+                    //}
+                    consoleoutput.AddConsoleOutput("");
+                    consoleoutput.AddConsoleOutput("");
+                }
             PostResults(report);
+            }
+            else
+            {
+                Console.WriteLine("Versions are identical - Aborted validations");
+            }
+        }
+
+        private static string GetCurrentHowLeakyVersion()
+        {
+            return HowLeakyEngine.GetAppVersion();
         }
 
         private static string PostResults(PostModel report)

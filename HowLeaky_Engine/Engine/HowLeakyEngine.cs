@@ -5,13 +5,14 @@ using HowLeaky_SimulationEngine.Outputs.Definitions;
 using HowLeaky_SimulationEngine.Tools;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace HowLeaky_SimulationEngine.Engine
 {
     public partial class HowLeakyEngine
     {
 
-
+       
         public HowLeakyEngine(string outputs, Dictionary<string,OutputAttributes>remapdict=null)
         {
             RemapDict=remapdict;
@@ -19,7 +20,12 @@ namespace HowLeaky_SimulationEngine.Engine
             SortedVegetationModules=new List<_CustomHowLeakyEngine_VegModule>();
         }
 
+        public static string GetAppVersion()
+        {
+            var appVersion = Assembly.GetAssembly(typeof(HowLeakyEngine)).GetName().Version;
 
+            return string.Format("V{0}_{1}_{2}", appVersion.Major, appVersion.Minor, appVersion.Build, appVersion.Revision);
+        }
 
 
 

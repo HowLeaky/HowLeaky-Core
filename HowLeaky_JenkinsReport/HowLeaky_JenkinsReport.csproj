@@ -19,13 +19,9 @@
 
  
   <ItemGroup>
-    <Folder Include="Data\Capella\Outputs\origin\NOSUBCATCH_NOFU\" />
-    <Folder Include="Data\Capella\Outputs\Version 6.01\NOSUBCATCH_NOFU\" />
-    <Folder Include="Data\Gatton\Outputs\Version 6.01\NOSUBCATCH_NOFU\" />
-    <Folder Include="Data\Greenmount\Outputs\origin\NOSUBCATCH_NOFU\" />
-    <Folder Include="Data\Greenmount\Outputs\Version 6.01\NOSUBCATCH_NOFU\" />
-    <Folder Include="Data\Kairi\Outputs\origin\NOSUBCATCH_NOFU\" />
-    <Folder Include="Data\Kairi\Outputs\Version 6.01\NOSUBCATCH_NOFU\" />
+    <Folder Include="Data\Capella\Outputs\V6_0_1_VS\NOSUBCATCH_NOFU\" />
+    <Folder Include="Data\Greenmount\Outputs\V6_0_1_VS\NOSUBCATCH_NOFU\" />
+    <Folder Include="Data\Kairi\Outputs\V6_0_1_VS\NOSUBCATCH_NOFU\" />
   </ItemGroup>
 
   
