@@ -55,13 +55,8 @@ namespace HowLeaky_ValidationEngine
                     consoleoutput.AddConsoleOutput(FiggleFonts.Standard.Render($"Preparing {name}"), false);
                     PrepareSimulatedOutputsList(consoleoutput, directory, prepareProjects);
                     PrepareMeasuredDataList(consoleoutput, directory, prepareProjects);
-
-                    //if (generateBaseData)
-                    // {
                     RunSimulations(consoleoutput, directory, version);
-                    // }
-                    //  else
-                    // {
+
                     var projectvm = report.CreateProjectModel(directory, consoleoutput.ErrorOutputList);
                     ExecuteProjectValidations(consoleoutput, report,projectvm, directory);
                     ExecuteProjectValidations2(consoleoutput, report,projectvm, directory);
