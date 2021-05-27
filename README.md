@@ -1,4 +1,4 @@
-# HowLeakyCore
+# HowLeaky-Core
  
  This is Hoda's changes to the readme file. Delete this later on.
  Contains HowLeaky Core Engine, IO Module, Jenkins Report Module, Console Application and Unit Tests. (16/03/2021)
