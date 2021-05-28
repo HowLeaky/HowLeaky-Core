@@ -1,4 +1,4 @@
-﻿Rainfall mm,Rain,true
+Rainfall mm,Rain,true
 Maximum temperature oC,MaxTemp,true
 Minimum temperatures oC,MinTemp,true
 Pan evaporation mm,PanEvap,true

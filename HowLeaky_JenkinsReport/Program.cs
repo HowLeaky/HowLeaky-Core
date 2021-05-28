@@ -24,52 +24,81 @@ namespace HowLeaky_ValidationEngine
     {
         static void Main(string[] args)
         {
-            var basePath= AppDomain.CurrentDomain.BaseDirectory;
-            //var version = "Version 6.01";
-            var argstrings = string.Join(",", args);
-            var branch= $"{GetCurrentHowLeakyVersion()}_{(args.Count()>0?args[0]:"VS").Replace("/","_")}"; //VS stands for Visual Studio
-            var buildnumber= args.Count() > 1 ? args[1] : "UB";//UB stands for Unknown Build
-            var username= args.Count()>2?args[2]:"Developer";
-            var prepareProjects = argstrings.Contains("-p");
-
-            var version=$"{branch}_{buildnumber}";
+            var baseversion= "V6_0_1_VS";
             var consoleoutput = new ConsoleOutputLogger(true);
-           
-
-            var report = new PostModel();
-            // *******************************************************************************************
-            // BASE Versions - Enter in the version number that you would like to use as the Base version
-            // NOTE - there must be a folder mataching this name in the Data directory.
-            report.Report.BaseName = "V6_0_1_VS";
-            // *******************************************************************************************
-
-            if (branch!=report.Report.BaseName)
-            { 
-                report.Report.BranchName = version;
-
-                var directories = ExtractDirectories();
-                foreach (var directory in directories)
-                {
-                    consoleoutput.ErrorOutputList.Clear();
-                    var name = Path.GetFileName(directory);
-                    consoleoutput.AddConsoleOutput(FiggleFonts.Standard.Render($"Preparing {name}"), false);
-                    PrepareSimulatedOutputsList(consoleoutput, directory, prepareProjects);
-                    PrepareMeasuredDataList(consoleoutput, directory, prepareProjects);
-                    RunSimulations(consoleoutput, directory, version);
-
-                    var projectvm = report.CreateProjectModel(directory, consoleoutput.ErrorOutputList);
-                    ExecuteProjectValidations(consoleoutput, report,projectvm, directory);
-                    ExecuteProjectValidations2(consoleoutput, report,projectvm, directory);
-                    //}
-                    consoleoutput.AddConsoleOutput("");
-                    consoleoutput.AddConsoleOutput("");
-                }
-            PostResults(report);
-            }
-            else
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            //var version = "Version 6.01";
+            if (args.Count() == 0)
             {
-                Console.WriteLine("Versions are identical - Aborted validations");
-            }
+               
+                    var directories = ExtractDirectories();
+                    foreach (var directory in directories)
+                    {
+
+                        
+                        consoleoutput.ErrorOutputList.Clear();
+                        consoleoutput.AddConsoleOutput("**********************************************************");
+                        consoleoutput.AddConsoleOutput($" Generating Base Version Outputs: {baseversion}");
+                        consoleoutput.AddConsoleOutput("**********************************************************");
+
+                        var name = Path.GetFileName(directory);
+                        consoleoutput.AddConsoleOutput(FiggleFonts.Standard.Render($"Preparing {name}"), false);
+                        PrepareSimulatedOutputsList(consoleoutput, directory, true);
+                        PrepareMeasuredDataList(consoleoutput, directory, true);
+                        RunSimulations(consoleoutput, directory, baseversion);
+
+                        
+                        consoleoutput.AddConsoleOutput("");
+                        consoleoutput.AddConsoleOutput("");
+                    }
+                }
+                else
+                {
+                    var argstrings = string.Join(",", args);
+                    var branch = $"{GetCurrentHowLeakyVersion()}_{(args.Count() > 0 ? args[0] : "VS").Replace("/", "_")}"; //VS stands for Visual Studio
+                    var buildnumber = args.Count() > 1 ? args[1] : "UB";//UB stands for Unknown Build
+                    var username = args.Count() > 2 ? args[2] : "Developer";
+                    var prepareProjects = argstrings.Contains("-p");
+
+                    var version = $"{branch}_{buildnumber}";
+
+                    var report = new PostModel();
+                    // *******************************************************************************************
+                    // BASE Versions - Enter in the version number that you would like to use as the Base version
+                    // NOTE - there must be a folder mataching this name in the Data directory.
+                    report.Report.BaseName = baseversion;
+                    // *******************************************************************************************
+
+                    if (branch != report.Report.BaseName)
+                    {
+                        report.Report.BranchName = version;
+
+                        var directories = ExtractDirectories();
+                        foreach (var directory in directories)
+                        {
+                            consoleoutput.ErrorOutputList.Clear();
+                            var name = Path.GetFileName(directory);
+                            consoleoutput.AddConsoleOutput(FiggleFonts.Standard.Render($"Preparing {name}"), false);
+                            PrepareSimulatedOutputsList(consoleoutput, directory, prepareProjects);
+                            PrepareMeasuredDataList(consoleoutput, directory, prepareProjects);
+                            RunSimulations(consoleoutput, directory, version);
+
+                            var projectvm = report.CreateProjectModel(directory, consoleoutput.ErrorOutputList);
+                            ExecuteProjectValidations(consoleoutput, report, projectvm, directory);
+                            ExecuteProjectValidations2(consoleoutput, report, projectvm, directory);
+                            //}
+                            consoleoutput.AddConsoleOutput("");
+                            consoleoutput.AddConsoleOutput("");
+                        }
+                        PostResults(report);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Versions are identical - Aborted validations");
+                    }
+                }
+            
+            Console.WriteLine("Finish!");
         }
 
         private static string GetCurrentHowLeakyVersion()
@@ -79,35 +108,35 @@ namespace HowLeaky_ValidationEngine
 
         private static string PostResults(PostModel report)
         {
-           
+
             try
             {
                 Console.WriteLine($"****** Preparing to Post Report");
-                
+
                 Console.WriteLine($"****** Projects:{report.Projects.Count}");
                 Console.WriteLine($"****** CumulativePlots:{report.CumulativePlots.Count}");
                 Console.WriteLine($"****** ScatterPlots:{report.ScatterPlots.Count}");
-                
+
 
                 string url = "http://howleaky.com/api/JenkinsAPI/PostJenkinsReport";
                 //string url = "https://localhost:44331/api/JenkinsAPI/PostJenkinsReport";
                 var webrequest = (HttpWebRequest)WebRequest.Create(url);
                 webrequest.Method = "POST";
                 webrequest.ContentType = "application/json";
-               
+
                 using (var stream = new StreamWriter(webrequest.GetRequestStream()))
                 {
                     var serialized = JsonConvert.SerializeObject(report);
                     stream.Write(serialized);
-                   
+
                     decimal megabyteSize = ((decimal)Encoding.Unicode.GetByteCount(serialized) / 1048576);
                     Console.WriteLine($"****** Posted Content Size: {megabyteSize} MB");
                     var path = AppDomain.CurrentDomain.BaseDirectory;
                     var keyword = "HowLeaky_JenkinsReport";
                     var basePath = path.Substring(0, path.LastIndexOf(keyword) + keyword.Length);
                     var datapath = Path.Combine(basePath, "Data");
-            
-                    var filePath=Path.Combine(datapath, "JenkinsReportResponse.json");
+
+                    var filePath = Path.Combine(datapath, "JenkinsReportResponse.json");
                     Console.WriteLine($"****** Path to serialised report: {filePath}");
                     File.WriteAllText(filePath, serialized);
 
@@ -122,9 +151,9 @@ namespace HowLeaky_ValidationEngine
                 webresponse.Close();
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-               
+
                 Console.Write(ex);
             }
             throw new Exception("Couldn't Post to server.");
@@ -340,6 +369,7 @@ namespace HowLeaky_ValidationEngine
             var basePath = path.Substring(0, path.LastIndexOf(keyword) + keyword.Length);
             var datapath = Path.Combine(basePath, "Data");
             var paths = Directory.GetDirectories(datapath, "*").ToList();
+
             return paths;
         }
 
@@ -400,11 +430,11 @@ namespace HowLeaky_ValidationEngine
             }
             return new List<string>();
         }
-        public static void ExecuteProjectValidations(ConsoleOutputLogger consoleoutput, PostModel postmodel, Validation_HLKProject projectvm,string projectname)
+        public static void ExecuteProjectValidations(ConsoleOutputLogger consoleoutput, PostModel postmodel, Validation_HLKProject projectvm, string projectname)
         {
             try
             {
-              
+
                 var outputsPath = Path.Combine(projectname, "Outputs");
                 var basePath = Path.Combine(outputsPath, postmodel.Report.BaseName);
                 var versionPath = Path.Combine(outputsPath, postmodel.Report.BranchName);
@@ -495,7 +525,7 @@ namespace HowLeaky_ValidationEngine
         {
             try
             {
-               
+
                 var outputsPath = Path.Combine(projectname, "Outputs");
                 var versionPath = Path.Combine(outputsPath, postmodel.Report.BranchName);
                 //   var measuredPath = Path.Combine(outputsPath, "Imported");               
@@ -509,8 +539,8 @@ namespace HowLeaky_ValidationEngine
                         var cumpolotmodel = postmodel.CreateCumulativePlotModel(projectvm, item.Title());
                         cumpolotmodel.Colors = $"#949494|#1e90ff";
                         cumpolotmodel.Names = $"Measured|Predicted";
-                        cumpolotmodel.StartDateInt=item.Dates.FirstOrDefault().DateInt;
-                        cumpolotmodel.EndDateInt=item.Dates.LastOrDefault().DateInt;
+                        cumpolotmodel.StartDateInt = item.Dates.FirstOrDefault().DateInt;
+                        cumpolotmodel.EndDateInt = item.Dates.LastOrDefault().DateInt;
                         var s2 = String.Join(",", item.MeasCumValues.Select(x => $"{x:F4}"));
                         var s3 = String.Join(",", item.PredCumValues.Select(x => $"{x:F4}"));
                         cumpolotmodel.Data = $"{s2}|{s3}";
@@ -534,7 +564,7 @@ namespace HowLeaky_ValidationEngine
 
                             var simname = meassimlink.Title();
                             var color = GetUniqueColor(colorindex++);
-                            
+
                             simnames.Add(simname);
                             colors.Add(color);
                             var x = meassimlink.ScatterValuesX;

@@ -1,86 +1,86 @@
-Greenwood Plant harvest date wheat yield.sim,Date,null,null
-Greenwood Plant harvest date wheat yield.sim,Plant_1_Harvest_0,null,null
-Greenwood Plant harvest date wheat yield.sim,Wheat_Yield_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Date,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Rainfall_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Burnt_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Burnt_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Burnt_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Burnt_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Incorp_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Incorp_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Incorp_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Incorp_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Mulch_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Mulch_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Mulch_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Mulch_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Zero_till_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,ZT_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,ZT_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,ZT_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Summer_crop_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Summer_crop_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Summer_crop_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Summer_crop_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Date,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Rainfall_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Burnt_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Burnt_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Burnt_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Burnt_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Incorp_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Incorp_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Incorp_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Incorp_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Mulch_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Mulch_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Mulch_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Mulch_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Zero_till_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,ZT_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,ZT_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,ZT_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Summer_crop_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Summer_crop_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Summer_crop_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment 1980.sim,Summer_crop_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Date,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Rainfall_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Burnt_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Burnt_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Burnt_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Burnt_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Incorp_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Incorp_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Incorp_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Incorp_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Mulch_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Mulch_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Mulch_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Mulch_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Zero_till_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,ZT_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,ZT_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,ZT_Suspended_sediment_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Summer_crop_Runoff_mm,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Summer_crop_Soil_movement_t_ha,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Summer_crop_Sedconc_mg_L,null,null
-Greenwood Runoff_Soil_loss_Sediment.sim,Summer_crop_Suspended_sediment_t_ha,null,null
-Greenwood soil water.sim,Date,null,null
-Greenwood soil water.sim,PAW_0_150_mm_Burnt,null,null
-Greenwood soil water.sim,PAW_0_150_mm_Incorp,null,null
-Greenwood soil water.sim,PAW_0_150_mm_Mulch,null,null
-Greenwood soil water.sim,PAW_0_150_mm_Mintill,null,null
-Greenwood soil water.sim,PAW_mm_Summer_Crop,null,null
-Greenwood soil water.sim,Bay_Burnt,null,null
-Greenwood soil water.sim,Bay_Incorp,null,null
-Greenwood soil water.sim,Bay_Mulch,null,null
-Greenwood soil water.sim,Bay_Mintill,null,null
-Greenwood soil water.sim,Bay_Summer_crop,null,null
-Greenwood_Cover.sim,Date,null,null
-Greenwood_Cover.sim,Cover_tot_%_Stubble_Burnt,null,null
-Greenwood_Cover.sim,Cover_tot_%_Stubble_Incorporated,null,null
-Greenwood_Cover.sim,Cover_tot_%_Stubble_Mulch,null,null
-Greenwood_Cover.sim,Cover_tot_%_Zero_till,null,null
-Greenwood_Cover.sim,Cover_tot_%_Summer_crop,null,null
+Greenwood Plant harvest date wheat yield.sim,Date,null,null,false
+Greenwood Plant harvest date wheat yield.sim,Plant_1_Harvest_0,null,null,false
+Greenwood Plant harvest date wheat yield.sim,Wheat_Yield_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Date,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Rainfall_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Burnt_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Burnt_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Burnt_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Burnt_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Incorp_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Incorp_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Incorp_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Incorp_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Mulch_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Mulch_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Mulch_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Mulch_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Zero_till_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,ZT_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,ZT_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,ZT_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Summer_crop_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Summer_crop_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Summer_crop_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1979 .sim,Summer_crop_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Date,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Rainfall_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Burnt_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Burnt_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Burnt_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Burnt_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Incorp_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Incorp_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Incorp_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Incorp_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Mulch_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Mulch_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Mulch_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Mulch_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Zero_till_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,ZT_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,ZT_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,ZT_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Summer_crop_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Summer_crop_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Summer_crop_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment 1980.sim,Summer_crop_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Date,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Rainfall_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Burnt_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Burnt_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Burnt_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Burnt_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Incorp_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Incorp_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Incorp_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Incorp_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Mulch_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Mulch_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Mulch_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Mulch_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Zero_till_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,ZT_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,ZT_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,ZT_Suspended_sediment_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Summer_crop_Runoff_mm,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Summer_crop_Soil_movement_t_ha,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Summer_crop_Sedconc_mg_L,null,null,false
+Greenwood Runoff_Soil_loss_Sediment.sim,Summer_crop_Suspended_sediment_t_ha,null,null,false
+Greenwood soil water.sim,Date,null,null,false
+Greenwood soil water.sim,PAW_0_150_mm_Burnt,null,null,false
+Greenwood soil water.sim,PAW_0_150_mm_Incorp,null,null,false
+Greenwood soil water.sim,PAW_0_150_mm_Mulch,null,null,false
+Greenwood soil water.sim,PAW_0_150_mm_Mintill,null,null,false
+Greenwood soil water.sim,PAW_mm_Summer_Crop,null,null,false
+Greenwood soil water.sim,Bay_Burnt,null,null,false
+Greenwood soil water.sim,Bay_Incorp,null,null,false
+Greenwood soil water.sim,Bay_Mulch,null,null,false
+Greenwood soil water.sim,Bay_Mintill,null,null,false
+Greenwood soil water.sim,Bay_Summer_crop,null,null,false
+Greenwood_Cover.sim,Date,null,null,false
+Greenwood_Cover.sim,Cover_tot_%_Stubble_Burnt,null,null,false
+Greenwood_Cover.sim,Cover_tot_%_Stubble_Incorporated,null,null,false
+Greenwood_Cover.sim,Cover_tot_%_Stubble_Mulch,null,null,false
+Greenwood_Cover.sim,Cover_tot_%_Zero_till,null,null,false
+Greenwood_Cover.sim,Cover_tot_%_Summer_crop,null,null,false

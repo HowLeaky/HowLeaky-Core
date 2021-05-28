@@ -1,0 +1,67 @@
+DAILY CTZT PERFECT.sim,Date,null,null
+DAILY CTZT PERFECT.sim,CropID,null,null
+DAILY CTZT PERFECT.sim,TillageID,null,null
+DAILY CTZT PERFECT.sim,Rainfall_(mm),null,null
+DAILY CTZT PERFECT.sim,irrigation_(mm),null,null
+DAILY CTZT PERFECT.sim,CTZT_Perfect_Runoff(mm),null,null
+DAILY CTZT PERFECT.sim,SoilEvap(mm),null,null
+DAILY CTZT PERFECT.sim,Transpiration(mm),null,null
+DAILY CTZT PERFECT.sim,Drainage(mm),null,null
+DAILY CTZT PERFECT.sim,SoilWater(mm),null,null
+DAILY CTZT PERFECT.sim,SoilWaterDeficit(mm),null,null
+DAILY CTZT PERFECT.sim,SoilWater1,null,null
+DAILY CTZT PERFECT.sim,SoilWater2,null,null
+DAILY CTZT PERFECT.sim,SoilWater3,null,null
+DAILY CTZT PERFECT.sim,SoilWater4,null,null
+DAILY CTZT PERFECT.sim,CropStage,null,null
+DAILY CTZT PERFECT.sim,LAI,null,null
+DAILY CTZT PERFECT.sim,CropCover(%),null,null
+DAILY CTZT PERFECT.sim,DryMatter(kg/ha),null,null
+DAILY CTZT PERFECT.sim,RootDepth(mm),null,null
+DAILY CTZT PERFECT.sim,WaterStressIndex,null,null
+DAILY CTZT PERFECT.sim,TemperatureIndex,null,null
+DAILY CTZT PERFECT.sim,CropResidue(kg/ha),null,null
+DAILY CTZT PERFECT.sim,ResidueCover(%),null,null
+DAILY CTZT PERFECT.sim,SoilErosion(t/ha),null,null
+DAILY CTZT PERFECT.sim,MinimumTemperature(oC),null,null
+DAILY CTZT PERFECT.sim,MaximumTemperature(oC),null,null
+DAILY CTZT PERFECT.sim,SolarRadiation(MJ/m2),null,null
+DAILY CTZT PERFECT.sim,PanEvaporation(mm),null,null
+DAILY WM PERFECT.sim,Date,null,null
+DAILY WM PERFECT.sim,CropID,null,null
+DAILY WM PERFECT.sim,TillageID,null,null
+DAILY WM PERFECT.sim,Rainfall_(mm),null,null
+DAILY WM PERFECT.sim,irrigation_(mm),null,null
+DAILY WM PERFECT.sim,WM_Perfect_Runoff(mm),null,null
+DAILY WM PERFECT.sim,SoilEvap(mm),null,null
+DAILY WM PERFECT.sim,Transpiration(mm),null,null
+DAILY WM PERFECT.sim,Drainage(mm),null,null
+DAILY WM PERFECT.sim,SoilWater(mm),null,null
+DAILY WM PERFECT.sim,SoilWaterDeficit(mm),null,null
+DAILY WM PERFECT.sim,SoilWater1,null,null
+DAILY WM PERFECT.sim,SoilWater2,null,null
+DAILY WM PERFECT.sim,SoilWater3,null,null
+DAILY WM PERFECT.sim,SoilWater4,null,null
+DAILY WM PERFECT.sim,CropStage,null,null
+DAILY WM PERFECT.sim,LAI,null,null
+DAILY WM PERFECT.sim,CropCover(%),null,null
+DAILY WM PERFECT.sim,DryMatter(kg/ha),null,null
+DAILY WM PERFECT.sim,RootDepth(mm),null,null
+DAILY WM PERFECT.sim,WaterStressIndex,null,null
+DAILY WM PERFECT.sim,TemperatureIndex,null,null
+DAILY WM PERFECT.sim,CropResidue(kg/ha),null,null
+DAILY WM PERFECT.sim,ResidueCover(%),null,null
+DAILY WM PERFECT.sim,SoilErosion(t/ha),null,null
+DAILY WM PERFECT.sim,MinimumTemperature(oC),null,null
+DAILY WM PERFECT.sim,MaximumTemperature(oC),null,null
+DAILY WM PERFECT.sim,SolarRadiation(MJ/m2),null,null
+DAILY WM PERFECT.sim,PanEvaporation(mm),null,null
+Gatton runoff.sim,Date,null,null
+Gatton runoff.sim,WSM_Runoff_mm,null,null
+Gatton runoff.sim,WZT_Runoff_mm,null,null
+Gatton runoff.sim,CTSM_Runoff_mm,null,null
+Gatton runoff.sim,CTZT_Runoff_mm,null,null
+Gatton runoff.sim,WSM_Runoff,null,null
+Gatton runoff.sim,WZT_Runoff,null,null
+Gatton runoff.sim,CTSM_Runoff,null,null
+Gatton runoff.sim,CTZT_Runoff,null,null

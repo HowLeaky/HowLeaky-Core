@@ -1,59 +1,59 @@
-Greenmount Burnt.sim,Date,null,null
-Greenmount Burnt.sim,Cover_%_Burnt,null,null
-Greenmount Burnt.sim,PAW_mm_Burnt,null,null
-Greenmount Burnt.sim,Runoff_mm_Burnt,null,null
-Greenmount Burnt.sim,Erosion_t_ha_Burnt,null,null
-Greenmount Burnt.sim,Suspend_Sed_t_ha_Burnt,null,null
-Greenmount Incorporated.sim,Date,null,null
-Greenmount Incorporated.sim,Cover_%_Incorp,null,null
-Greenmount Incorporated.sim,Roughness_Incorp,null,null
-Greenmount Incorporated.sim,PAW_mm_Incorp,null,null
-Greenmount Incorporated.sim,Runoff_mm_Incorp,null,null
-Greenmount Incorporated.sim,Erosion_t_ha_Incorp,null,null
-Greenmount Incorporated.sim,Suspended_Sed_t_ha_Incorp,null,null
-Greenmount Incorporated.sim,EMC_ppm_DR_0_14_Incorp,null,null
-Greenmount min till.sim,Date,null,null
-Greenmount min till.sim,Cov_%_ZT,null,null
-Greenmount min till.sim,Rough_ZT,null,null
-Greenmount min till.sim,PAW_mm_Min_till,null,null
-Greenmount min till.sim,Runoff_mm_ZT,null,null
-Greenmount min till.sim,Erosion_t_ha_ZT,null,null
-Greenmount min till.sim,Suspended_Sediment_t_ha_ZT,null,null
-Greenmount min till.sim,EMC_ppm_DR_0_14_ZT,null,null
-Greenmount mulch.sim,Date,null,null
-Greenmount mulch.sim,Cov_%_Mulch,null,null
-Greenmount mulch.sim,PAW_mm_Mulch,null,null
-Greenmount mulch.sim,Roughness_Mulch,null,null
-Greenmount mulch.sim,Runoff_mm_Mulch,null,null
-Greenmount mulch.sim,Erosion_t_ha_Mulch,null,null
-Greenmount mulch.sim,Suspended_Sed_t_ha_Mulch,null,null
-Greenmount mulch.sim,EMC_ppm_DR_0_14_Mulch,null,null
-Greenmount pasture.sim,Date,null,null
-Greenmount pasture.sim,Cover_%_Pasture,null,null
-Greenmount pasture.sim,PAW_mm_Pasture,null,null
-Greenmount pasture.sim,Roughness_Pasture,null,null
-Greenmount pasture.sim,Runoff_mm_Pasture,null,null
-Greenmount pasture.sim,Erosion_t_ha_Pasture,null,null
-Greenmount pasture.sim,Sed_loss_t_ha_Pasture,null,null
-Greenmount pasture.sim,EMC_ppm_DR_0_14_Pasture,null,null
-Greenmount PAW Total all treatments.sim,Date,null,null
-Greenmount PAW Total all treatments.sim,PAW_mm_Burnt,null,null
-Greenmount PAW Total all treatments.sim,PAW_mm_Incorp,null,null
-Greenmount PAW Total all treatments.sim,PAW_mm_Mulch,null,null
-Greenmount PAW Total all treatments.sim,PAW_mm_Min_till,null,null
-Greenmount PAW Total all treatments.sim,PAW_mm_Pasture,null,null
-Greenmount PAW Total all treatments.sim,PAW_mm_Summer_crop,null,null
-Greenmount plant harvest yield.sim,Date,null,null
-Greenmount plant harvest yield.sim,Plant_1_Harvest_2,null,null
-Greenmount plant harvest yield.sim,Yield_t_ha_burnt,null,null
-Greenmount plant harvest yield.sim,Yield_t_ha_Incorp,null,null
-Greenmount plant harvest yield.sim,Yield_t_ha_Mulch,null,null
-Greenmount plant harvest yield.sim,Yield_t_ha_Zerotill,null,null
-Greenmount summer.sim,Date,null,null
-Greenmount summer.sim,Cover_%_Summer_crop,null,null
-Greenmount summer.sim,PAW_mm_Summer_crop,null,null
-Greenmount summer.sim,Roughness_Summer_Crop,null,null
-Greenmount summer.sim,Runoff_mm_Summer_crop,null,null
-Greenmount summer.sim,Erosion_t_ha_Summer_crop,null,null
-Greenmount summer.sim,SSuspended_sediment_t_ha_Summer,null,null
-Greenmount summer.sim,EMC_ppm_DR_0_14_Summer,null,null
+Greenmount Burnt.sim,Date,null,null,false
+Greenmount Burnt.sim,Cover_%_Burnt,null,null,false
+Greenmount Burnt.sim,PAW_mm_Burnt,null,null,false
+Greenmount Burnt.sim,Runoff_mm_Burnt,null,null,false
+Greenmount Burnt.sim,Erosion_t_ha_Burnt,null,null,false
+Greenmount Burnt.sim,Suspend_Sed_t_ha_Burnt,null,null,false
+Greenmount Incorporated.sim,Date,null,null,false
+Greenmount Incorporated.sim,Cover_%_Incorp,null,null,false
+Greenmount Incorporated.sim,Roughness_Incorp,null,null,false
+Greenmount Incorporated.sim,PAW_mm_Incorp,null,null,false
+Greenmount Incorporated.sim,Runoff_mm_Incorp,null,null,false
+Greenmount Incorporated.sim,Erosion_t_ha_Incorp,null,null,false
+Greenmount Incorporated.sim,Suspended_Sed_t_ha_Incorp,null,null,false
+Greenmount Incorporated.sim,EMC_ppm_DR_0_14_Incorp,null,null,false
+Greenmount min till.sim,Date,null,null,false
+Greenmount min till.sim,Cov_%_ZT,null,null,false
+Greenmount min till.sim,Rough_ZT,null,null,false
+Greenmount min till.sim,PAW_mm_Min_till,null,null,false
+Greenmount min till.sim,Runoff_mm_ZT,null,null,false
+Greenmount min till.sim,Erosion_t_ha_ZT,null,null,false
+Greenmount min till.sim,Suspended_Sediment_t_ha_ZT,null,null,false
+Greenmount min till.sim,EMC_ppm_DR_0_14_ZT,null,null,false
+Greenmount mulch.sim,Date,null,null,false
+Greenmount mulch.sim,Cov_%_Mulch,null,null,false
+Greenmount mulch.sim,PAW_mm_Mulch,null,null,false
+Greenmount mulch.sim,Roughness_Mulch,null,null,false
+Greenmount mulch.sim,Runoff_mm_Mulch,null,null,false
+Greenmount mulch.sim,Erosion_t_ha_Mulch,null,null,false
+Greenmount mulch.sim,Suspended_Sed_t_ha_Mulch,null,null,false
+Greenmount mulch.sim,EMC_ppm_DR_0_14_Mulch,null,null,false
+Greenmount pasture.sim,Date,null,null,false
+Greenmount pasture.sim,Cover_%_Pasture,null,null,false
+Greenmount pasture.sim,PAW_mm_Pasture,null,null,false
+Greenmount pasture.sim,Roughness_Pasture,null,null,false
+Greenmount pasture.sim,Runoff_mm_Pasture,null,null,false
+Greenmount pasture.sim,Erosion_t_ha_Pasture,null,null,false
+Greenmount pasture.sim,Sed_loss_t_ha_Pasture,null,null,false
+Greenmount pasture.sim,EMC_ppm_DR_0_14_Pasture,null,null,false
+Greenmount PAW Total all treatments.sim,Date,null,null,false
+Greenmount PAW Total all treatments.sim,PAW_mm_Burnt,null,null,false
+Greenmount PAW Total all treatments.sim,PAW_mm_Incorp,null,null,false
+Greenmount PAW Total all treatments.sim,PAW_mm_Mulch,null,null,false
+Greenmount PAW Total all treatments.sim,PAW_mm_Min_till,null,null,false
+Greenmount PAW Total all treatments.sim,PAW_mm_Pasture,null,null,false
+Greenmount PAW Total all treatments.sim,PAW_mm_Summer_crop,null,null,false
+Greenmount plant harvest yield.sim,Date,null,null,false
+Greenmount plant harvest yield.sim,Plant_1_Harvest_2,null,null,false
+Greenmount plant harvest yield.sim,Yield_t_ha_burnt,null,null,false
+Greenmount plant harvest yield.sim,Yield_t_ha_Incorp,null,null,false
+Greenmount plant harvest yield.sim,Yield_t_ha_Mulch,null,null,false
+Greenmount plant harvest yield.sim,Yield_t_ha_Zerotill,null,null,false
+Greenmount summer.sim,Date,null,null,false
+Greenmount summer.sim,Cover_%_Summer_crop,null,null,false
+Greenmount summer.sim,PAW_mm_Summer_crop,null,null,false
+Greenmount summer.sim,Roughness_Summer_Crop,null,null,false
+Greenmount summer.sim,Runoff_mm_Summer_crop,null,null,false
+Greenmount summer.sim,Erosion_t_ha_Summer_crop,null,null,false
+Greenmount summer.sim,SSuspended_sediment_t_ha_Summer,null,null,false
+Greenmount summer.sim,EMC_ppm_DR_0_14_Summer,null,null,false

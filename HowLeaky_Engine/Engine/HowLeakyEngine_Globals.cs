@@ -98,22 +98,46 @@ namespace HowLeaky_SimulationEngine.Engine
             try
             {
                 int currYear = date.Year;
-
-                var _startWindow = new BrowserDate(currYear, startWindow.Month, startWindow.Day);
-                var _endWindow = new BrowserDate(currYear, endWindow.Month, endWindow.Day);
-                if(_startWindow.DateInt>_endWindow.DateInt)
+                if(doesDateOverlapYear(startWindow,endWindow)==false)
                 {
-                    _endWindow = new BrowserDate(currYear+1, endWindow.Month, endWindow.Day);
+                    var _startWindow = new BrowserDate(currYear, startWindow.Month, startWindow.Day);
+                    var _endWindow = new BrowserDate(currYear, endWindow.Month, endWindow.Day);
+                    return date.IsBetween(_startWindow, _endWindow);
                 }
-
-                return date.IsBetween(_startWindow, _endWindow);
-
+                else
+                {
+                    var _startWindow = new BrowserDate(currYear, startWindow.Month, startWindow.Day);
+                    if(_startWindow.DateInt>date.DateInt)
+                    {
+                        _startWindow = new BrowserDate(currYear-1, startWindow.Month, startWindow.Day);
+                        var _endWindow = new BrowserDate(currYear, endWindow.Month, endWindow.Day);
+                        return date.IsBetween(_startWindow, _endWindow);
+                    }
+                    else
+                    {
+                        var _endWindow = new BrowserDate(currYear + 1, endWindow.Month, endWindow.Day);
+                        return date.IsBetween(_startWindow, _endWindow);
+                    }
+                }
+                
+                return false;
+                
             }
             catch (Exception ex)
             {
                 throw ErrorLogger.CreateException(ex);
             }
            // return false;
+        }
+
+        private bool doesDateOverlapYear(DayMonthData startWindow, DayMonthData endWindow)
+        {
+            if(startWindow.Month<endWindow.Month)return false;
+            else if(startWindow.Month==endWindow.Month)
+            {
+                if(startWindow.Day<=endWindow.Day)return false;
+            }
+            return true;
         }
 
         internal bool InFallow()
