@@ -1,7 +1,0 @@
-Kairi Event Runoff_all treatments.sim,Date,null,null,false
-Kairi Event Runoff_all treatments.sim,Rainfall_site,null,null,false
-Kairi Event Runoff_all treatments.sim,Runoff_Bare,null,null,false
-Kairi Event Runoff_all treatments.sim,Runoff_CT,null,null,false
-Kairi Event Runoff_all treatments.sim,Runoff_RT,null,null,false
-Kairi Event Runoff_all treatments.sim,Runoff_Grass,null,null,false
-Kairi Event Runoff_all treatments.sim,Erosion_Bare,null,null,false
