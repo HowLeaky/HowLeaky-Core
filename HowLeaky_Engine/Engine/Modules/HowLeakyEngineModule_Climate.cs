@@ -86,12 +86,16 @@ namespace HowLeaky_SimulationEngine.Engine
                 {
                     return InputModel.Rain[index];
                 }
+                else
+                {
+                    throw new Exception("Date is not in data range");
+                }
             }
             catch (Exception ex)
             {
                 throw ErrorLogger.CreateException(ex);
             }
-            return 0;
+
         }
 
         public double SumRain(int n, int delay)

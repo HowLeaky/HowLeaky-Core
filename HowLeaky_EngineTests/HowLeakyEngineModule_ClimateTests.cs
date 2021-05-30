@@ -72,5 +72,38 @@ namespace HowLeakyEngineTests
 
         }
 
+        [Test]
+        public void RainOnDay_RainEquals10_ReturnsTrue()
+        {
+            
+            var climatemodule = new HowLeakyEngineModule_Climate();
+            var inputmodule = new HowLeakyInputs_Climate();
+            climatemodule.InputModel= inputmodule;
+            inputmodule.StartDate = new BrowserDate(2020, 1, 1);
+            inputmodule.Rain = new List<double>(new double[10]);
+            inputmodule.Rain[1]=10;
+            var rain=climatemodule.RainOnDay(new BrowserDate(2020,1,2));
+
+            Assert.IsTrue(ValuesAreEqual(rain,10));
+
+        }
+        [Test]
+        public void RainOnDay_IndexOutOfRange_ThrowsException()
+        {
+            var climatemodule = new HowLeakyEngineModule_Climate();
+            var inputmodule = new HowLeakyInputs_Climate();
+            climatemodule.InputModel = inputmodule;
+            inputmodule.StartDate = new BrowserDate(2020, 1, 1);
+            inputmodule.Rain = new List<double>(new double[10]);
+            inputmodule.Rain[1] = 10;
+    
+
+            Assert.Throws<Exception>(() => climatemodule.RainOnDay(new BrowserDate(2020, 12, 2)));
+        }
+
+        public bool ValuesAreEqual(double val1,double val2)
+        {
+            return Math.Abs(val1-val2)<0.000001;
+        }
     }
 }
