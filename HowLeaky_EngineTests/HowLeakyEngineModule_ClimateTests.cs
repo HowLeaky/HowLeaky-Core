@@ -101,6 +101,60 @@ namespace HowLeakyEngineTests
             Assert.Throws<Exception>(() => climatemodule.RainOnDay(new BrowserDate(2020, 12, 2)));
         }
 
+
+        [Test]
+        public void RainOnDay_SumRainDelayEquals0_ReturnsCorrectSum()
+        {
+
+            var climatemodule = new HowLeakyEngineModule_Climate();
+            var inputmodule = new HowLeakyInputs_Climate();
+            climatemodule.InputModel = inputmodule;
+            inputmodule.StartDate = new BrowserDate(2020, 1, 1);
+            inputmodule.Rain = new List<double>(new double[10]);
+            inputmodule.Rain[0] = 1;
+            inputmodule.Rain[1] = 2;
+            inputmodule.Rain[2] = 3;
+            inputmodule.Rain[3] = 4;
+            inputmodule.Rain[4] = 5;//THIS ONe
+            inputmodule.Rain[5] = 6;//THIS ONe
+            inputmodule.Rain[6] = 7;//THIS ONe
+            inputmodule.Rain[7] = 8;
+            inputmodule.Rain[8] = 9;
+            inputmodule.Rain[9] = 10;
+            climatemodule.CurrentIndex=6;
+            var rain = climatemodule.SumRain(3,0);
+
+            Assert.IsTrue(ValuesAreEqual(rain, 5+6+7));
+
+        }
+        [Test]
+        public void RainOnDay_SumRainDelayEqual2_ReturnsCorrectSum()
+        {
+
+            var climatemodule = new HowLeakyEngineModule_Climate();
+            var inputmodule = new HowLeakyInputs_Climate();
+            climatemodule.InputModel = inputmodule;
+            inputmodule.StartDate = new BrowserDate(2020, 1, 1);
+            inputmodule.Rain = new List<double>(new double[10]);
+            inputmodule.Rain[0] = 1;
+            inputmodule.Rain[1] = 2;
+            inputmodule.Rain[2] = 3;//THIS ON
+            inputmodule.Rain[3] = 4;//THIS ON
+            inputmodule.Rain[4] = 5;//THIS ON
+            inputmodule.Rain[5] = 6;
+            inputmodule.Rain[6] = 7;
+            inputmodule.Rain[7] = 8;
+            inputmodule.Rain[8] = 9;
+            inputmodule.Rain[9] = 10;
+            climatemodule.CurrentIndex = 6;
+            var rain = climatemodule.SumRain(3, 2);
+
+            Assert.IsTrue(ValuesAreEqual(rain, 3+ 4 + 5));
+
+        }
+
+
+
         public bool ValuesAreEqual(double val1,double val2)
         {
             return Math.Abs(val1-val2)<0.000001;
