@@ -9,7 +9,7 @@ using HowLeaky_SimulationEngine.Errors;
 
 namespace HowLeaky_SimulationEngine.Engine
 {
-    class HowLeakyEngineModule_CoverVeg : _CustomHowLeakyEngine_VegModule
+    public class HowLeakyEngineModule_CoverVeg : _CustomHowLeakyEngine_VegModule
     {
         public HowLeakyEngineModule_CoverVeg(HowLeakyEngine simulation, HowLeakyInputs_CoverVeg inputs) : base(simulation)
         {
@@ -24,6 +24,11 @@ namespace HowLeaky_SimulationEngine.Engine
                 throw ErrorLogger.CreateException(ex);
             }
         }
+
+        public HowLeakyEngineModule_CoverVeg():base()
+        {
+        }
+
         public HowLeakyInputs_CoverVeg InputModel { get; set; }
 
         public int PanDayindex { get; set; }

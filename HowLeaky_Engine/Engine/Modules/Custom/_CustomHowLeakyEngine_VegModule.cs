@@ -13,6 +13,10 @@ namespace HowLeaky_SimulationEngine.Engine
         {
         }
 
+        public _CustomHowLeakyEngine_VegModule()
+        {
+        }
+
         public bool IsLAI()
         {
             return this is HowLeakyEngineModule_LAIVeg;
