@@ -15,6 +15,11 @@ namespace HowLeaky_SimulationEngine.Engine
         {
             InputModel = inputs;
         }
+
+        public HowLeakyEngineModule_Climate()
+        {
+        }
+
         public HowLeakyInputs_Climate InputModel { get; set; }
 
 
@@ -62,7 +67,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 }
                 else
                 {
-                    throw new Exception($"Climate Index out of bound on {Engine.TodaysDate.ToString("dd/MM/yyyy")}");
+                    throw new ArgumentException($"Climate Index out of bounds",$"Date = {Engine.TodaysDate.ToString("dd/MM/yyyy")}");
                 }
             }
             catch (Exception ex)

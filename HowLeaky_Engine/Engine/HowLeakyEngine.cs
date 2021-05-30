@@ -11,7 +11,10 @@ namespace HowLeaky_SimulationEngine.Engine
 {
     public partial class HowLeakyEngine
     {
+        public HowLeakyEngine()
+        {
 
+        }
        
         public HowLeakyEngine(string outputs, Dictionary<string,OutputAttributes>remapdict=null)
         {

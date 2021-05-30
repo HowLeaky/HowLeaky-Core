@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowLeaky_Console", "HowLeak
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowLeaky_Engine", "HowLeaky_Engine\HowLeaky_Engine.csproj", "{87BA174D-CB06-4F27-A287-1DDB28567B24}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowLeaky_EngineTests", "HowLeaky_EngineTests\HowLeaky_EngineTests.csproj", "{E11C03F0-9EC9-43C9-A18C-781D03E4EB12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowLeaky_Engine.UnitTests", "HowLeaky_EngineTests\HowLeaky_Engine.UnitTests.csproj", "{E11C03F0-9EC9-43C9-A18C-781D03E4EB12}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowLeaky_IO", "HowLeaky_IO\HowLeaky_IO.csproj", "{122F622B-1B9C-4AA9-8501-EFF0E5623C9D}"
 EndProject
