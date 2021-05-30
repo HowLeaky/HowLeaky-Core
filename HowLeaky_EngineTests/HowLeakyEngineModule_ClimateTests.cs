@@ -14,7 +14,7 @@ namespace HowLeakyEngineTests
         
         //user naming converntion  MethodName_Scenario_ExcectedBehaviour
         [Test]
-        public void Simulate_DateInRange_AssignsAllVariables()
+        public void Simulate_DateInRange_NoException()
         {
     
             var engine = new HowLeakyEngine();
