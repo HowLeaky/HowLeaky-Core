@@ -38,7 +38,7 @@ namespace HowLeakyEngineTests
 
         [Test]
         
-        public void Simulate_DateOutOfRangeRange_ThrowsException()
+        public void Simulate_DateOutOfRange_ThrowsException()
         {
             var engine=new HowLeakyEngine();
             var climatemodule=new HowLeakyEngineModule_Climate();
@@ -51,11 +51,26 @@ namespace HowLeakyEngineTests
             Assert.Throws<Exception>(() => climatemodule.Simulate());
    
         }
-
         [Test]
-        public void TestSimulation()
+        public void Simulate_IndexOutOfRange_ThrowsException()
         {
+            var engine = new HowLeakyEngine();
+            var climatemodule = new HowLeakyEngineModule_Climate();
+            var inputmodule = new HowLeakyInputs_Climate();
+            inputmodule.Rain = new List<double>(new double[10]);
+            inputmodule.MaxT = new List<double>(new double[10]);
+            inputmodule.MinT = new List<double>(new double[10]);
+            inputmodule.PanEvap = new List<double>(new double[10]);
+            inputmodule.Radiation = new List<double>(new double[10]);
+            inputmodule.VP = new List<double>(new double[10]);
+            climatemodule.Engine = engine;
+            climatemodule.InputModel = inputmodule;
+            inputmodule.StartDate = new BrowserDate(2019, 1, 1);
+            engine.TodaysDate = new BrowserDate(2019, 3, 4);
+
+            Assert.Throws<Exception>(() => climatemodule.Simulate());
 
         }
+
     }
 }
