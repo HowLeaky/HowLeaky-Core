@@ -1,3 +1,4 @@
+using HowLeaky_Engine.UnitTests;
 using HowLeaky_SimulationEngine.Engine;
 using HowLeaky_SimulationEngine.Inputs;
 using HowLeaky_SimulationEngine.Tools;
@@ -9,14 +10,13 @@ using System.Collections.Generic;
 namespace HowLeakyEngineTests
 {
     [TestFixture]
-    public class HowLeakyEngineModule_ClimateTests
+    public class HowLeakyEngineModule_ClimateTests:_CustomUnitTestClass
     {
         
         //user naming converntion  MethodName_Scenario_ExcectedBehaviour
         [Test]
         public void Simulate_DateInRange_NoException()
-        {
-    
+        {    
             var engine = new HowLeakyEngine();
             var climatemodule = new HowLeakyEngineModule_Climate();
             var inputmodule = new HowLeakyInputs_Climate();
@@ -155,9 +155,6 @@ namespace HowLeakyEngineTests
 
 
 
-        public bool ValuesAreEqual(double val1,double val2)
-        {
-            return Math.Abs(val1-val2)<0.000001;
-        }
+       
     }
 }
