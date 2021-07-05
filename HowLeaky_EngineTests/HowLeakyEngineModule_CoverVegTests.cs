@@ -18,30 +18,42 @@ namespace HowLeaky_Engine.UnitTests
         [Test]
         public void StillRequiresIrrigating_CropCoverEquals100_ReturnsTrue()
         {
-            var module=new HowLeakyEngineModule_CoverVeg();
-            module.CropCover=100;
-            Assert.IsTrue(module.StillRequiresIrrigating());
+            var engine = new HowLeakyEngine();
+            var covervegmodule = new HowLeakyEngineModule_CoverVeg();
+            var inputmodule = new HowLeakyInputs_CoverVeg();
+            covervegmodule.Engine = engine;
+            covervegmodule.InputModel = inputmodule;
+            covervegmodule.CropCover=100;
+            Assert.IsTrue(covervegmodule.StillRequiresIrrigating());
         }
 
         [Test]
         public void StillRequiresIrrigating_CropCoverEquals0_ReturnsFalse()
         {
-            var module = new HowLeakyEngineModule_CoverVeg();
-            module.CropCover = 0;
-            Assert.IsFalse(module.StillRequiresIrrigating());
+            var engine = new HowLeakyEngine();
+            var covervegmodule = new HowLeakyEngineModule_CoverVeg();
+            var inputmodule = new HowLeakyInputs_CoverVeg();
+            covervegmodule.Engine = engine;
+            covervegmodule.InputModel = inputmodule;
+            covervegmodule.CropCover = 0;
+            Assert.IsFalse(covervegmodule.StillRequiresIrrigating());
         }
 
        
         [Test]
         public void GetTotalCover_TotalCovGTMax_ReturnsCorrectValue()
         {
-            var module = new HowLeakyEngineModule_CoverVeg();
-            module.InputModel=new HowLeakyInputs_CoverVeg();
-            module.InputModel.MaxAllowTotalCover=0.8;
-            module.CropCover = 0;
-            module.ResidueCover=0.20;
-            module.GreenCover=0.40;
-            var result=module.GetTotalCover();
+            var engine = new HowLeakyEngine();
+            var covervegmodule = new HowLeakyEngineModule_CoverVeg();
+            var inputmodule = new HowLeakyInputs_CoverVeg();
+            covervegmodule.Engine = engine;
+            covervegmodule.InputModel = inputmodule;
+            covervegmodule.InputModel=new HowLeakyInputs_CoverVeg();
+            covervegmodule.InputModel.MaxAllowTotalCover=0.8;
+            covervegmodule.CropCover = 0;
+            covervegmodule.ResidueCover=0.20;
+            covervegmodule.GreenCover=0.40;
+            var result=covervegmodule.GetTotalCover();
             Assert.IsTrue(ValuesAreEqual(result,0.52));
         }
 
@@ -49,29 +61,45 @@ namespace HowLeaky_Engine.UnitTests
         [Test]
         public void GetTotalCover_TotalCovLTMax_ReturnsCorrectValue()
         {
-            var module = new HowLeakyEngineModule_CoverVeg();
-            module.InputModel = new HowLeakyInputs_CoverVeg();
-            module.InputModel.MaxAllowTotalCover =0.4;
-            module.CropCover = 0;
-            module.ResidueCover = 0.20;
-            module.GreenCover = 0.40;
-            var result = module.GetTotalCover();
+            var engine = new HowLeakyEngine();
+            var covervegmodule = new HowLeakyEngineModule_CoverVeg();
+            var inputmodule = new HowLeakyInputs_CoverVeg();
+            covervegmodule.Engine = engine;
+            covervegmodule.InputModel = inputmodule;
+            covervegmodule.InputModel = new HowLeakyInputs_CoverVeg();
+            covervegmodule.InputModel.MaxAllowTotalCover =0.4;
+            covervegmodule.CropCover = 0;
+            covervegmodule.ResidueCover = 0.20;
+            covervegmodule.GreenCover = 0.40;
+            var result = covervegmodule.GetTotalCover();
             Assert.IsTrue(ValuesAreEqual(result, 0.4));
         }
         [Test]
         public void InitialisedMeasuredInputs()
         {
-
+            var engine = new HowLeakyEngine();
+            var covervegmodule = new HowLeakyEngineModule_CoverVeg();
+            var inputmodule = new HowLeakyInputs_CoverVeg();
+            covervegmodule.Engine = engine;
+            covervegmodule.InputModel = inputmodule;
         }
         [Test]
         public void EtPanPhenology()
         {
-
+            var engine = new HowLeakyEngine();
+            var covervegmodule = new HowLeakyEngineModule_CoverVeg();
+            var inputmodule = new HowLeakyInputs_CoverVeg();
+            covervegmodule.Engine = engine;
+            covervegmodule.InputModel = inputmodule;
         }
         [Test]
         public void CalculateYield()
         {
-
+            var engine = new HowLeakyEngine();
+            var covervegmodule = new HowLeakyEngineModule_CoverVeg();
+            var inputmodule = new HowLeakyInputs_CoverVeg();
+            covervegmodule.Engine = engine;
+            covervegmodule.InputModel = inputmodule;
         }
 
     }

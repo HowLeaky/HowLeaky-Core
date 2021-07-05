@@ -15,6 +15,9 @@ namespace HowLeaky_SimulationEngine.Engine
             InputModel = inputs;
         }
 
+        public HowLeakyEngineModule_Solutes()
+        {
+        }
 
         public HowLeakyInputs_Solute InputModel { get; set; }
 

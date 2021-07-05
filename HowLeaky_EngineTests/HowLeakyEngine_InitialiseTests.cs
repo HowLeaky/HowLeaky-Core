@@ -11,22 +11,22 @@ namespace HowLeaky_Engine.UnitTests
         [Test]
         public void PrepareForNewSimulation()
         {
-
+            var engine = new HowLeakyEngine();
         }
         [Test]
         public void InitialiseVegetationModules()
         {
-
+            var engine = new HowLeakyEngine();
         }
         [Test]
         public void InitialisePesticideModules()
         {
-
+            var engine = new HowLeakyEngine();
         }
         [Test]
         public void InitialiseTillageModules()
         {
-
+            var engine = new HowLeakyEngine();
         }
     }
 }

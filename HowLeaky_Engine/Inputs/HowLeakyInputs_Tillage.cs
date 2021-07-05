@@ -7,6 +7,10 @@ namespace HowLeaky_SimulationEngine.Inputs
 {
     public class HowLeakyInputs_Tillage:_CustomHowLeakyInputsModel
     {
+        public HowLeakyInputs_Tillage()
+        {
+        }
+
         public HowLeakyInputs_Tillage(string name):base(null,name)
         {
 

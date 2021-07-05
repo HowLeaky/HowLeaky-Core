@@ -9,6 +9,10 @@ namespace HowLeaky_SimulationEngine.Inputs
 {
     public class HowLeakyInputs_Pesticide:_CustomHowLeakyInputsModel
     {
+        public HowLeakyInputs_Pesticide()
+        {
+        }
+
         public HowLeakyInputs_Pesticide(string name):base(null,name)
         {
 

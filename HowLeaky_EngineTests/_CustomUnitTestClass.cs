@@ -8,6 +8,7 @@ namespace HowLeaky_Engine.UnitTests
     {
         public bool ValuesAreEqual(double val1, double val2)
         {
+            var engine = new HowLeakyEngine();
             return Math.Abs(val1 - val2) < 0.000001;
         }
     }

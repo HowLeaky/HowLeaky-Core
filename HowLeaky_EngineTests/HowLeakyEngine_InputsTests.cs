@@ -11,7 +11,7 @@ namespace HowLeaky_Engine.UnitTests
         [Test]
         public void LoadInputs()
         {
-
+            var engine = new HowLeakyEngine();
         }
     }
 }
