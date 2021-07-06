@@ -494,7 +494,7 @@ namespace HowLeaky_SimulationEngine.Tools
             return new DateTime(1900, 1, 1);
         }
 
-        internal int GetJDay()
+        public int GetJDay()
         {
             var basedate = new BrowserDate(Year, 1, 1);
             return DateInt - basedate.DateInt + 1;

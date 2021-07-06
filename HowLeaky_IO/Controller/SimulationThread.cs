@@ -58,11 +58,11 @@ namespace HowLeaky_IO
                 var temp=output.ToLower();
                 if(temp.Contains("temp")||temp.Contains("conc"))
                 {
-                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, output, "", false));
+                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, output, "#000000",1, false));
                 }
                 else
                 {
-                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, output, "", true));
+                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, output, "#000000", 1, true));
                 }
                 
             }
@@ -71,12 +71,12 @@ namespace HowLeaky_IO
         }
 
 
-
+        
         public void Execute(GlobalProgress progress, CancellationToken ct)
         {
             try
             {
-    
+                
                 var path=Project.OutputsDirectory;
                 //var outputscsv=GenerateOutputCSV();
                // var SQLite=new HowLeakySQLiteOutput(SQLiteFilename,outputscsv);  
