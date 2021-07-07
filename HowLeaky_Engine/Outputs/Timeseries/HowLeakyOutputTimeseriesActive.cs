@@ -1,6 +1,7 @@
 ﻿using HowLeaky_SimulationEngine.Tools;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HowLeaky_SimulationEngine.Outputs
@@ -22,6 +23,7 @@ namespace HowLeaky_SimulationEngine.Outputs
             OutputDefn=outputtype;
             Index=outputtype.VectorIndex;
             ColorValue=outputtype.ColorValue;
+            Width= outputtype.Width;
             DailyValues=new List<double?>(new double?[EndDate.DateInt-StartDate.DateInt+1]);
             CanAccumulate=outputtype.CanAccumulate;
         }
@@ -40,6 +42,27 @@ namespace HowLeaky_SimulationEngine.Outputs
             {
                 action(this,index);
             }
+        }
+
+        public double GetAverageAnnualValue()
+        {
+            if(DailyValues!=null)
+            {
+                var sum = DailyValues.Sum(x=>x??0);
+                var length=EndDate.DateInt-StartDate.DateInt+1;
+                if(length>0)
+                {
+                    if(OutputDefn.CanAccumulate)
+                    { 
+                        return sum/(length/365.0);
+                    }
+                    else
+                    {
+                        return sum/length;
+                    }
+                }
+            }
+            return 0;
         }
     }
 }

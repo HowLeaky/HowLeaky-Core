@@ -74,13 +74,13 @@ namespace HowLeaky_IO
             Message="";
         }
 
-        public void PrepareForSimulations()
+        public void PrepareForExecution()
         {
             Message="Ready for Simulation";
             Value=0;
         }
 
-        public void StartSimulations()
+        public void StartExecution()
         {
             Value=0;
             Message="Simulating";

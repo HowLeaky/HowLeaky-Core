@@ -33,15 +33,22 @@ namespace HowLeaky_IO.Outputs
                             binaryWriter.Write(outputs.TimeSeries.Count);
                             binaryWriter.Write(outputs.StartDate.DateInt);
                             binaryWriter.Write(outputs.EndDate.DateInt);
-                            
-                            foreach(var output in outputs.TimeSeries)
+
+                            foreach (var output in outputs.TimeSeries)
                             {
-                                 binaryWriter.Write(output.OutputDefn.Name);
+                                binaryWriter.Write(output.OutputDefn.Name);
+                                binaryWriter.Write(output.GetAverageAnnualValue());
+                                
+                            }
+                            foreach (var output in outputs.TimeSeries)
+                            {
+                                binaryWriter.Write(output.OutputDefn.Name);
                                 foreach(var data in output.DailyValues)
                                 {
                                     binaryWriter.Write(data.Value);
                                 }
-                            }                   
+                            }      
+                            
                         }
                     }
                     return true;
@@ -74,18 +81,24 @@ namespace HowLeaky_IO.Outputs
                             var timeseriescount=binaryReader.ReadInt32();
                             var start=new BrowserDate(binaryReader.ReadInt32());
                             var  end=new BrowserDate(binaryReader.ReadInt32());
-                            var datacount=end.DateInt-start.DateInt+1;
+                            for (var index1 = 0; index1 < timeseriescount; ++index1)
+                            {
+                                var name = binaryReader.ReadString();
+                                var vm = new TimeSeriesViewModel(simindex, name, start, end);
+                                vm.AnnualAverage=binaryReader.ReadDouble();
+                                list.Add(vm);
+                            }
+                                var datacount=end.DateInt-start.DateInt+1;
                             var outputs=new HowLeakyOutputs(start,end);
                             var timeserieslist=outputs.TimeSeries;
                             for(var index1=0;index1<timeseriescount;++index1)
                             {
                                 var name=binaryReader.ReadString();
-                                var vm=new TimeSeriesViewModel(simindex,name,start,end);
+                                var vm=list[index1];
                                 for(var i=0;i<datacount;++i)
                                 {
                                     vm.Values[i]=binaryReader.ReadDouble();
-                                }
-                                list.Add(vm);
+                                }                                
                             }
                            
                    
@@ -101,6 +114,57 @@ namespace HowLeaky_IO.Outputs
 
             return new List<TimeSeriesViewModel>();
         }
+
+        public class NameValue
+        {
+            public NameValue(string name,double value)
+            {
+                Name=name;
+                Value=value;
+            }
+            public string Name { get;set;}
+            public double Value { get;set;}
+        }
+
+        static public List<NameValue> ReadAnnualAverageOutputs(string path)
+        {
+            try
+            {
+                if (File.Exists(path))
+                {
+                    var list = new List<NameValue>();
+                    using (FileStream fileStream = new FileStream(path, FileMode.Open)) // destiny file directory.
+                    {
+
+                        using (BinaryReader binaryReader = new BinaryReader(fileStream))
+                        {
+                            binaryReader.BaseStream.Position = 0;
+                            var simindex = binaryReader.ReadInt32();
+                            var timeseriescount = binaryReader.ReadInt32();
+                            var start = new BrowserDate(binaryReader.ReadInt32());
+                            var end = new BrowserDate(binaryReader.ReadInt32());
+                            for (var index1 = 0; index1 < timeseriescount; ++index1)
+                            {
+                                var name = binaryReader.ReadString();
+                                
+                                var value = binaryReader.ReadDouble();
+                                list.Add(new NameValue(name,value));
+                            }                            
+                        }
+                    }
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ErrorLogger.CreateException(ex);
+            }
+
+            return new List<NameValue>();
+        }
+
+
+
 
         static public List<HowLeakyOutputTimeSeries> ReadOutputs2(string path)
         {
@@ -124,7 +188,7 @@ namespace HowLeaky_IO.Outputs
                             for(var index1=0;index1<timeseriescount;++index1)
                             {
                                 var name=binaryReader.ReadString();
-                                var vm=new HowLeakyOutputTimeSeries(simindex,name,start,end,datacount,true);
+                                var vm=new HowLeakyOutputTimeSeries(simindex,name,"#000000",1,start,end,datacount,true);
                                 for(var i=0;i<datacount;++i)
                                 {
                                     vm.DailyValues[i]=binaryReader.ReadDouble();
@@ -466,5 +530,6 @@ namespace HowLeaky_IO.Outputs
         public List<double>Values{get;set;}
         public BrowserDate StartDate{get;set;}
         public BrowserDate EndDate{get;set;}
+        public double AnnualAverage { get;set;}
     }
 }
