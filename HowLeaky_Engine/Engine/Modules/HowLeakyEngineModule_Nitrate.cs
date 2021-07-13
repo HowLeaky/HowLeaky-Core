@@ -16,6 +16,10 @@ namespace HowLeaky_SimulationEngine.Engine
             InputModel = inputs;
         }
 
+        public HowLeakyEngineModule_Nitrate()
+        {
+        }
+
         public HowLeakyInputs_Nitrate InputModel { get; set; }
 
         [Internal] public int Nitratesdayindex1 { get; set; }

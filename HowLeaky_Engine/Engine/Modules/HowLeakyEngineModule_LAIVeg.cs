@@ -9,7 +9,7 @@ using HowLeaky_SimulationEngine.Errors;
 
 namespace HowLeaky_SimulationEngine.Engine
 {
-    class HowLeakyEngineModule_LAIVeg : _CustomHowLeakyEngine_VegModule
+    public class HowLeakyEngineModule_LAIVeg : _CustomHowLeakyEngine_VegModule
     {
 
 
@@ -27,7 +27,10 @@ namespace HowLeaky_SimulationEngine.Engine
                 throw ErrorLogger.CreateException(ex);
             }
         }
-       
+
+        public HowLeakyEngineModule_LAIVeg()
+        {
+        }
 
         public override string GetName()
         {

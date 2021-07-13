@@ -8,6 +8,10 @@ namespace HowLeaky_SimulationEngine.Inputs
 {
     public class HowLeakyInputs_LAIVeg : _CustomCropInputsModel
     {
+        public HowLeakyInputs_LAIVeg()
+        {
+        }
+
         public HowLeakyInputs_LAIVeg(string name):base(null,name)
         {
 
