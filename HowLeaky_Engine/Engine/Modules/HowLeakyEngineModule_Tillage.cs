@@ -23,6 +23,10 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
+        public HowLeakyEngineModule_Tillage()
+        {
+        }
+
         public HowLeakyInputs_Tillage InputModel { get; set; }
 
 

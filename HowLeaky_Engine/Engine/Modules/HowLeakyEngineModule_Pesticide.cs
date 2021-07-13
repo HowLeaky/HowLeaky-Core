@@ -25,6 +25,10 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
+        public HowLeakyEngineModule_Pesticide()
+        {
+        }
+
         public HowLeakyInputs_Pesticide InputModel { get; set; }
 
         internal string GetName()

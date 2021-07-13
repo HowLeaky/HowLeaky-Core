@@ -207,5 +207,10 @@ namespace HowLeaky_SimulationEngine.Tools
 
             return null;
         }
+
+        public double GetValueForDayIndex( BrowserDate engineTodaysDate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

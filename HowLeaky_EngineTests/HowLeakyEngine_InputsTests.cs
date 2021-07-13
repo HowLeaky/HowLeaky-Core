@@ -1,15 +1,17 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace HowLeaky_Engine.UnitTests
 {
-    public class _CustomUnitTestClass
+    [TestFixture]
+    public class HowLeakyEngine_InputsTests : _CustomUnitTestClass
     {
-        public bool ValuesAreEqual(double val1, double val2)
+        [Test]
+        public void LoadInputs()
         {
             var engine = new HowLeakyEngine();
-            return Math.Abs(val1 - val2) < 0.000001;
         }
     }
 }

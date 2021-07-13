@@ -18,6 +18,10 @@ namespace HowLeaky_SimulationEngine.Engine
 
         }
 
+        public HowLeakyEngineModule_Phosphorus()
+        {
+        }
+
 
 
         //TODO: Change to enums

@@ -14,7 +14,10 @@ namespace HowLeaky_SimulationEngine.Engine
         public HowLeakyEngineModule_Nitrate(HowLeakyEngine sim, HowLeakyInputs_Nitrate inputs) : base(sim)
         {
             InputModel = inputs;
+        }
 
+        public HowLeakyEngineModule_Nitrate()
+        {
         }
 
         public HowLeakyInputs_Nitrate InputModel { get; set; }
@@ -25,11 +28,9 @@ namespace HowLeaky_SimulationEngine.Engine
         [Internal] public double LastNAppliedRate { get; set; } = 0;
         [Internal] public double NitrateCumRain { get; set; } = 0;
         [Internal] public bool Saturated { get; set; } = false; //SAFEGAUGE MODEL
-        [Internal] public double NApplication { get; set; }  //SAFEGAUGE MODEL
+        [Internal] public double NApplication { get; set; } //SAFEGAUGE MODEL
         [Internal] public double YesterdaysRunoff { get; set; } = 0; //SAFEGAUGE MODEL
-        [Internal] public StageType StageType { get; set; }  //SAFEGAUGE MODEL
-
-
+        [Internal] public StageType StageType { get; set; } //SAFEGAUGE MODEL
 
 
         //Reportable Outputs
@@ -46,7 +47,6 @@ namespace HowLeaky_SimulationEngine.Engine
         [Output] public double RunoffInNO3Period { get; set; }
 
 
-
         [Output] public double NitrogenApplication { get; set; } //SAFEGAUGE MODEL
         [Output] public double Mineralisation { get; set; } //SAFEGAUGE MODEL
         [Output] public double CropUsePlant { get; set; } //SAFEGAUGE MODEL
@@ -58,80 +58,40 @@ namespace HowLeaky_SimulationEngine.Engine
         [Output] public double DINDrainage { get; set; } //SAFEGAUGE MODEL
 
 
-
-
-
-
-
         public override void Initialise()
         {
             ExcessN = InputModel.InitialExcessN;
         }
 
-        public void InitialiseNitrateParameters()
-        {
-            //Nitratesdayindex1 = 0;
-            //Nitratesdayindex2 = 0;
-            //Nitratesdayindex3 = 0;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
+
         public override void Simulate()
         {
             try
             {
-                bool CanSimulateNitrate = (InputModel.DissolvedNinRunoff != DissolvedNinRunoffType.None || InputModel.DissolvedNinLeaching != DissolvedNinLeachingType.None || InputModel.ParticulateNinRunoff != ParticulateNinRunoffType.None);
-                if (CanSimulateNitrate)
+                if (InputModel.DissolvedNinRunoffOptions == DissolvedNinRunoffType.HowLeaky2012)
                 {
-                    if (CanCalculateDissolvedNInRunoff())
-                    {
-                        CalculateDissolvedNInRunoff();
-                    }
-                    if (CanCalculateDissolvedNInLeaching())
-                    {
-                        if (InputModel.DissolvedNinLeaching == DissolvedNinLeachingType.ModifiedSafegaugeModel)
-                        {
-                            CalculateDissolvedNInLeaching_SafeGauge();
-                        }
-                        else
-                        {
-                            CalculateDissolvedNInLeaching1();
-                        }
-                    }
-                    if (CanCalculateParticulateNInRunoff())
-                    {
-                        CalculateParticulateNInRunoff();
-                    }
-
+                    CalculateDissolvedNInRunoff();
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ErrorLogger.CreateException(ex);
-            }
-        }
-
-
-
-        public bool CanCalculateDissolvedNInRunoff()
-        {
-            try
-            {
-
-                if (InputModel.DissolvedNinRunoff == DissolvedNinRunoffType.ImportedTimeSeries)
+                else if (InputModel.DissolvedNinRunoffOptions == DissolvedNinRunoffType.BananaEmpiricalModel)
                 {
-                    return InputModel.NLoadInSurfaceLayerTimeSeries.GetCount() != 0;
+                    CalculateDissolvedNInRunoffBananas();
                 }
-                if (InputModel.DissolvedNinRunoff == DissolvedNinRunoffType.UserDefinedProfile)
+
+
+                if (InputModel.DissolvedNinLeachingOptions == DissolvedNinLeachingType.HowLeaky2012)
                 {
-                    return true;
+                    CalculateDissolvedNInLeaching();
                 }
-                else if (InputModel.DissolvedNinRunoff == DissolvedNinRunoffType.RattrayEmpiricalModel || InputModel.DissolvedNinRunoff == DissolvedNinRunoffType.FraserEmpiricalModel)
+                else if (InputModel.DissolvedNinLeachingOptions == DissolvedNinLeachingType.ModifiedSafegaugeModel)
                 {
-                    return true;
+                    CalculateDissolvedNInLeaching_SafeGauge();
                 }
-                return false;
+
+
+                if (InputModel.ParticulateNinRunoffOptions == ParticulateNinRunoffType.HowLeaky2012)
+                {
+                    CalculateParticulateNInRunoff();
+                }
             }
             catch (Exception ex)
             {
@@ -151,57 +111,19 @@ namespace HowLeaky_SimulationEngine.Engine
         //        // Then dissolved N load (NL, kg/ha) in runoff is
         //        // DL=ND*Q/100.0;
         //        // NOTATION USE HERE IS TO BE CONSISTENT WITH THAT USED BY VIC DPI
-        //        void CalculateDissolvedNInRunoff_VicDPI()
-        //{
-        //	try
-        //	{
-        //		double NL_kg_ha = GetNO3_N_Store_TopLayer_kg_per_ha();  //Nitrate load in surface layer (From Dairymod)
-        //		if(NL_kg_ha!=-32768)
-        //		{
-        //			NL_kg_ha=NL_kg_ha* SoilNitrateLoadWeighting1;
-        //        double k = Nk; // INPUT parameter that regulates mixing of soil and runoff water
-        //        double cv = Ncv;  //INPUT parameter that describes the curvature of change in soil and water runoff at increasing runoff values
-        //        double Q = runoff;   //runoff amount
-
-        //        double d = NDepthTopLayer1;    //depth of surface soil layer mm
-        //        double phi = BulkDensity[0]; //soil density t/m3       ( BulkDensity is in g/cm3)
-
-        //        //double kgs_soil_in_layer_1=BulkDensity[0]*1000.0*depth[1]*10000.0/1000.0;//per ha
-
-        //        double NSoil = NAlpha * 100.0 * NL_kg_ha / (d * phi);     //mg/kg
-        //        double DN = NSoil * k * (1 - exp(-cv * Q));
-        //        double DL = DN * Q / 100.0;
-
-        //        NO3_N_Store_TopLayer_kg_per_ha=NL_kg_ha;
-        //			NO3_N_Dissolved_Runoff_mg_per_L=DN;
-        //			NO3_N_Load_Runoff_kg_per_ha=DL;
-        //		}
-        //		else
-        //		{
-        //			NO3_N_Store_TopLayer_kg_per_ha	=-32768;
-        //			NO3_N_Dissolved_Runoff_mg_per_L	=-32768;
-        //			NO3_N_Load_Runoff_kg_per_ha		=-32768;
-        //		}
-        //	}
-        //	catch(...)
-        //	{
-        //		throw;
-        //	}
-        //}
-
-        void CalculateDissolvedNInRunoffRattray()
+        private void CalculateDissolvedNInRunoffBananas()
         {
             try
             {
-                double NLKgHa = GetNO3NStoreTopLayerkgPerha();  //Nitrate load in surface layer (From Dairymod)
-                if (NLKgHa != MathTools.MISSING_DATA_VALUE)
+                double NLKgHa = GetNO3NStoreTopLayerkgPerha(); //Nitrate load in surface layer (From Dairymod)
+                if (Math.Abs(NLKgHa - MathTools.MISSING_DATA_VALUE) > 0.00001)
                 {
-                    double a = InputModel.N_DanRat_Alpha;
-                    double b = -InputModel.N_DanRat_Beta;
-                    double maxconc = InputModel.N_DanRat_MaxRunOffConc;
-                    double minconc = InputModel.N_DanRat_MinRunOffConc;
+                    double a = InputModel.NAlpha;
+                    double b = -InputModel.NBeta;
+                    double maxConc = InputModel.N_DanRat_MaxRunOffConc;
+                    double minConc = InputModel.N_DanRat_MinRunOffConc;
                     double rate = InputModel.FertilizerInputDateSequences.ValueAtDate(Engine.TodaysDate);
-                    if (rate > 0 && rate != MathTools.MISSING_DATA_VALUE)
+                    if (rate > 0 && Math.Abs(rate - MathTools.MISSING_DATA_VALUE) > 0.0001)
                     {
                         NitrateCumRain = Engine.SoilModule.EffectiveRain;
                         LastNAppliedRate = rate;
@@ -212,24 +134,24 @@ namespace HowLeaky_SimulationEngine.Engine
                     }
 
 
-                    double DINMgPerL = 0;
+                    double dinMgPerL = 0;
                     if (Engine.SoilModule.Runoff > 0)
                     {
-
                         if (NitrateCumRain > 0)
                         {
-                            DINMgPerL = LastNAppliedRate / a * Math.Pow(NitrateCumRain, b);
+                            dinMgPerL = LastNAppliedRate / a * Math.Pow(NitrateCumRain, b);
                         }
                         else
                         {
-                            DINMgPerL = 0;
+                            dinMgPerL = 0;
                         }
-                        DINMgPerL = Math.Min(maxconc, Math.Max(minconc, DINMgPerL));
+
+                        dinMgPerL = Math.Min(maxConc, Math.Max(minConc, dinMgPerL));
                     }
 
                     NO3NStoreTopLayer = MathTools.MISSING_DATA_VALUE;
-                    NO3NDissolvedInRunoff = DINMgPerL;
-                    NO3NRunoffLoad = DINMgPerL* Engine.SoilModule.Runoff/100.0;
+                    NO3NDissolvedInRunoff = dinMgPerL;
+                    NO3NRunoffLoad = dinMgPerL * Engine.SoilModule.Runoff / 100.0;
                 }
                 else
                 {
@@ -244,105 +166,6 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
-        //void __fastcall TPERFECTSimulation::CalculateDissolvedNInRunoff_Fraser(void)
-        //{
-        //	try
-        //	{
-        //		double NL_kg_ha = GetNO3_N_Store_TopLayer_kg_per_ha();  //Nitrate load in surface layer (From Dairymod)
-        //		if(NL_kg_ha!=-32768)
-        //		{
-        //			double invk = 1.0 / Nk;
-        //double DL = N_GraFraz_DL;
-        //double RL = N_GraFraz_RL;
-        //double lowlimit = N_GraFraz_LowLimitDINConc;
-
-        //double fertapp_kg_per_ha = GetFertilizerInputValue();
-        //double DINinput = invk * fertapp_kg_per_ha;
-
-        //double solid = DINinput + GetMaximum(lowlimit, solid_yesterday - GetMaximum(solid_yesterday * DL, effective_rain * RL));
-
-        //NO3_N_Store_TopLayer_kg_per_ha=0;
-        //			NO3_N_Dissolved_Runoff_mg_per_L=solid;
-        //			NO3_N_Load_Runoff_kg_per_ha=0;
-        //			solid_yesterday=solid;
-        //		}
-        //		else
-        //		{
-        //			NO3_N_Store_TopLayer_kg_per_ha	=-32768;
-        //			NO3_N_Dissolved_Runoff_mg_per_L	=-32768;
-        //			NO3_N_Load_Runoff_kg_per_ha		=-32768;
-        //		}
-        //	}
-        //	catch(...)
-        //	{
-
-        //		throw;
-        //	}
-        //}
-
-        //double __fastcall TPERFECTSimulation::GetFertilizerInputValue(void)
-        //{
-        //	int index = IsDateInSequenceList(today, FertilizerDateList);
-        //	if(index>=0&&index<FertilizerValueList.size())
-        //		return FertilizerValueList[index];
-        //	return 0;
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool CanCalculateDissolvedNInLeaching()
-        {
-            try
-            {
-                if (InputModel.DissolvedNinLeaching == DissolvedNinLeachingType.ImportedTimeSeries)
-                {
-                    return InputModel.NLoadInLowerLayersTimeSeries.GetCount() != 0;
-                }
-                else if (InputModel.DissolvedNinLeaching == DissolvedNinLeachingType.UserDefinedProfile)
-                {
-                    return true;
-                }
-                else if (InputModel.DissolvedNinLeaching == DissolvedNinLeachingType.ModifiedSafegaugeModel)
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ErrorLogger.CreateException(ex);
-            }
-
-
-            return false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool CanCalculateParticulateNInRunoff()
-        {
-            try
-            {
-                if (InputModel.ParticulateNinRunoff == ParticulateNinRunoffType.ImportedTimeSeries)
-                {
-                    return (InputModel.InorganicNitrateNTimeseries.GetCount() != 0 &&
-                              InputModel.InorganicAmmoniumNTimeseries.GetCount() != 0);
-                }
-                else if (InputModel.ParticulateNinRunoff == ParticulateNinRunoffType.UserDefinedProfile)
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ErrorLogger.CreateException(ex);
-            }
-
-            return false;
-        }
 
         //From Howleaky developers (Brett Robinson), based on the concept that soil and runoff water mixing increases up to a maximum of k.
         // DN = Nsurface * K(1- Math.Exp(-cvQ)
@@ -358,31 +181,28 @@ namespace HowLeaky_SimulationEngine.Engine
         /// <summary>
         /// 
         /// </summary>
-        public void CalculateDissolvedNInRunoff()
+        private void CalculateDissolvedNInRunoff()
         {
             try
             {
-                if (InputModel.DissolvedNinRunoff == DissolvedNinRunoffType.RattrayEmpiricalModel)
+                double nlKgHa = GetNO3NStoreTopLayerkgPerha(); //Nitrate load in surface layer (From Dairymod)
+                if (!MathTools.DoublesAreEqual(nlKgHa, MathTools.MISSING_DATA_VALUE))
                 {
-                    CalculateDissolvedNInRunoffRattray();
-                    return;
-                }
-
-
-                double NLKgHa = GetNO3NStoreTopLayerkgPerha();  //Nitrate load in surface layer (From Dairymod)
-                if (!MathTools.DoublesAreEqual(NLKgHa, MathTools.MISSING_DATA_VALUE))
-                {
-                    NLKgHa = NLKgHa * InputModel.SoilNitrateLoadWeighting1;
-                    double k = InputModel.Nk;                               // INPUT parameter that regulates mixing of soil and runoff water
-                    double cv = InputModel.Ncv;                             //INPUT parameter that describes the curvature of change in soil and water runoff at increasing runoff values
-                    double Q = Engine.SoilModule.Runoff;                   //runoff amount
-                    double d = InputModel.NDepthTopLayer1;                  //depth of surface soil layer mm
-                    double phi = Engine.SoilModule.InputModel.BulkDensity[0];   //soil density t/m3       ( BulkDensity is in g/cm3)
-                    double NSoil = InputModel.NAlpha * 100.0 * NLKgHa / (d * phi);      //mg/kg
+                    nlKgHa = nlKgHa * InputModel.SoilNitrateLoadWeighting1;
+                    double k = InputModel.Nk; // INPUT parameter that regulates mixing of soil and runoff water
+                    double
+                        cv = InputModel
+                            .Ncv; //INPUT parameter that describes the curvature of change in soil and water runoff at increasing runoff values
+                    double Q = Engine.SoilModule.Runoff; //runoff amount
+                    double d = InputModel.NDepthTopLayer1; //depth of surface soil layer mm
+                    double phi =
+                        Engine.SoilModule.InputModel
+                            .BulkDensity[0]; //soil density t/m3       ( BulkDensity is in g/cm3)
+                    double NSoil = InputModel.NAlpha * 100.0 * nlKgHa / (d * phi); //mg/kg
                     double DN = NSoil * k * (1 - Math.Exp(-cv * Q));
                     double DL = DN * Q / 100.0;
 
-                    NO3NStoreTopLayer = NLKgHa;
+                    NO3NStoreTopLayer = nlKgHa;
                     NO3NDissolvedInRunoff = DN;
                     NO3NRunoffLoad = DL;
                 }
@@ -414,24 +234,27 @@ namespace HowLeaky_SimulationEngine.Engine
         /// <summary>
         /// 
         /// </summary>
-        public void CalculateDissolvedNInLeaching1()
+        private void CalculateDissolvedNInLeaching()
         {
             try
             {
-                double NSoilKgPerHa = GetNO3NStoreBotLayerkgPerha();       //nitrate concentrate in the soil (kg/ha)
-                if (!MathTools.DoublesAreEqual(NSoilKgPerHa, MathTools.MISSING_DATA_VALUE))
+                double nSoilKgPerHa = GetNO3NStoreBotLayerkgPerha(); //nitrate concentrate in the soil (kg/ha)
+                if (!MathTools.DoublesAreEqual(nSoilKgPerHa, MathTools.MISSING_DATA_VALUE))
                 {
-                    NSoilKgPerHa = NSoilKgPerHa * InputModel.SoilNitrateLoadWeighting2;
-                    double deltadepth = InputModel.DepthBottomLayer;
-                    if (deltadepth > 0)
+                    nSoilKgPerHa = nSoilKgPerHa * InputModel.SoilNitrateLoadWeighting2;
+                    double deltaDepth = InputModel.DepthBottomLayer;
+                    if (deltaDepth > 0)
                     {
-                        double soilwater = (Engine.SoilModule.InputModel.Saturation[Engine.SoilModule.LayerCount - 1] - Engine.SoilModule.InputModel.AirDryLimit[Engine.SoilModule.LayerCount - 1]) / 100.0 * deltadepth;
-                        double LE = InputModel.NitrateLeachingEfficiency;                      //Leaching efficiency (INPUT)
-                        double D = Engine.SoilModule.DeepDrainage;                  //Drainage (mm)
-                        double LN = NSoilKgPerHa * 1000000.0 / (soilwater * 10000.0);
+                        double soilWater =
+                            (Engine.SoilModule.InputModel.Saturation[Engine.SoilModule.LayerCount - 1] -
+                             Engine.SoilModule.InputModel.AirDryLimit[Engine.SoilModule.LayerCount - 1]) / 100.0 *
+                            deltaDepth;
+                        double LE = InputModel.NitrateLeachingEfficiency; //Leaching efficiency (INPUT)
+                        double D = Engine.SoilModule.DeepDrainage; //Drainage (mm)
+                        double LN = nSoilKgPerHa * 1000000.0 / (soilWater * 10000.0);
                         double LL = (LN / 1000000.0) * D * 10000.0 * LE;
 
-                        NO3NStoreBotLayer = NSoilKgPerHa;
+                        NO3NStoreBotLayer = nSoilKgPerHa;
                         NO3NDissolvedLeaching = LN;
                         NO3NLeachingLoad = LL;
                     }
@@ -455,7 +278,7 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
-        public void CalculateDissolvedNInLeaching_SafeGauge()
+        private void CalculateDissolvedNInLeaching_SafeGauge()
         {
             try
             {
@@ -468,7 +291,8 @@ namespace HowLeaky_SimulationEngine.Engine
 
                 //Saturated
                 Saturated = false;
-                if (Engine.TodaysDate.DateInt > Engine.StartDate.DateInt && Engine.SoilModule.Runoff > 0 && YesterdaysRunoff > 0)
+                if (Engine.TodaysDate.DateInt > Engine.StartDate.DateInt && Engine.SoilModule.Runoff > 0 &&
+                    YesterdaysRunoff > 0)
                 {
                     Saturated = true;
                 }
@@ -476,7 +300,9 @@ namespace HowLeaky_SimulationEngine.Engine
                 if (Engine.TodaysDate.DateInt > Engine.StartDate.DateInt)
                 {
                     //Excess N - calc from yesterdays values
-                    ExcessN = Math.Max(ExcessN + NitrogenApplication + Mineralisation - CropUseActual - Denitrification - DINDrainage, 0);
+                    ExcessN = Math.Max(
+                        ExcessN + NitrogenApplication + Mineralisation - CropUseActual - Denitrification - DINDrainage,
+                        0);
 
                     //Denitrification
                     Denitrification = 0;
@@ -514,14 +340,17 @@ namespace HowLeaky_SimulationEngine.Engine
                 //Mineralisation
                 Mineralisation = 0;
                 if (StageType == StageType.Fallow)
-                {                    
-                    Mineralisation = Math.Min(Engine.SoilModule.InputModel.OrganicCarbon * InputModel.CNSlope, InputModel.CNMax) / 365.0;
+                {
+                    Mineralisation = Math.Min(Engine.SoilModule.InputModel.OrganicCarbon * InputModel.CNSlope,
+                        InputModel.CNMax) / 365.0;
                 }
 
                 //Crop use
                 CropUseActual = 0;
-                CropUsePlant = (1 / (1 + (Math.Exp((das - InputModel.PlantA) * (-InputModel.PlantB))))) * InputModel.PlantDaily;
-                CropUseRatoon = (1 / (1 + (Math.Exp((das - InputModel.RatoonA) * (-InputModel.RatoonB))))) * InputModel.RatoonDaily;
+                CropUsePlant = (1 / (1 + (Math.Exp((das - InputModel.PlantA) * (-InputModel.PlantB))))) *
+                               InputModel.PlantDaily;
+                CropUseRatoon = (1 / (1 + (Math.Exp((das - InputModel.RatoonA) * (-InputModel.RatoonB))))) *
+                                InputModel.RatoonDaily;
 
                 if (StageType == StageType.Plant)
                 {
@@ -560,24 +389,29 @@ namespace HowLeaky_SimulationEngine.Engine
         /// <summary>
         /// 
         /// </summary>
-        public void CalculateParticulateNInRunoff()
+        private void CalculateParticulateNInRunoff()
         {
             try
             {
-                double TNSoilKgPerHa = GetTotalNStoreTopLayerkgPerha();     // Total N Concentration in soil (mg/kg) and is sum of organanic and inorgance conc at 0-2cm (Obtained from Dairymod)
-                if (!MathTools.DoublesAreEqual(TNSoilKgPerHa, MathTools.MISSING_DATA_VALUE))
+                double
+                    tnSoilKgPerHa =
+                        GetTotalNStoreTopLayerkgPerha(); // Total N Concentration in soil (mg/kg) and is sum of organanic and inorgance conc at 0-2cm (Obtained from Dairymod)
+                if (!MathTools.DoublesAreEqual(tnSoilKgPerHa, MathTools.MISSING_DATA_VALUE))
                 {
-                    TNSoilKgPerHa = TNSoilKgPerHa * InputModel.SoilNitrateLoadWeighting3;
-                    double E = Engine.SoilModule.HillSlopeErosion * 1000.0;// Gross erosion (kg/ha)
-                    double SDR = Engine.SoilModule.InputModel.SedDelivRatio;                         // Sediment delivery ratio.
-                    double NER = InputModel.NEnrichmentRatio;                           // Nitrogen enrighment ratio
-                    double d = InputModel.NDepthTopLayer2;                       // depth of surface soil layer mm
-                    double phi = Engine.SoilModule.InputModel.BulkDensity[0];          // soil density t/m3       ( BulkDensity is in g/cm3)
-                    double NSoil = InputModel.NAlpha * 100.0 * TNSoilKgPerHa / (d * phi);    // mg/kg
+                    tnSoilKgPerHa = tnSoilKgPerHa * InputModel.SoilNitrateLoadWeighting3;
+                    double E = Engine.SoilModule.HillSlopeErosion * 1000.0; // Gross erosion (kg/ha)
+                    double SDR = Engine.SoilModule.InputModel.SedDelivRatio; // Sediment delivery ratio.
+                    double NER = InputModel.NEnrichmentRatio; // Nitrogen enrighment ratio
+                    double d = InputModel.NDepthTopLayer2; // depth of surface soil layer mm
+                    double phi =
+                        Engine.SoilModule.InputModel
+                            .BulkDensity[0]; // soil density t/m3       ( BulkDensity is in g/cm3)
+                    double NSoil = InputModel.NAlpha * 100.0 * tnSoilKgPerHa / (d * phi); // mg/kg
                     double PN = InputModel.NBeta * E * SDR * NSoil * NER / 1000000.0;
 
                     ParticNInRunoff = PN;
-                    if (!MathTools.DoublesAreEqual(SDR, 0) && !MathTools.DoublesAreEqual(Engine.SoilModule.UsleLsFactor, 0))
+                    if (!MathTools.DoublesAreEqual(SDR, 0) &&
+                        !MathTools.DoublesAreEqual(Engine.SoilModule.UsleLsFactor, 0))
                     {
                         PNHLCa = PN / (SDR * Engine.SoilModule.UsleLsFactor);
                     }
@@ -585,7 +419,8 @@ namespace HowLeaky_SimulationEngine.Engine
                     {
                         PNHLCa = 0;
                     }
-                    TotalNStoreTopLayer = TNSoilKgPerHa;
+
+                    TotalNStoreTopLayer = tnSoilKgPerHa;
                 }
                 else
                 {
@@ -600,123 +435,69 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
-        // Called from  CalculateDissolvedNInRunoff
-        // extracts value directly from input time-series;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public double GetNO3NStoreTopLayerkgPerha()
+        private double GetNO3NStoreTopLayerkgPerha()
         {
             try
             {
-                if (InputModel.DissolvedNinRunoff == DissolvedNinRunoffType.ImportedTimeSeries && InputModel.NLoadInSurfaceLayerTimeSeries.GetCount() != 0)
+                if (InputModel.DissolvedNinRunoffOptions == DissolvedNinRunoffType.HowLeaky2012)
                 {
-                    return InputModel.NLoadInSurfaceLayerTimeSeries.GetValueAtDate(Engine.TodaysDate);
-                }
-                else if (InputModel.DissolvedNinRunoff == DissolvedNinRunoffType.UserDefinedProfile)
-                {
-                    InputModel.SoilNLoadData1.UpdateDayIndex(Engine.TodaysDate);
-                    //return DataModel.SoilNLoadData1.GetValueForDayIndex("SoilNLoadData1", Nitratesdayindex1, Sim.Today);
-                    return InputModel.SoilNLoadData1.GetValueForDayIndex("SoilNLoadData1", Engine.TodaysDate);
+                    return InputModel.SoilNLoadData1.GetValueForDayIndex(Engine.TodaysDate);
                 }
             }
             catch (Exception ex)
             {
                 throw ErrorLogger.CreateException(ex);
             }
+
             return 0;
         }
 
 
-        // Called from  CalculateDissolvedNInLeaching
-        // extracts value directly from input time-series OR can interpolate from user-defined values;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public double GetNO3NStoreBotLayerkgPerha()
+        private double GetNO3NStoreBotLayerkgPerha()
         {
             try
             {
-                if (InputModel.DissolvedNinLeaching == DissolvedNinLeachingType.ImportedTimeSeries && InputModel.NLoadInLowerLayersTimeSeries.GetCount() != 0)
+                if (InputModel.DissolvedNinLeachingOptions == DissolvedNinLeachingType.HowLeaky2012)
                 {
-                    return InputModel.NLoadInLowerLayersTimeSeries.GetValueAtDate(Engine.TodaysDate);
-                }
-                else if (InputModel.DissolvedNinLeaching == DissolvedNinLeachingType.UserDefinedProfile)
-                {
-                    InputModel.SoilNLoadData2.UpdateDayIndex(Engine.TodaysDate);
-                    //return DataModel.SoilNLoadData2.GetValueForDayIndex("SoilNLoadData2", Nitratesdayindex2, Sim.Today);
-                    return InputModel.SoilNLoadData2.GetValueForDayIndex("SoilNLoadData2", Engine.TodaysDate);
+                    return InputModel.SoilNLoadData2.GetValueForDayIndex(Engine.TodaysDate);
                 }
             }
             catch (Exception ex)
             {
                 throw ErrorLogger.CreateException(ex);
             }
+
             return 0;
         }
 
-        // Called from  CalculateParticulateNInRunoff
-        // extracts value directly from input time-series;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public double GetTotalNStoreTopLayerkgPerha()
+        private double GetTotalNStoreTopLayerkgPerha()
         {
             try
             {
-                if (InputModel.ParticulateNinRunoff == ParticulateNinRunoffType.ImportedTimeSeries)
+                if (InputModel.ParticulateNinRunoffOptions == ParticulateNinRunoffType.HowLeaky2012)
                 {
-                    double value1 = 0;
-                    double value2 = 0;
-                    double value3 = 0;
-                    if (InputModel.InorganicNitrateNTimeseries.GetCount() != 0)
-                    {
-                        value1 = InputModel.InorganicNitrateNTimeseries.GetValueAtDate(Engine.TodaysDate);
-                    }
-                    if (InputModel.InorganicAmmoniumNTimeseries.GetCount() != 0)
-                    {
-                        value2 = InputModel.InorganicAmmoniumNTimeseries.GetValueAtDate(Engine.TodaysDate);
-                    }
-                    if (InputModel.OrganicNTimeseries.GetCount() != 0)
-                    {
-                        value3 = InputModel.OrganicNTimeseries.GetValueAtDate(Engine.TodaysDate);
-                    }
-                    if (MathTools.DoublesAreEqual(value1, MathTools.MISSING_DATA_VALUE) || MathTools.DoublesAreEqual(value2, MathTools.MISSING_DATA_VALUE) || MathTools.DoublesAreEqual(value3, MathTools.MISSING_DATA_VALUE))
-                    {
-                        return MathTools.MISSING_DATA_VALUE;
-                    }
-                    return value1 + value1 + value3;
-                }
-                else if (InputModel.ParticulateNinRunoff == ParticulateNinRunoffType.UserDefinedProfile)
-                {
-                    //return DataModel.SoilNLoadData3.GetValueForDayIndex("SoilNLoadData3", Nitratesdayindex3, Sim.Today);
-                    return InputModel.SoilNLoadData3.GetValueForDayIndex("SoilNLoadData3", Engine.TodaysDate);
+                    return InputModel.SoilNLoadData3.GetValueForDayIndex(Engine.TodaysDate);
                 }
             }
             catch (Exception ex)
             {
                 throw ErrorLogger.CreateException(ex);
             }
+
             return 0;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+
         public bool CanSimulateNitrate()
         {
             try
             {
-                return (InputModel.DissolvedNinRunoff != 0 || InputModel.DissolvedNinLeaching != 0 || InputModel.ParticulateNinRunoff != 0);
+                return (InputModel.DissolvedNinRunoffOptions != 0 || InputModel.DissolvedNinLeachingOptions != 0 ||
+                        InputModel.ParticulateNinRunoffOptions != 0);
             }
             catch (Exception ex)
             {
                 throw ErrorLogger.CreateException(ex);
             }
         }
-
     }
 }
