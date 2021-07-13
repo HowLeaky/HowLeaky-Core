@@ -21,28 +21,74 @@ namespace HowLeaky_IO.Tools
         public BrowserDate StartDate { get; set; }
         public BrowserDate EndDate { get; set; }
 
-        public int Symbol { get;set;}
-        public float Size { get;set;}
-        public string Color1 { get;set;}
-        public string Color2 { get;set;}
-        public float Slope { get;set;}
-        public float Intercept { get;set;}
-        public float R2 { get;set;}
-        public float RMSE { get;set;}
-        public string Title { get;set;}
+        public int Symbol { get; set; }
+        public float Size { get; set; }
+        public string Color1 { get; set; }
+        public string Color2 { get; set; }
+        public float Slope { get; set; }
+        public float Intercept { get; set; }
+        public float R2 { get; set; }
+        public float RMSE { get; set; }
+        public string Title { get; set; }
 
-        public string XAxisTitle { get;set;}
+        public string XAxisTitle { get; set; }
         public string YAxisTitle { get; set; }
 
         public List<float[]> GetDataArray()
         {
-            var list=new List<float[] >();
-            for(var i=0;i<XData.Count;++i)
+            var list = new List<float[]>();
+            for (var i = 0; i < XData.Count; ++i)
             {
-                list.Add(new float[2]{ (float)XData[i], (float)YData[i] });
+                list.Add(new float[2] { (float)XData[i], (float)YData[i] });
             }
 
             return list;
+        }
+
+        public List<float[]> GetSeriesArray1()
+        {
+            var index = 0;
+            var list = new List<float[]>();
+            for (var i = 0; i < XData.Count; ++i)
+            {
+                list.Add(new float[2] { StartDate.AddDays(i).DateInt, (float)XData[i] });
+                ++index;
+            }
+
+            return list;
+        }
+
+        public List<float[]> GetSeriesArray2()
+        {
+            var index=0;
+            var list = new List<float[]>();
+            for (var i = 0; i < YData.Count; ++i)
+            {
+                list.Add(new float[2] { StartDate.AddDays(i).DateInt, (float)YData[i] });
+                ++index;
+            }
+
+            return list;
+        }
+
+        public void MakeCumulative()
+        {
+            var xdata = new List<double>();
+            var ydata = new List<double>();
+            var sum1 = 0.0;
+            foreach (var data in XData)
+            {
+                sum1 += data;
+                xdata.Add(sum1);
+            }
+            var sum2 = 0.0;
+            foreach (var data in YData)
+            {
+                sum2 += data;
+                ydata.Add(sum2);
+            }
+            XData=xdata;
+            YData=ydata;
         }
     }
     public class PairedTimeSeriesEngine
@@ -72,10 +118,11 @@ namespace HowLeaky_IO.Tools
                     var values2 = TimeSeries2.DailyValues;
 
                     var mindate = start1.DateInt < start2.DateInt ? start1 : start2;
-                    var maxdate = end1.DateInt > start2.DateInt ? end1 : end2;
-
+                    var maxdate = end1.DateInt > end2.DateInt ? end1 : end2;
+                    pair.StartDate=mindate;
+                    pair.EndDate=maxdate;
                     bool foundfirst = false;
-                    
+
                     for (var index = mindate.DateInt; index <= maxdate.DateInt; ++index)
                     {
                         var date = new BrowserDate(index);
@@ -155,8 +202,8 @@ namespace HowLeaky_IO.Tools
                             }
                             else
                             {
-                                pair.EndDate=date;
-                                index = maxdate.DateInt+1;
+                                pair.EndDate = date;
+                                index = maxdate.DateInt + 1;
                             }
                         }
                     }
