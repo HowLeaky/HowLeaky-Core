@@ -264,7 +264,7 @@ namespace HowLeakyConsole
         {
             var controller = new SimulationController();
             var myprogress = new GlobalProgress(project.Simulations.Count);
-            myprogress.StartSimulations();
+            myprogress.StartExecution();
             var tokenSource = new CancellationTokenSource();
             CancellationToken ct = tokenSource.Token;
             project.OutputsCSV = outputs;

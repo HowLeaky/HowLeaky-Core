@@ -65,6 +65,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 Scurve();
                 HeatUnitIndex = 0;
                 Hrltp = 0;
+                INPUTS_SWPropForNoStress = InputModel.SWPropForNoStress;
             }
             catch (Exception ex)
             {
@@ -557,7 +558,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 {
                     if (CropStage <= 2.0)
                     {
-                        if (WaterStressIndex <= InputModel.SWPropForNoStress)
+                        if (WaterStressIndex <= InputModel.WaterStressThreshold)// Al Had this as SWPropForNoStress
                         {
                             ++KillDays;
                         }

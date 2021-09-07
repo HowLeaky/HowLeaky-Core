@@ -21,19 +21,47 @@ namespace HowLeaky_SimulationEngine.Engine
 
         public HowLeakyInputs_Solute InputModel { get; set; }
 
-        [Output] public double TotalSoilSolute { get; set; }
-        [Output] public List<double> LayerSoluteLoad { get; set; }
-        [Output] public List<double> LayerSoluteConcmgPerL { get; set; }
-        [Output] public List<double> LayerSoluteConcmgPerkg { get; set; }
-        [Output] public double LeachateSoluteConcmgPerL { get; set; }
-        [Output] public double LeachateSoluteLoadkgPerha { get; set; }
+     
+        [Output] public double total_soil_solute_mg_per_kg { get; set; }
+        [Output] public double total_soil_solute_mg_per_L { get; set; }
+        [Output] public double total_soil_solute_kg_per_ha { get; set; }
+        [Output] public List<double> solute_conc_layer_mg_per_L { get; set; }
+        [Output] public List<double> solute_conc_layer_mg_per_kg { get; set; }
+        [Output] public List<double> solute_load_layer_kg_per_ha { get; set; }
+        [Output] public double solute_leaching_conc_mg_per_L { get; set; }
+        [Output] public double solute_leaching_load_kg_per_ha { get; set; }
 
 
         public override void Initialise()
         {
-            LayerSoluteLoad = new List<double>(new double[Engine.SoilModule.LayerCount]);
-            LayerSoluteConcmgPerL = new List<double>(new double[Engine.SoilModule.LayerCount]);
-            LayerSoluteConcmgPerkg = new List<double>(new double[Engine.SoilModule.LayerCount]);
+            solute_conc_layer_mg_per_L = new List<double>(new double[Engine.SoilModule.LayerCount]);
+            solute_conc_layer_mg_per_kg = new List<double>(new double[Engine.SoilModule.LayerCount]);
+            solute_load_layer_kg_per_ha = new List<double>(new double[Engine.SoilModule.LayerCount]);
+            for (int i = 0; i < Engine.SoilModule.LayerCount; ++i)
+            {
+                solute_conc_layer_mg_per_kg[i] = InputModel.DefaultInitialConc;
+                if (i == 0 && InputModel.StartConcOption  > 0)
+                    solute_conc_layer_mg_per_kg[i] = InputModel.Layer1InitialConc;
+                else if (i == 1 && InputModel.StartConcOption > 1)
+                    solute_conc_layer_mg_per_kg[i] = InputModel.Layer2InitialConc;
+                else if (i == 2 && InputModel.StartConcOption > 2)
+                    solute_conc_layer_mg_per_kg[i] = InputModel.Layer3InitialConc;
+                else if (i == 3 && InputModel.StartConcOption > 3)
+                    solute_conc_layer_mg_per_kg[i] = InputModel.Layer4InitialConc;
+                else if (i == 4 && InputModel.StartConcOption > 4)
+                    solute_conc_layer_mg_per_kg[i] = InputModel.Layer5InitialConc;
+                else if (i == 5 && InputModel.StartConcOption > 5)
+                    solute_conc_layer_mg_per_kg[i] = InputModel.Layer6InitialConc;
+                else if (i == 6 && InputModel.StartConcOption > 6)
+                    solute_conc_layer_mg_per_kg[i] = InputModel.Layer7InitialConc;
+                else if (i == 7 && InputModel.StartConcOption > 7)
+                    solute_conc_layer_mg_per_kg[i] = InputModel.Layer8InitialConc;
+                else if (i == 8 && InputModel.StartConcOption > 8)
+                    solute_conc_layer_mg_per_kg[i] = InputModel.Layer9InitialConc;
+                else if (i == 9 && InputModel.StartConcOption > 9)
+                    solute_conc_layer_mg_per_kg[i] = InputModel.Layer10InitialConc;
+
+            }
         }
 
         public override void Simulate()
@@ -42,16 +70,24 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 if (CanSimulateSolutes())
                 {
-                    double rain = Engine.ClimateModule.Rain;
-                    double runoff = Engine.SoilModule.Runoff;
-                    double irrigationAmountmm = Engine.SoilModule.Irrigation;
+                    var rain = Engine.ClimateModule.Rain;
+                    var runoff = Engine.SoilModule.Runoff;
+                    var irrigation_amount = Engine.SoilModule.Irrigation;
+                    var solute_conc_rainfall_mg_per_kg = 0.0;
+                    var solute_conc_irrig_mg_per_kg = 0.0;
+                    var solute_conc_rainfall_kg_per_ha = 0.0;
+                    var solute_conc_irrig_kg_per_ha = 0.0;
+                    var SoluteRainfallConcentration_mg_per_L = InputModel.RainfallConcentration;
+                    var SoluteIrrigationConcentration_mg_per_L = InputModel.IrrigationConcentration;
                     //calculte solute input loadings.
-                    double kgsSoilinLayer1 = Engine.SoilModule.InputModel.BulkDensity[0] * 1000.0 * Engine.SoilModule.Depth[1] * 10000.0 / 1000.0;//per ha
+                    double kgs_soil_in_layer_1 = Engine.SoilModule.InputModel.BulkDensity[0] * 1000.0 * Engine.SoilModule.Depth[1] * 10000.0 / 1000.0;//per ha
                     if (rain > 0)
                     {
-                        if (!MathTools.DoublesAreEqual(kgsSoilinLayer1, 0))
+                        if (MathTools.NotZero(kgs_soil_in_layer_1))
                         {
-                            LayerSoluteConcmgPerkg[0] += InputModel.RainfallConcentration * (rain - runoff) * 10000.0 / kgsSoilinLayer1;
+                            solute_conc_rainfall_mg_per_kg = SoluteRainfallConcentration_mg_per_L * (rain - runoff) * 10000.0 / kgs_soil_in_layer_1;
+                            solute_conc_layer_mg_per_kg[0] += solute_conc_rainfall_mg_per_kg;  //CHECKED OK
+                            solute_conc_rainfall_kg_per_ha = solute_conc_rainfall_mg_per_kg * kgs_soil_in_layer_1 / 1000000.0;
                         }
                         else
                         {
@@ -59,11 +95,13 @@ namespace HowLeaky_SimulationEngine.Engine
                             MathTools.LogDivideByZeroError("CalculateSolutes", "kgs_soil_in_layer_1", "out_LayerSoluteConc_mg_per_kg[0]");
                         }
                     }
-                    if (!MathTools.DoublesAreEqual(irrigationAmountmm, 0))
+                    if (MathTools.NotZero(irrigation_amount))
                     {
-                        if (!MathTools.DoublesAreEqual(kgsSoilinLayer1, 0))
+                        if (MathTools.NotZero(kgs_soil_in_layer_1))
                         {
-                            LayerSoluteConcmgPerkg[0] += InputModel.IrrigationConcentration * irrigationAmountmm * 10000.0 / kgsSoilinLayer1;
+                            solute_conc_irrig_mg_per_kg = SoluteIrrigationConcentration_mg_per_L * irrigation_amount * 10000.0 / kgs_soil_in_layer_1;
+                            solute_conc_layer_mg_per_kg[0] += solute_conc_irrig_mg_per_kg;
+                            solute_conc_irrig_kg_per_ha = solute_conc_irrig_mg_per_kg * kgs_soil_in_layer_1 / 1000000.0;
                         }
                         else
                         {
@@ -71,104 +109,110 @@ namespace HowLeaky_SimulationEngine.Engine
                         }
                     }
                     //initialise total solute count;
-                    TotalSoilSolute = 0;
+                    double total_soil_mass_kg = 0;
+                    double total_SW_rel_OD = 0;
+                    total_soil_solute_kg_per_ha = 0;
                     //Route solutes down through layer.
                     for (int i = 0; i < Engine.SoilModule.LayerCount; ++i)
                     {
-                        double SWRelOD = Engine.SoilModule.SoilWaterRelWP[i] + Engine.SoilModule.WiltingPointRelOD[i];
-                        double StartOfDaySWRelOD = SWRelOD + Engine.SoilModule.Seepage[i + 1];
+                        double SW_rel_OD =  Engine.SoilModule.SoilWaterRelWP[i] + Engine.SoilModule.WiltingPointRelOD[i];
+                        total_SW_rel_OD += SW_rel_OD;
+                        double StartOfDay_SW_rel_OD = SW_rel_OD + Engine.SoilModule.Seepage[i + 1];
 
-                        if (!MathTools.DoublesAreEqual(StartOfDaySWRelOD, 0) && !MathTools.DoublesAreEqual(SWRelOD, 0))
+
+                        if (MathTools.NotZero(StartOfDay_SW_rel_OD) && MathTools.NotZero(SW_rel_OD))
                         {
-                            double kgsSoilInLayer = Engine.SoilModule.InputModel.BulkDensity[i] * 1000.0 * (Engine.SoilModule.Depth[i + 1] - Engine.SoilModule.Depth[i]) * 10000.0 / 1000.0;
-
+                            double kgs_soil_in_layer = Engine.SoilModule.InputModel.BulkDensity[i] * 1000.0 * (Engine.SoilModule.Depth[i + 1] - Engine.SoilModule.Depth[i]) * 10000.0 / 1000.0;
+                            total_soil_mass_kg += kgs_soil_in_layer;
                             //calculate the potential drained loadings (doesn't take into account mixing effects)
-                            double potentialDrainedSolutemg = 0;
-                            if (!MathTools.DoublesAreEqual(StartOfDaySWRelOD, 0))
-                                potentialDrainedSolutemg = (LayerSoluteConcmgPerkg[i] * kgsSoilInLayer / StartOfDaySWRelOD) * Engine.SoilModule.Seepage[i + 1];
+                            double potential_drained_solute_mg = 0;
+                            if (MathTools.NotZero(StartOfDay_SW_rel_OD ))
+                            { 
+                                potential_drained_solute_mg = (solute_conc_layer_mg_per_kg[i] * kgs_soil_in_layer / StartOfDay_SW_rel_OD) * Engine.SoilModule.Seepage[i + 1];       //checked ok
+                            }
                             else
                             {
-                                MathTools.LogDivideByZeroError("CalculateSolutes", "StartOfDay_SW_rel_OD", "potential_drained_solute_mg");
                             }
                             //calculate the actual drained loadings
-                            double actualDrainedSolutemg = InputModel.MixingCoefficient * potentialDrainedSolutemg;
+                            double actual_drained_solute_mg = InputModel.MixingCoefficient * potential_drained_solute_mg;
 
                             //take the drained solute load away from the balance in the layer
-                            if (!MathTools.DoublesAreEqual(kgsSoilInLayer, 0))
-                            {
+                            if (MathTools.NotZero(kgs_soil_in_layer))
+                            { 
                                 /*OUTPUT*/
-                                LayerSoluteConcmgPerkg[i] -= actualDrainedSolutemg / kgsSoilInLayer;
+                                solute_conc_layer_mg_per_kg[i] -= actual_drained_solute_mg / kgs_soil_in_layer;
                             }
                             else
                             {
-                                LayerSoluteConcmgPerkg[i] = 0;
-                                MathTools.LogDivideByZeroError("CalculateSolutes", "kgs_soil_in_layer", "out_LayerSoluteConc_mg_per_kg[i]");
+                                solute_conc_layer_mg_per_kg[i] = 0;
                             }
 
                             //calculate the solute load in the layer
                             /*OUTPUT*/
-                            LayerSoluteLoad[i] = LayerSoluteConcmgPerkg[i] * kgsSoilInLayer / 1000000.0;
+                            solute_load_layer_kg_per_ha[i] = solute_conc_layer_mg_per_kg[i] * kgs_soil_in_layer / 1000000.0;   //checked SUSPICIOUS
 
                             //keep track of total load
                             /*OUTPUT*/
-                            TotalSoilSolute += LayerSoluteLoad[i];
+                            total_soil_solute_kg_per_ha += solute_load_layer_kg_per_ha[i];
 
                             //calculate solute concentration in layer
-                            double SWVolumetric;
-                            if (!MathTools.DoublesAreEqual(Engine.SoilModule.Depth[i + 1], 0))
-                                SWVolumetric = SWRelOD / (double)(Engine.SoilModule.Depth[i + 1]);
-                            else
+                            double SW_Volumetric;
+                            if (MathTools.NotZero(Engine.SoilModule.Depth[i + 1]) )
                             {
-                                SWVolumetric = 0;
-
-                                MathTools.LogDivideByZeroError("CalculateSolutes", "depth[i+1]", "SW_Volumetric");
+                                //SW_Volumetric=StartOfDay_SW_rel_OD/double(depth[i+1]);
+                                SW_Volumetric = SW_rel_OD / (double)(Engine.SoilModule.Depth[i + 1]);
                             }
-                            if (!MathTools.DoublesAreEqual(SWVolumetric, 0))
-                                /*OUTPUT*/
-                                LayerSoluteConcmgPerL[i] = LayerSoluteConcmgPerkg[i] * Engine.SoilModule.InputModel.BulkDensity[i] / SWVolumetric;
                             else
                             {
-                                LayerSoluteConcmgPerL[i] = 0;
+                                SW_Volumetric = 0;
+                            }
 
-                                MathTools.LogDivideByZeroError("CalculateSolutes", "SW_Volumetric", "out_LayerSoluteConc_mg_per_L[i]");
+                            if (MathTools.NotZero(SW_Volumetric) )
+                            {
+                                /*OUTPUT*/        //	solute_conc_layer_mg_per_L[i]	= solute_conc_layer_mg_per_kg[i] *BulkDensity[i]/SW_Volumetric;      //checked ok
+                                solute_conc_layer_mg_per_L[i] = solute_load_layer_kg_per_ha[i] / (SW_rel_OD * 10.0) * 1000.0;
+
+                            }
+                            else
+                            {
+                                solute_conc_layer_mg_per_L[i] = 0;
+
                             }
 
                             //push solute into next layer OR calculate leaching (deep drainage) loadings
                             if (i + 1 < Engine.SoilModule.LayerCount)
                             {
-                                double kgsSoilInNextLayer = Engine.SoilModule.InputModel.BulkDensity[i + 1] * 1000.0 * (Engine.SoilModule.Depth[i + 2] - Engine.SoilModule.Depth[i + 1]) * 10000.0 / 1000.0;
-                                if (!MathTools.DoublesAreEqual(kgsSoilInNextLayer, 0))
-                                {
-                                    LayerSoluteConcmgPerkg[i + 1] += actualDrainedSolutemg / kgsSoilInNextLayer;
+                                double kgs_soil_in_next_layer = Engine.SoilModule.InputModel.BulkDensity[i + 1] * 1000.0 * (Engine.SoilModule.Depth[i + 2] - Engine.SoilModule.Depth[i + 1]) * 10000.0 / 1000.0;
+                                if (MathTools.NotZero(kgs_soil_in_next_layer))
+                                { 
+                                    solute_conc_layer_mg_per_kg[i + 1] += actual_drained_solute_mg / kgs_soil_in_next_layer;
                                 }
                                 else
                                 {
-                                    LayerSoluteConcmgPerkg[i + 1] = 0;
-                                    MathTools.LogDivideByZeroError("CalculateSolutes", "kgs_soil_in_next_layer", "out_LayerSoluteConc_mg_per_kg[i+1]");
+                                    solute_conc_layer_mg_per_kg[i + 1] = 0;
+
                                 }
                             }
                             else
                             {
 
-                                /*OUTPUT*/
-                                LeachateSoluteLoadkgPerha = LayerSoluteConcmgPerL[i] / 1000000.0 * Engine.SoilModule.Seepage[i + 1] * 10000.0;
+                                /*OUTPUT*/            //solute_leaching_load_kg_per_ha =	solute_conc_layer_mg_per_L[i]/1000000.0 * Seepage[i+1]*10000.0;      // CHECKED OK
+                                solute_leaching_load_kg_per_ha = actual_drained_solute_mg / 1000000.0;
                                 if (Engine.SoilModule.Seepage[i + 1] > 0)
-                                /*OUTPUT*/
-                                {
-                                    LeachateSoluteConcmgPerL = LayerSoluteConcmgPerL[i];      //CHECKTHIS
-                                }
+                                    /*OUTPUT*/
+                                    solute_leaching_conc_mg_per_L = solute_conc_layer_mg_per_L[i];  // ????
                                 else
-                                {
-                                    LeachateSoluteConcmgPerL = 0;
-                                }
+                                    solute_leaching_conc_mg_per_L = 0;
                             }
                         }
                         else
                         {
-                            LayerSoluteConcmgPerkg[i] = 0;
-                            LayerSoluteConcmgPerL[i] = 0;
+                            solute_conc_layer_mg_per_kg[i] = 0;
+                            solute_conc_layer_mg_per_L[i] = 0;
                         }
                     }
+                    total_soil_solute_mg_per_kg = total_soil_solute_kg_per_ha / total_soil_mass_kg * 1000000.0;
+                    total_soil_solute_mg_per_L = total_soil_solute_kg_per_ha / (total_SW_rel_OD * 10.0) * 1000.0;
 
                     UpdateSolutesSummaryValues();
                 }

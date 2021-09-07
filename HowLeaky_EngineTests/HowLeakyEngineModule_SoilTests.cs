@@ -47,7 +47,7 @@ namespace HowLeaky_Engine.UnitTests
             soilmodule.InputModel = inputmodule;
            
 
-            Assert.Throws<Exception>(() => climatemodule.Simulate());
+            Assert.Throws<Exception>(() => soilmodule.Simulate());
         }
         [Test]
         public void TryModelSoilCracking()

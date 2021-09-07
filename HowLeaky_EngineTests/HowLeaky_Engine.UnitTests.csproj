@@ -7,6 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="HowLeakyEngineModule_ClimateTests.cs" />
+    <Compile Remove="HowLeakyEngineModule_CoverVegTests.cs" />
+    <Compile Remove="HowLeakyEngineModule_IrrigationTests.cs" />
+    <Compile Remove="HowLeakyEngineModule_LAIVegTests.cs" />
+    <Compile Remove="HowLeakyEngineModule_NitrateTests.cs" />
+    <Compile Remove="HowLeakyEngineModule_PesticideTests.cs" />
+    <Compile Remove="HowLeakyEngineModule_PhosphorusTests.cs" />
+    <Compile Remove="HowLeakyEngineModule_SoilTests.cs" />
+    <Compile Remove="HowLeakyEngineModule_SolutesTests.cs" />
+    <Compile Remove="HowLeakyEngineModule_TillageTests.cs" />
+    <Compile Remove="HowLeakyEngine_GlobalsTests.cs" />
+    <Compile Remove="HowLeakyEngine_InitialiseTests.cs" />
+    <Compile Remove="HowLeakyEngine_InputsTests.cs" />
+    <Compile Remove="HowLeakyEngine_OutputsTests.cs" />
+    <Compile Remove="HowLeakyEngine_SimulateTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />

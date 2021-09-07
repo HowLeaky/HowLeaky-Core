@@ -20,7 +20,7 @@ namespace HowLeaky_SimulationEngine.Engine
         {
             RemapDict=remapdict;
             OutputsCSV = outputs;
-            SortedVegetationModules=new List<_CustomHowLeakyEngine_VegModule>();
+            
         }
 
         public static string GetAppVersion()

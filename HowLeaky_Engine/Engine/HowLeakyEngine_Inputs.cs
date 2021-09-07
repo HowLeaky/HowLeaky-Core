@@ -14,6 +14,18 @@ namespace HowLeaky_SimulationEngine.Engine
         {
             try
             {
+                if(model.Climate==null)
+                {
+                    return false;
+                }
+                if(model.Soil==null)
+                {
+                    return false;
+                }
+                if(model.Crops==null||model.Crops.Count==0)
+                {
+                    return false;
+                }
                 SimulationName = model.Name;
                 Modules = new List<_CustomHowLeakyEngineModule>();
                 if (model.Climate != null)

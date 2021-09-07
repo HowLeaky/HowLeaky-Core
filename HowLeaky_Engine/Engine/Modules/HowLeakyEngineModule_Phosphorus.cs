@@ -1,4 +1,5 @@
-﻿using HowLeaky_SimulationEngine.Attributes;
+﻿using HowLeaky_Engine.Outputs.Summaries;
+using HowLeaky_SimulationEngine.Attributes;
 using HowLeaky_SimulationEngine.Errors;
 using HowLeaky_SimulationEngine.Inputs;
 using HowLeaky_SimulationEngine.Tools;
@@ -11,10 +12,12 @@ namespace HowLeaky_SimulationEngine.Engine
     public class HowLeakyEngineModule_Phosphorus : _CustomHowLeakyEngineModule
     {
 
-
+        public HowLeakyOutputSummary_Phosphorus Summary { get; set; }
         public HowLeakyEngineModule_Phosphorus(HowLeakyEngine sim, HowLeakyInputs_Phosphorus inputs) : base(sim)
         {
+            Name = inputs.Name;
             InputModel = inputs;
+           
 
         }
 
@@ -61,11 +64,6 @@ namespace HowLeaky_SimulationEngine.Engine
 
         public override void Initialise()
         {
-            //Do nothing
-        }
-
-        public void InitialisePhosphorusParameters()
-        {
             try
             {
                 MaxPhosConcBioParticmgPerL = 0;
@@ -85,6 +83,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 TotalP = 0;
                 PPHLC = 0;
                 PhosExportDissolve = 0;
+                Summary = new HowLeakyOutputSummary_Phosphorus();
             }
             catch (Exception ex)
             {
@@ -92,7 +91,9 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
-        public void UpdatePhosphorusSummaryValues() { }
+        
+
+       
         /// <summary>
         /// 
         /// </summary>
@@ -100,25 +101,24 @@ namespace HowLeaky_SimulationEngine.Engine
         {
             try
             {
-                if (CansimulatePhosphorus())
+                
+                if (Engine.SoilModule.Runoff > 0)
                 {
-                    if (Engine.SoilModule.Runoff > 0)
-                    {
-                        CalculateDissolvedPhosphorus();
-                        CalculateParticulatePhosphorus();
-                        CalculateTotalPhosphorus();
-                        CalculateBioavailableParticulatePhosphorus();
-                        CalculateBioavailablePhosphorus();
-                        TestMaximumPhosphorusConcentrations();
-                    }
-                    else
-                    {
-                        ResetPhosphorusOutputParameters();
-
-                    }
-                    CalculateCATCHMODSOutputs();
+                    CalculateDissolvedPhosphorus();
+                    CalculateParticulatePhosphorus();
+                    CalculateTotalPhosphorus();
+                    CalculateBioavailableParticulatePhosphorus();
+                    CalculateBioavailablePhosphorus();
+                    TestMaximumPhosphorusConcentrations();
                 }
-                UpdatePhosphorusSummaryValues();
+                else
+                {
+                    ResetPhosphorusOutputParameters();
+
+                }
+                CalculateCATCHMODSOutputs();                                  
+                Summary.Update(Engine);
+
             }
             catch (Exception ex)
             {
@@ -127,10 +127,7 @@ namespace HowLeaky_SimulationEngine.Engine
         }
 
 
-        public bool CansimulatePhosphorus()
-        {
-            return true;
-        }
+      
 
         public void CalculateDissolvedPhosphorus()
         {

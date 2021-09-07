@@ -56,7 +56,7 @@ namespace HowLeaky_SimulationEngine.Engine
         [Internal] public double PredRh { get; set; }
 
 
-
+        [Internal]public double PAWC { get;set;}
         [Internal] public List<double> MCFC { get; set; }
         [Internal] public List<double> SoilWaterRelWP { get; set; }
         [Internal] public List<double> DrainUpperLimitRelWP { get; set; }
@@ -192,6 +192,12 @@ namespace HowLeaky_SimulationEngine.Engine
                     }
                     TotalSoilWater += SoilWaterRelWP[i];
                 }
+
+
+                PAWC = 0.0;
+                for (int i = 0; i < LayerCount; ++i)
+                    PAWC += DrainUpperLimitRelWP[i];
+
 
                 TotalCropResidue = 0;
                 TotalResidueCover = 0;  //0.707*(1.0-exp(-1.0*total_crop_residue/1000.0));

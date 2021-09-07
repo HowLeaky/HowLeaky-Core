@@ -60,7 +60,10 @@ namespace HowLeaky_SimulationEngine.Inputs
         public double NDepthTopLayer1 { get; set; }      
         public double Nk { get; set; }      
         public double Ncv { get; set; }      
-        public double NAlpha { get; set; }      
+        public double NAlpha_Disolved { get; set; }
+        public double NBeta_Disolved { get; set; }
+        public double NBeta_Particulate { get; set; }
+        public double NAlpha_Particulate { get; set; }
         public double SoilNitrateLoadWeighting1 { get; set; }      
          public double SoilNitrateLoadWeighting2 { get; set; }
           public double SoilNitrateLoadWeighting3 { get; set; }
@@ -80,7 +83,7 @@ namespace HowLeaky_SimulationEngine.Inputs
         
         public double NDepthTopLayer2 { get; set; }
         public double NEnrichmentRatio { get; set; }
-        public double NBeta { get; set; }
+       
      
         
         

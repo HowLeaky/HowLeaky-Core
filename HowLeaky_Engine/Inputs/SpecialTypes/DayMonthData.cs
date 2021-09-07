@@ -43,5 +43,11 @@ namespace HowLeaky_SimulationEngine.Tools
             }
             return date.Day==Day &&date.Month==Month;
         }
+
+        internal bool IsValid()
+        {
+            return (Month>=1&&Month<=12&&Day>=1&&Day<=31);
+            
+        }
     }
 }

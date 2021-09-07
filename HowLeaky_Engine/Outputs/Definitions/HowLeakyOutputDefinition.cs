@@ -71,7 +71,8 @@ namespace HowLeaky_SimulationEngine.Outputs
         internal string GetMethodName()
         {
 
-            return $"Update{Module}_{CodeName}";
+            var text= $"Update{Module}_{CodeName}";
+            return text;
         }
        
     }

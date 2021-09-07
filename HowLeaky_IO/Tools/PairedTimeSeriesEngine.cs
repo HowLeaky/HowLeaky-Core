@@ -20,9 +20,11 @@ namespace HowLeaky_IO.Tools
         public List<double> YData { get; set; }
         public BrowserDate StartDate { get; set; }
         public BrowserDate EndDate { get; set; }
-
+        public int Count { get; set; }
+        public int Missing { get; set; }
         public int Symbol { get; set; }
-        public float Size { get; set; }
+        public float Size1 { get; set; }
+        public float Size2 { get;set;}
         public string Color1 { get; set; }
         public string Color2 { get; set; }
         public float Slope { get; set; }
@@ -31,8 +33,14 @@ namespace HowLeaky_IO.Tools
         public float RMSE { get; set; }
         public string Title { get; set; }
 
+        public float? MaxY { get;set;}
+      
+
+
         public string XAxisTitle { get; set; }
         public string YAxisTitle { get; set; }
+        public string TimeSeriesName1 { get; set; }
+        public string TimeSeriesName2 { get; set; }
 
         public List<float[]> GetDataArray()
         {
@@ -101,28 +109,34 @@ namespace HowLeaky_IO.Tools
             TimeSeries1 = timeseries1;
             TimeSeries2 = timeseries2;
         }
-        public PairedTimeSeries Generate(int dataformat, int? startyear, int? endyear, int? jstart, int? jend, bool infill)
+        public PairedTimeSeries Generate(int dataformat, BrowserDate datastart, BrowserDate dataend,int? jstart, int? jend, bool infill)
         {
             try
             {
                 var pair = new PairedTimeSeries();
+                var start1 = TimeSeries1.StartDate;
+                var end1 = TimeSeries1.EndDate;
+                var values1 = TimeSeries1.DailyValues;
 
-                if (dataformat == 0)
+                var start2 = TimeSeries2.StartDate;
+                var end2 = TimeSeries2.EndDate;
+                var values2 = TimeSeries2.DailyValues;
+
+                var mindate = start1.DateInt < start2.DateInt ? start1 : start2;
+                var maxdate = end1.DateInt > end2.DateInt ? end1 : end2;
+                if (datastart != null)
                 {
-                    var start1 = TimeSeries1.StartDate;
-                    var end1 = TimeSeries1.EndDate;
-                    var values1 = TimeSeries1.DailyValues;
+                    mindate = datastart.DateInt > mindate.DateInt ? datastart : mindate;
+                }
+                if (dataend != null)
+                {
+                    maxdate = datastart.DateInt < maxdate.DateInt ? dataend : maxdate;
+                }
 
-                    var start2 = TimeSeries2.StartDate;
-                    var end2 = TimeSeries2.EndDate;
-                    var values2 = TimeSeries2.DailyValues;
-
-                    var mindate = start1.DateInt < start2.DateInt ? start1 : start2;
-                    var maxdate = end1.DateInt > end2.DateInt ? end1 : end2;
-                    pair.StartDate=mindate;
-                    pair.EndDate=maxdate;
+                pair.StartDate = mindate;
+                pair.EndDate = maxdate;
+                                    
                     bool foundfirst = false;
-
                     for (var index = mindate.DateInt; index <= maxdate.DateInt; ++index)
                     {
                         var date = new BrowserDate(index);
@@ -132,16 +146,16 @@ namespace HowLeaky_IO.Tools
                         {
                             var check1 = index >= start1.DateInt;
                             var check2 = index >= start2.DateInt;
-                            var check3 = startyear == null || date.Year >= ((int)startyear);
-                            foundfirst = check1 && check2 && check3;
+                           
+                            foundfirst = check1 && check2 ;
                             pair.StartDate = date;
                         }
                         if (foundfirst)
                         {
                             var check1 = index <= end1.DateInt;
                             var check2 = index <= end2.DateInt;
-                            var check3 = endyear == null || date.Year <= ((int)endyear);
-                            var cancontinue = check1 && check2 && check3;
+                            
+                            var cancontinue = check1 && check2 ;
 
                             if (cancontinue)
                             {
@@ -208,8 +222,105 @@ namespace HowLeaky_IO.Tools
                         }
                     }
 
+                 if (dataformat==1)
+                {
+                    var xvalues=new List<double>();
+                    var yvalues=new List<double>();
+                    var startdate=pair.StartDate;
+                    var currentmonth=startdate.Month;
+                    var sum1 = 0.0;
+                    var sum2 = 0.0;
+                    var count=0;
+                    for(var i=0;i<pair.XData.Count;++i)
+                    {
+                        var date=startdate.AddDays(i);
+                        var month=date.Month;
+                        var x=pair.XData[i];
+                        var y=pair.YData[i];
+                        if(month==currentmonth)
+                        {
+                            if(Math.Abs(x - 32768)>0.00001)
+                            { 
+                                sum1+=x;
+                            }
+                            if (Math.Abs(y - 32768) > 0.00001)
+                            {
+                                sum2 +=y;
+                            }
+                            ++count;
+                        }
+                        else
+                        {
+                            xvalues.Add(sum1);
+                            yvalues.Add(sum2);
+                            currentmonth=month;
+                            sum1=0;
+                            sum2=0;
+                            count = 1;
+                            if (Math.Abs(x - 32768) > 0.00001)
+                            {
+                                sum1 = x;
+                            }
+                            if (Math.Abs(y - 32768) > 0.00001)
+                            {
+                                sum2 = y;
+                            }
+                        }                        
+                    }
+                    pair.XData=xvalues;
+                    pair.YData=yvalues;
+                    pair.Count=pair.XData.Count;
                 }
-                return pair;
+                else if (dataformat == 2)
+                {
+                    var xvalues = new List<double>();
+                    var yvalues = new List<double>();
+                    var startdate = pair.StartDate;
+                    var currentyear = startdate.Year;
+                    var sum1 = 0.0;
+                    var sum2 = 0.0;
+                    var count = 0;
+                    for (var i = 0; i < pair.XData.Count; ++i)
+                    {
+                        var date = startdate.AddDays(i);
+                        var year = date.Year;
+                        var x = pair.XData[i];
+                        var y = pair.YData[i];
+                        if (year == currentyear)
+                        {
+                            if (Math.Abs(x - 32768) > 0.00001)
+                            {
+                                sum1 += x;
+                            }
+                            if (Math.Abs(y - 32768) > 0.00001)
+                            {
+                                sum2 += y;
+                            }
+                            ++count;
+                        }
+                        else
+                        {
+                            xvalues.Add(sum1);
+                            yvalues.Add(sum2);
+                            currentyear = year;
+                            sum1 = 0;
+                            sum2 = 0;
+                            count = 1;
+                            if (Math.Abs(x - 32768) > 0.00001)
+                            {
+                                sum1 = x;
+                            }
+                            if (Math.Abs(y - 32768) > 0.00001)
+                            {
+                                sum2 = y;
+                            }
+                        }
+                    }
+                    pair.XData = xvalues;
+                    pair.YData = yvalues;
+                    pair.Count = pair.XData.Count;
+                }
+                 return pair;
             }
             catch (Exception ex)
             {

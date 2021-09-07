@@ -22,6 +22,11 @@ namespace HowLeaky_SimulationEngine.Inputs
         public double Layer3InitialConc { get; set; }
         public double Layer4InitialConc { get; set; }
         public double Layer5InitialConc { get; set; }
+        public double Layer6InitialConc { get; set; }
+        public double Layer7InitialConc { get; set; }
+        public double Layer8InitialConc { get; set; }
+        public double Layer9InitialConc { get; set; }
+        public double Layer10InitialConc { get; set; }
         public double DefaultInitialConc { get; set; }
         public double RainfallConcentration { get; set; }
         public double IrrigationConcentration { get; set; }

@@ -8,14 +8,26 @@ using System.Xml.Serialization;
 
 namespace HowLeaky_SimulationEngine.Tools
 {
+
+    public enum SequenceType
+    {
+        Unknown,
+        JDayValue,
+        DateValue,
+        Date
+
+    }
     public class Sequence
     {
         private String _Value;
-        [XmlIgnore]
+
         public List<BrowserDate> Dates { get; set; }
-        [XmlIgnore]
+        public List<int> JDays { get; set; }
+
         public List<double> Values { get; set; }
-        [XmlText]
+
+        public Dictionary<int, double> Dict { get; set; }
+
         public string Value
         {
             get { return _Value; }
@@ -25,15 +37,14 @@ namespace HowLeaky_SimulationEngine.Tools
                 parseStringValue();
             }
         }
-        ///// <summary>
-        /// 
-        /// </summary>
-        /// </summary>
+
+        public SequenceType Type { get; set; }
+
         public Sequence()
         {
             Dates = new List<BrowserDate>();
             Values = new List<double>();
-
+            JDays = new List<int>();
             Value = "";
         }
 
@@ -41,59 +52,236 @@ namespace HowLeaky_SimulationEngine.Tools
         {
             try
             {
-                if (!String.IsNullOrEmpty(stringvalue.Trim()))
+                Type = ExtractType(stringvalue);
+                switch (Type)
                 {
-                    var items = stringvalue.Replace("\"", "").Split(',').ToList();
+                    case SequenceType.JDayValue: ExtractJDayValues(stringvalue); break;
+                    case SequenceType.DateValue: ExtractDateValues(stringvalue); break;
+                    case SequenceType.Date: ExtractDates(stringvalue); break;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+
+        private SequenceType ExtractType(string stringvalue)
+        {
+            if (!String.IsNullOrEmpty(stringvalue.Trim()))
+            {
+                var items = stringvalue.Replace("\"", "").Split(',').ToList();
+                if (items.Count > 0)
+                {
+                    float testvalue;
+                    var firsttest = items[0];
+                    if (float.TryParse(firsttest, out testvalue))
+                    {
+                        if (testvalue > 0 && testvalue < 1000)
+                        {
+                            return SequenceType.JDayValue;
+                        }
+                    }
                     var isdual = TestIsDual(items);
                     if (isdual)
                     {
-                        for (var i = 0; i < items.Count; i = i + 2)
+                        return SequenceType.DateValue;
+                    }
+                    return SequenceType.Date;
+                }
+
+            }
+            return SequenceType.Unknown;
+        }
+
+
+
+
+
+        private void ExtractJDayValues(string stringvalue)
+        {
+            var interpolate=true;
+            if (!String.IsNullOrEmpty(stringvalue))
+            {
+
+                var items = stringvalue.Replace("\"", "").Split(',').ToList();
+                for (var i = 0; i < items.Count; i = i + 2)
+                {
+                    if (i + 1 < items.Count)
+                    {
+                        var first = items[i].Trim();
+                        var second = items[i + 1].Trim();
+                        int value1;
+                        double value2;
+
+                        if (int.TryParse(first, out value1))
                         {
-                            if (i + 1 < items.Count)
+                            if (second[0] == '[')
                             {
-                                var first = items[i].Trim();
-                                var second = items[i + 1].Trim();
-                                DateTime date;
-                                if (DateTime.TryParseExact(first, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+                                interpolate=false;
+                                second=second.Replace("[","").Replace("]","");
+                            }
+                            if (double.TryParse(second, out value2))
+                            {
+                                JDays.Add(value1);
+                                Values.Add(value2);
+                            }
+                            
+                        }
+
+                    }
+                }
+                Dict = new Dictionary<int, double>();
+
+                if (interpolate)
+                {
+                    int count = JDays.Count;
+                    if (count > 1)
+                    {
+                        int index1 = count - 1;
+                        int index2 = 0;
+                        for (int i = 1; i <= 366; ++i)
+                        {
+                            var day1 = JDays[index1];
+                            var day2 = JDays[index2];
+                            var value1 = Values[index1];
+                            var value2 = Values[index2];
+                            if (i == day2)
+                            {
+                                Dict.Add(day2, value2);
+                                ++index1;
+                                ++index2;
+                                if (index1 >= count)
                                 {
-                                    var value = double.Parse(second);
-                                    Dates.Add(new BrowserDate(date));
-                                    Values.Add(value);
+                                    index1 = index2 - 1;
                                 }
-                                else if (DateTime.TryParseExact(first, "d/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+                                if (index2 >= count)
                                 {
-                                    var value = double.Parse(second);
-                                    Dates.Add(new BrowserDate(date));
-                                    Values.Add(value);
+                                    index2 = index1 - 1;
                                 }
                             }
+                            //else if (i == day1)
+                            //{
+                            //    Dict.Add(day1, value1);
+                            //}
+                            else
+                            {
+                                if (i >= day1 && i <= day2)
+                                {
+
+                                    Dict.Add(i, Iterpolate(i, day1, value1, day2, value2));
+                                }
+                                else if (day1 > i)
+                                {
+                                    Dict.Add(i, Iterpolate(i, day1 - 366, value1, day2, value2));
+                                }
+                                else if (day2 < i)
+                                {
+                                    Dict.Add(i, Iterpolate(i, day1, value1, day2 + 366, value2));
+                                }
+
+
+
+                            }
+
+                        }
+                    }
+                    else if (count == 1)
+                    {
+                        var value = Values[0];
+                        for (int i = 1; i <= 366; ++i)
+                        {
+                            Dict.Add(i, value);
                         }
                     }
                     else
                     {
-
-
-                        for (var i = 0; i < items.Count; ++i)
+                        for (int i = 1; i <= 366; ++i)
                         {
-                            var first = items[i].Trim();
-
-                            DateTime date;
-                            if (DateTime.TryParseExact(first, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
-                            {
-
-                                Dates.Add(new BrowserDate(date));
-
-                            }
-                            else if (DateTime.TryParseExact(first, "d/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
-                            {
-
-                                Dates.Add(new BrowserDate(date));
-
-                            }
+                            Dict.Add(i, 0);
                         }
                     }
+                }
+                else
+                {
 
+                    int index = 0;
+                    for (int i = 1; i <= 366; ++i)
+                    {
+                        var day = index < JDays.Count ? JDays[index] : -1;
 
+                        if (i == day)
+                        {
+                            var value = Values[index];
+                            Dict.Add(day, value);
+                            ++index;
+                        }
+                        else
+                        {
+                            Dict.Add(i, 0);
+                        }
+                    }
+                }
+            }
+        }
+
+        public double Iterpolate(int day, int day1, double value1, int day2, double value2)
+        {
+            if (day == day1)
+            {
+
+                return value1;
+
+            }
+            else if (day == day2)
+            {
+                return value2;
+            }
+            else //if (day < day2)
+            {
+                double m, c, denom;
+                denom = (day2 - day1);
+                if (denom != 0)
+                {
+                    m = (value2 - value1) / denom;
+                }
+                else
+                {
+                    return 0;
+                }
+                c = value2 - m * day2;
+                return (m * day + c);
+            }
+            return 0;
+        }
+
+        private void ExtractDateValues(string stringvalue)
+        {
+            try
+            {
+                var items = stringvalue.Replace("\"", "").Split(',').ToList();
+
+                for (var i = 0; i < items.Count; i = i + 2)
+                {
+                    if (i + 1 < items.Count)
+                    {
+                        var first = items[i].Trim();
+                        var second = items[i + 1].Trim();
+                        DateTime date;
+                        if (DateTime.TryParseExact(first, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+                        {
+                            var value = double.Parse(second);
+                            Dates.Add(new BrowserDate(date));
+                            Values.Add(value);
+                        }
+                        else if (DateTime.TryParseExact(first, "d/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+                        {
+                            var value = double.Parse(second);
+                            Dates.Add(new BrowserDate(date));
+                            Values.Add(value);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -101,6 +289,39 @@ namespace HowLeaky_SimulationEngine.Tools
                 throw ErrorLogger.CreateException(ex);
             }
         }
+
+        private void ExtractDates(string stringvalue)
+        {
+            try
+            {
+                var items = stringvalue.Replace("\"", "").Split(',').ToList();
+                for (var i = 0; i < items.Count; ++i)
+                {
+                    var first = items[i].Trim();
+
+                    DateTime date;
+                    if (DateTime.TryParseExact(first, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+                    {
+
+                        Dates.Add(new BrowserDate(date));
+
+                    }
+                    else if (DateTime.TryParseExact(first, "d/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+                    {
+
+                        Dates.Add(new BrowserDate(date));
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ErrorLogger.CreateException(ex);
+            }
+        }
+
+
+
 
         private bool TestIsDual(List<string> items)
         {
@@ -122,7 +343,14 @@ namespace HowLeaky_SimulationEngine.Tools
         /// <returns></returns>
         public bool ContainsDate(BrowserDate date)
         {
-            if (Dates.Any(x => x.DateInt == date.DateInt))
+            if (Type == SequenceType.Date && Type == SequenceType.DateValue)
+            {
+                if (Dates.Any(x => x.DateInt == date.DateInt))
+                {
+                    return true;
+                }
+            }
+            else if (Type == SequenceType.JDayValue)
             {
                 return true;
             }
@@ -135,15 +363,27 @@ namespace HowLeaky_SimulationEngine.Tools
         /// <returns></returns>
         public double ValueAtDate(BrowserDate date)
         {
-            var dateobject = Dates.FirstOrDefault(x => x.DateInt == date.DateInt);
-            if (dateobject != null)
+            if (Type == SequenceType.Date && Type == SequenceType.DateValue)
             {
-                int dateIndex = Dates.IndexOf(dateobject);
-
-                if (dateIndex >= 0)
+                var dateobject = Dates.FirstOrDefault(x => x.DateInt == date.DateInt);
+                if (dateobject != null)
                 {
-                    return Values[dateIndex];
+                    int dateIndex = Dates.IndexOf(dateobject);
+
+                    if (dateIndex >= 0)
+                    {
+                        return Values[dateIndex];
+                    }
                 }
+            }
+            else if (Type == SequenceType.JDayValue)
+            {
+                var jday = date.GetJDay();
+                if (jday > 365)
+                {
+                    jday = 365;
+                }
+                return Dict[jday];
             }
             return 0;
         }
@@ -208,9 +448,6 @@ namespace HowLeaky_SimulationEngine.Tools
             return null;
         }
 
-        public double GetValueForDayIndex( BrowserDate engineTodaysDate)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
