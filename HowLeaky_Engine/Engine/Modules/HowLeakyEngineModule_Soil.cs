@@ -564,7 +564,7 @@ namespace HowLeaky_SimulationEngine.Engine
 
 
 
-        public void CalculatSoilEvaporation()
+        public void CalculateSoilEvaporation()
         {
             try
             {

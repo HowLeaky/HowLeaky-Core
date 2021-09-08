@@ -269,7 +269,10 @@ namespace HowLeaky_Engine.UnitTests
             engine.SoilModule.Initialise();
         }
 
-
+        public void LoadCoverVeg(HowLeakyEngine engine)
+        {
+            
+        }
         public void LoadLAIVeg_FixedPlant(HowLeakyEngine engine)
         {
             var inputs = FetchLAIVegInputs(engine);
@@ -423,7 +426,7 @@ namespace HowLeaky_Engine.UnitTests
             inputs.IrrigCoverEffects = 0;
             inputs.IrrigRunoffSequence=new Sequence("1,1");
             
-            inputs.IrrigCoverEffects = 0;
+        
             inputs.EvaporationProportion = 0;
             inputs.EvaporationOptions = IrrigationEvaporationOptions.Option1;
         }
@@ -465,7 +468,7 @@ namespace HowLeaky_Engine.UnitTests
             inputs.IrrigCoverEffects = 0;
             inputs.IrrigRunoffSequence = new Sequence("1,1");
 
-            inputs.IrrigCoverEffects = 0;
+           
             inputs.EvaporationProportion = 0;
             inputs.EvaporationOptions = IrrigationEvaporationOptions.Option1;
         }

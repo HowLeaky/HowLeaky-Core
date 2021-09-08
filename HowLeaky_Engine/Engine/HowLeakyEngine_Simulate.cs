@@ -208,7 +208,7 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 if (SoilModule != null)
                 {
-                    SoilModule.CalculatSoilEvaporation();
+                    SoilModule.CalculateSoilEvaporation();
                 }
             }
             catch (Exception ex)
