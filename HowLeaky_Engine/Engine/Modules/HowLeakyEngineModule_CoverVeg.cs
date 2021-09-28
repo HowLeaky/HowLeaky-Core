@@ -36,7 +36,15 @@ namespace HowLeaky_SimulationEngine.Engine
 
         public override void Initialise()
         {
-            DaysSincePlanting=365-InputModel.PlantDay;
+            if(InputModel.PlantDay==1)
+            { 
+                DaysSincePlanting=0;
+            }
+            else
+            {
+                DaysSincePlanting = 365 - InputModel.PlantDay -1;
+            }
+            
             INPUTS_SWPropForNoStress=InputModel.SWPropForNoStress;
             base.Initialise();
             InitialisedMeasuredInputs();

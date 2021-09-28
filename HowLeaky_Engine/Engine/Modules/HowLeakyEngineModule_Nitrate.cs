@@ -17,7 +17,7 @@ namespace HowLeaky_SimulationEngine.Engine
         {
             Name = inputs.Name;
             InputModel = inputs;
-            
+
         }
 
         public HowLeakyEngineModule_Nitrate()
@@ -54,12 +54,12 @@ namespace HowLeaky_SimulationEngine.Engine
         [Output] public double NitrogenApplication { get; set; } //SAFEGAUGE MODEL
         [Output] public double Mineralisation { get; set; } //SAFEGAUGE MODEL
         [Output] public double CropUsePlant { get; set; } //SAFEGAUGE MODEL
-        [Output] public double CropUseRatoon { get; set; } //SAFEGAUGE MODEL
+                                                          //  [Output] public double CropUseRatoon { get; set; } //SAFEGAUGE MODEL
         [Output] public double CropUseActual { get; set; } //SAFEGAUGE MODEL
         [Output] public double Denitrification { get; set; } //SAFEGAUGE MODEL
         [Output] public double ExcessN { get; set; } //SAFEGAUGE MODEL
         [Output] public double PropVolSat { get; set; } //SAFEGAUGE MODEL
-        [Output] public double DINDrainage { get; set; } //SAFEGAUGE MODEL
+                                                        // [Output] public double DINDrainage { get; set; } //SAFEGAUGE MODEL
 
 
         public override void Initialise()
@@ -89,15 +89,15 @@ namespace HowLeaky_SimulationEngine.Engine
             NitrogenApplication = 0;
             Mineralisation = 0;
             CropUsePlant = 0;
-            CropUseRatoon = 0;
+            //  CropUseRatoon = 0;
             CropUseActual = 0;
             Denitrification = 0;
             ExcessN = InputModel.InitialExcessN;
             PropVolSat = 0;
-            DINDrainage = 0;
+            //DINDrainage = 0;
 
             Summary = new HowLeakyOutputSummary_Nitrate();
-           
+
         }
 
 
@@ -139,7 +139,7 @@ namespace HowLeaky_SimulationEngine.Engine
         }
 
 
-  
+
         private void CalculateDissolvedNInRunoffBananas()
         {
             try
@@ -319,11 +319,11 @@ namespace HowLeaky_SimulationEngine.Engine
                     Saturated = true;
                 }
 
-                if (Engine.TodaysDate.DateInt > Engine.StartDate.DateInt)
-                {
+                //if (Engine.TodaysDate.DateInt > Engine.StartDate.DateInt)
+                //{
                     //Excess N - calc from yesterdays values
                     ExcessN = Math.Max(
-                        ExcessN + NitrogenApplication + Mineralisation - CropUseActual - Denitrification - DINDrainage,
+                        ExcessN + NitrogenApplication + Mineralisation - CropUseActual - Denitrification - NO3NLeachingLoad- NO3NRunoffLoad,
                         0);
                     //Denitrification
                     Denitrification = 0;
@@ -331,57 +331,86 @@ namespace HowLeaky_SimulationEngine.Engine
                     {
                         Denitrification = InputModel.Denitrification * ExcessN;
                     }
-                }
+              //  }
                 //Stage
-                if (das == 0)
-                {
-                    StageType = StageType.Fallow;
-                }
-                else if (das > 0 && das < InputModel.MainStemDuration)
+                //if (das == 0)
+                //{
+                //    StageType = StageType.Fallow;
+                //}
+                //else if (das > 0 && das < InputModel.MainStemDuration)
+                //{
+                //    StageType = StageType.Plant;
+                //}
+                //else if (das > 0 && das > InputModel.MainStemDuration)
+                //{
+                //    StageType = StageType.Ratoon;
+                //}
+
+                if (das >= 0 && das < InputModel.MainStemDuration)
                 {
                     StageType = StageType.Plant;
                 }
-                else if (das > 0 && das > InputModel.MainStemDuration)
+                else
                 {
-                    StageType = StageType.Ratoon;
+                    StageType = StageType.Fallow;
                 }
+
 
                 //Applied N
                 NitrogenApplication = 0;
-                if (InputModel.FertilizerInputDateSequences.ContainsDate(Engine.TodaysDate))
+                if (StageType == StageType.Plant)
                 {
-                    NitrogenApplication = InputModel.FertilizerInputDateSequences.ValueAtDate(Engine.TodaysDate);
+                    if (InputModel.FertilizerInputDateSequences.ContainsDate(Engine.TodaysDate))
+                    {
+                        NitrogenApplication = InputModel.FertilizerInputDateSequences.ValueAtDate(Engine.TodaysDate);
+                    }
                 }
 
                 //Mineralisation
-                Mineralisation = 0;
-                if (StageType == StageType.Fallow)
-                {
+                //Mineralisation = 0;
+                //if (StageType == StageType.Fallow)
+                //{
                     Mineralisation = Math.Min(Engine.SoilModule.InputModel.OrganicCarbon * InputModel.CNSlope,
                         InputModel.CNMax) / 365.0;
-                }
+                //}
 
                 //Crop use
                 CropUseActual = 0;
                 CropUsePlant = (1 / (1 + (Math.Exp((das - InputModel.PlantA) * (-InputModel.PlantB))))) *
                                InputModel.PlantDaily;
-                CropUseRatoon = (1 / (1 + (Math.Exp((das - InputModel.RatoonA) * (-InputModel.RatoonB))))) *
-                                InputModel.RatoonDaily;
+                //CropUseRatoon = (1 / (1 + (Math.Exp((das - InputModel.RatoonA) * (-InputModel.RatoonB))))) *
+                //                 InputModel.RatoonDaily;
 
                 if (StageType == StageType.Plant)
                 {
                     CropUseActual = CropUsePlant;
                 }
-                else if (StageType == StageType.Ratoon)
+                else
                 {
-                    CropUseActual = CropUseRatoon;
+                    CropUseActual = 0;
                 }
+                //else if (StageType == StageType.Ratoon)
+                //{
+                //    CropUseActual = CropUseRatoon;
+                //}
 
                 //Vol of sat
                 PropVolSat = Engine.SoilModule.DeepDrainage / Engine.SoilModule.VolSat;
 
                 //DIN Drainage
-                DINDrainage = PropVolSat * ExcessN * InputModel.NitrateDrainageRetention;
+                NO3NLeachingLoad = PropVolSat * ExcessN * InputModel.NitrateDrainageRetention;
+
+
+                NO3NStoreBotLayer = MathTools.MISSING_DATA_VALUE;
+                if(Math.Abs(Engine.SoilModule.DeepDrainage)>0.000001)
+                { 
+                    NO3NDissolvedLeaching = NO3NLeachingLoad/ Engine.SoilModule.DeepDrainage*100;
+                }
+                else
+                {
+                    NO3NDissolvedLeaching = 0; 
+                }
+
 
                 YesterdaysRunoff = Engine.SoilModule.Runoff;
             }

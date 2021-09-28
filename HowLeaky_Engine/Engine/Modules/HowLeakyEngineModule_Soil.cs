@@ -177,10 +177,10 @@ namespace HowLeaky_SimulationEngine.Engine
                         AirDryLimitRelWP[0] = 0;
                     }
                 }
-
+                var initpawc= Engine.GetInitialPAW();
                 for (int i = 0; i < LayerCount; ++i)
                 {
-                    SoilWaterRelWP[i] = Engine.GetInitialPAW() * DrainUpperLimitRelWP[i];
+                    SoilWaterRelWP[i] = initpawc * DrainUpperLimitRelWP[i];
 
                     if (SoilWaterRelWP[i] > SaturationLimitRelWP[i])
                     {

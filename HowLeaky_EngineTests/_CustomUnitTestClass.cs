@@ -24,7 +24,7 @@ namespace HowLeaky_Engine.UnitTests
             engine.EndDate = new BrowserDate(2003, 12, 31);
             engine.TodaysDate = engine.StartDate;
             engine.PrepareForNewSimulation();
-           
+
         }
 
         public HowLeakyInputs_Climate FetchClimateInputs(HowLeakyEngine engine)
@@ -147,18 +147,43 @@ namespace HowLeaky_Engine.UnitTests
         {
             if (engine.VegetationModules is null)
             {
-                engine.VegetationModules=new List<_CustomHowLeakyEngine_VegModule>();
-                var laivegmodule=new HowLeakyEngineModule_LAIVeg()
+                engine.VegetationModules = new List<_CustomHowLeakyEngine_VegModule>();
+                var laivegmodule = new HowLeakyEngineModule_LAIVeg()
                 {
-                    Engine=engine
+                    Engine = engine
                 };
                 engine.VegetationModules.Add(laivegmodule);
-                
+
             }
-            var vegmodel=(HowLeakyEngineModule_LAIVeg)engine.VegetationModules.FirstOrDefault();
+            var vegmodel = (HowLeakyEngineModule_LAIVeg)engine.VegetationModules.FirstOrDefault();
             if (vegmodel.InputModel is null)
             {
                 vegmodel.InputModel = new HowLeakyInputs_LAIVeg();
+            }
+            if (engine.Modules is null)
+            {
+                engine.Modules = new List<_CustomHowLeakyEngineModule>();
+            }
+            engine.Modules.Add(vegmodel);
+            return vegmodel.InputModel;
+        }
+
+        public HowLeakyInputs_CoverVeg FetchCoverVegInputs(HowLeakyEngine engine)
+        {
+            if (engine.VegetationModules is null)
+            {
+                engine.VegetationModules = new List<_CustomHowLeakyEngine_VegModule>();
+                var laivegmodule = new HowLeakyEngineModule_CoverVeg()
+                {
+                    Engine = engine
+                };
+                engine.VegetationModules.Add(laivegmodule);
+
+            }
+            var vegmodel = (HowLeakyEngineModule_CoverVeg)engine.VegetationModules.FirstOrDefault();
+            if (vegmodel.InputModel is null)
+            {
+                vegmodel.InputModel = new HowLeakyInputs_CoverVeg();
             }
             if (engine.Modules is null)
             {
@@ -194,21 +219,21 @@ namespace HowLeaky_Engine.UnitTests
         }
 
         public void LoadClimate(HowLeakyEngine engine)
-		{
-            var inputs= FetchClimateInputs(engine);
+        {
+            var inputs = FetchClimateInputs(engine);
             //  J   F   M   A   M   J   J   A   S   O   N   D
-            var DaysInMonth=new List<int> { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-			var Rain = new List<double> { 50, 52, 54, 56, 58, 60, 60, 58, 56, 54, 52, 50 };
-			var Evap = new List<double> { 20, 18, 15, 12,  8,  4,  4,  8, 12, 15, 18, 20 };
-			var MaxTemp = new List<double> { 30, 28, 24, 20, 16, 14, 14, 16, 20, 24, 28, 30 };
-			var MinTemp = new List<double> { 15, 14, 12, 10,  8,  7,  7,  8, 10, 12, 14, 15 };
-			var Radiation = new List<double> { 15, 14, 12, 10,  8,  7,  7,  8, 10, 12, 14, 15 };
+            var DaysInMonth = new List<int> { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+            var Rain = new List<double> { 50, 52, 54, 56, 58, 60, 60, 58, 56, 54, 52, 50 };
+            var Evap = new List<double> { 20, 18, 15, 12, 8, 4, 4, 8, 12, 15, 18, 20 };
+            var MaxTemp = new List<double> { 30, 28, 24, 20, 16, 14, 14, 16, 20, 24, 28, 30 };
+            var MinTemp = new List<double> { 15, 14, 12, 10, 8, 7, 7, 8, 10, 12, 14, 15 };
+            var Radiation = new List<double> { 15, 14, 12, 10, 8, 7, 7, 8, 10, 12, 14, 15 };
 
-			List<double> RainValues=new List<double>();
-			List<double> EvapValues = new List<double>();
-			List<double> MaxTempValues = new List<double>();
-			List<double> MinTempValues = new List<double>();
-			List<double> RadiationValues = new List<double>();
+            List<double> RainValues = new List<double>();
+            List<double> EvapValues = new List<double>();
+            List<double> MaxTempValues = new List<double>();
+            List<double> MinTempValues = new List<double>();
+            List<double> RadiationValues = new List<double>();
             for (int year = 2001; year < 2004; ++year)
             {
                 for (int month = 1; month <= 12; ++month)
@@ -235,18 +260,51 @@ namespace HowLeaky_Engine.UnitTests
             inputs.MinT = MinTempValues;
             inputs.MaxT = MaxTempValues;
             inputs.Radiation = RadiationValues;
-            inputs.StartDate=new BrowserDate(2001,1,1);
-            inputs.EndDate=new BrowserDate(2003,12,31);
+            inputs.StartDate = new BrowserDate(2001, 1, 1);
+            inputs.EndDate = new BrowserDate(2003, 12, 31);
             engine.ClimateModule.Initialise();
-            
+
         }
 
-        public void LoadSoil(HowLeakyEngine  engine)
+        public void LoadPesticide_FixedDate(HowLeakyEngine engine)
         {
-            var inputs=FetchSoilInputs(engine);
+            var inputs = FetchPesticideInputs(engine);
+            inputs.Name="Atrazine";
+            inputs.ApplicationTiming = 0;
+            inputs.ApplicationDate = new DayMonthData(1,1);
+            inputs.ProductRate = 2;
+            inputs.ConcActiveIngred = 500;
+            inputs.CritPestConc=500;
+            inputs.SubsequentProductRate = 2;
+            inputs.ApplicationPosition = 0;
+            inputs.HalfLifeVeg = 14.5;
+            inputs.HalfLifeSoil = 24.5;
+            inputs.HalfLifeStubble = 29;
+            inputs.RefTempHalfLifeVeg = 24.5;            
+            inputs.RefTempHalfLifeStubble = 25;           
+            inputs.RefTempHalfLifeSoil = 25;                        
+            inputs.PestEfficiency = 100;
+            inputs.DegradationActivationEnergy = 54900;
+            inputs.MixLayerThickness = 20;
+            inputs.SorptionCoefficient = 1.81;
+            inputs.ExtractCoefficient = 0.02;
+            inputs.CoverWashoffFraction = 0.45;
+            inputs.BandSpraying = 100;
+            inputs.PestApplicationDateList = null;
+            inputs.TriggerGGDFirst = 0;
+            inputs.TriggerGGDSubsequent = 0;
+            inputs.TriggerDaysFirst = 0;
+            inputs.TriggerDaysSubsequent = 0;
+            
+
+        }
+
+        public void LoadSoil(HowLeakyEngine engine)
+        {
+            var inputs = FetchSoilInputs(engine);
             inputs.LayerCount = 6;
             inputs.Depths = new List<double> { 100, 300, 600, 900, 1200, 1800 };
-            inputs.AirDryLimit = new List<double> { 12, 12, 33, 35, 35, 35};
+            inputs.AirDryLimit = new List<double> { 12, 12, 33, 35, 35, 35 };
             inputs.WiltingPoint = new List<double> { 30, 30, 33, 35, 35, 35 };
             inputs.FieldCapacity = new List<double> { 55, 55, 54, 50, 50, 47 };
             inputs.Saturation = new List<double> { 70, 65, 62, 56, 56, 52 };
@@ -268,10 +326,29 @@ namespace HowLeaky_Engine.UnitTests
             inputs.SedDelivRatio = 0.14;
             engine.SoilModule.Initialise();
         }
-
+        
         public void LoadCoverVeg(HowLeakyEngine engine)
         {
-            
+            var inputs = FetchCoverVegInputs(engine);
+            inputs.ModelType = 0;
+            inputs.SourceData = 0;
+            inputs.PlantDay = 1;
+            inputs.CoverDataType = 0;
+            inputs.CoverProfile = new ProfileData("1,40,30,100|365,1,40,30,100");
+            inputs.GreenCoverTimeSeries = null;
+            inputs.ResidueCoverTimeSeries = null;
+            inputs.RootDepthTimeSeries = null;
+            inputs.TranspirationEfficiency = 0;
+            inputs.HarvestIndex = 0;
+            inputs.DaysPlantingToHarvest = 10000;
+            inputs.GreenCoverMultiplier = 1;
+            inputs.ResidueCoverMultiplier = 1;
+            inputs.RootDepthMultiplier = 1;
+            inputs.MaxAllowTotalCover = 100;
+            inputs.MaxRootDepth = 2000;
+            inputs.SWPropForNoStress = 0.3;
+            inputs.MaximumRootDepth = 2000;
+            // engine.VegetationModules[0].Initialise();
         }
         public void LoadLAIVeg_FixedPlant(HowLeakyEngine engine)
         {
@@ -306,7 +383,7 @@ namespace HowLeaky_Engine.UnitTests
             inputs.WaterLoggingFactor1 = 0;
             inputs.WaterLoggingFactor2 = 0;
             inputs.RotationFormat = 0;
-            inputs.PlantingWindowStartDate = new DayMonthData(1,1);
+            inputs.PlantingWindowStartDate = new DayMonthData(1, 1);
             inputs.PlantingWindowEndDate = new DayMonthData(1, 1);
 
             inputs.MinimumFallowPeriod = 0;
@@ -328,7 +405,7 @@ namespace HowLeaky_Engine.UnitTests
             engine.VegetationModule(0).Initialise();
         }
 
-        public void LoadSolutes_Constant(HowLeakyEngine  engine)
+        public void LoadSolutes_Constant(HowLeakyEngine engine)
         {
             var inputs = FetchSolutesInputs(engine);
             inputs.StartConcOption = 0;
@@ -351,16 +428,16 @@ namespace HowLeaky_Engine.UnitTests
 
         public void LoadNitrate_N03NInRuoff(HowLeakyEngine engine)
         {
-            var inputs=FetchNitrateInputs(engine);
+            var inputs = FetchNitrateInputs(engine);
             inputs.DissolvedNinRunoffOptions = DissolvedNinRunoffType.HowLeaky2012;
             inputs.NDepthTopLayer1 = 100;
             inputs.Nk = 0.3;
             inputs.Ncv = 0.2;
             inputs.NAlpha_Disolved = 1;
-            inputs.NBeta_Disolved=0;
+            inputs.NBeta_Disolved = 0;
             inputs.SoilNLoadData1 = new Sequence("1,10");
-            inputs.SoilNitrateLoadWeighting1=1;
-            
+            inputs.SoilNitrateLoadWeighting1 = 1;
+
         }
 
         public void LoadNitrate_N03NInLeaching(HowLeakyEngine engine)
@@ -369,10 +446,10 @@ namespace HowLeaky_Engine.UnitTests
             inputs.DissolvedNinLeachingOptions = DissolvedNinLeachingType.HowLeaky2012;
             inputs.DepthBottomLayer = 100;
             inputs.NitrateLeachingEfficiency = 0.5;
-     
+
             inputs.SoilNLoadData2 = new Sequence("1,10");
             inputs.SoilNitrateLoadWeighting2 = 1;
-            
+
         }
 
         public void LoadNitrate_ParticNInRunoff(HowLeakyEngine engine)
@@ -392,11 +469,11 @@ namespace HowLeaky_Engine.UnitTests
         public void LoadIrrigation_Constant(HowLeakyEngine engine)
         {
             var inputs = FetchIrrigationInputs(engine);
-       
+
             inputs.IrrigationFormat = IrrigationFormat.FromSequenceFile;
-            inputs.IrrigWindowStartDate = new DayMonthData(1,1);
-            inputs.IrrigWindowEndDate=new DayMonthData(1,12);
-            inputs.IrrigSequence=new Sequence("1,100");
+            inputs.IrrigWindowStartDate = new DayMonthData(1, 1);
+            inputs.IrrigWindowEndDate = new DayMonthData(1, 12);
+            inputs.IrrigSequence = new Sequence("1,100");
 
             inputs.SWDToIrrigate = 0;
             inputs.TargetAmountOptions = TargetAmountOptions.FixedAmount;
@@ -415,18 +492,18 @@ namespace HowLeaky_Engine.UnitTests
             inputs.RingTankEvapCoefficient = 0;
             inputs.IrrigDeliveryEfficiency = 0;
             inputs.ResetRingTank = false;
-            inputs.ResetRingTankDate = new DayMonthData(1,1);
+            inputs.ResetRingTankDate = new DayMonthData(1, 1);
 
             inputs.CapactityAtReset = 0;
-            
-            inputs.AdditionalInflowSequence=new Sequence("1,1");            
+
+            inputs.AdditionalInflowSequence = new Sequence("1,1");
             inputs.IrrigRunoffOptions = 0;
             inputs.IrrigRunoffProportion1 = 0;
             inputs.IrrigRunoffProportion2 = 0;
             inputs.IrrigCoverEffects = 0;
-            inputs.IrrigRunoffSequence=new Sequence("1,1");
-            
-        
+            inputs.IrrigRunoffSequence = new Sequence("1,1");
+
+
             inputs.EvaporationProportion = 0;
             inputs.EvaporationOptions = IrrigationEvaporationOptions.Option1;
         }
@@ -468,7 +545,7 @@ namespace HowLeaky_Engine.UnitTests
             inputs.IrrigCoverEffects = 0;
             inputs.IrrigRunoffSequence = new Sequence("1,1");
 
-           
+
             inputs.EvaporationProportion = 0;
             inputs.EvaporationOptions = IrrigationEvaporationOptions.Option1;
         }

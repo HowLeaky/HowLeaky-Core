@@ -48,7 +48,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 UsePERFECTResidueFn = false;
                 UsePERFECTSoilEvapFn = false;
                 UsePERFECTCurveNoFn = DEFAULT_CN;
-                InitialPAW = 0.5;
+                
             }
             catch (Exception ex)
             {

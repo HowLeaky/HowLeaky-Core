@@ -71,11 +71,14 @@ namespace HowLeaky_Engine.Outputs.Summaries
         }
         public double GetAnnualAvgParticulateNRunoff()
         {
-            return ParticulateNRunoff.Sum() / ((float)Counts.Sum() / 365.25);
+            var yrs = ((float)Counts.Sum() / 365.25);
+            return ParticulateNRunoff.Sum() / yrs;
         }
         public double GetAnnualAvgNO3NLeachate()
         {
-            return NO3NLeachate.Sum() / ((float)Counts.Sum() / 365.25);
+            var yrs = ((float)Counts.Sum() / 365.25);
+            var sum= NO3NLeachate.Sum();
+            return  sum/ yrs;
         }
     }
 }

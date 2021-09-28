@@ -13,7 +13,7 @@ namespace HowLeaky_SimulationEngine.Engine
     {
         public HowLeakyEngine()
         {
-
+            InitialPAW = 0.5;
         }
        
         public HowLeakyEngine(string outputs, Dictionary<string,OutputAttributes>remapdict=null)

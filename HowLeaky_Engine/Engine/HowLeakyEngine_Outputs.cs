@@ -605,10 +605,10 @@ namespace HowLeaky_SimulationEngine.Engine
             output.Update(index, NitrateModule.CropUsePlant);
         }
 
-        public void UpdateNitrateModule_CropUseRatoon(HowLeakyOutputTimeseriesActive output, int index)
-        {
-            output.Update(index, NitrateModule.CropUseRatoon);
-        }
+        //public void UpdateNitrateModule_CropUseRatoon(HowLeakyOutputTimeseriesActive output, int index)
+        //{
+        //    output.Update(index, NitrateModule.CropUseRatoon);
+        //}
 
         public void UpdateNitrateModule_CropUseActual(HowLeakyOutputTimeseriesActive output, int index)
         {
@@ -630,10 +630,10 @@ namespace HowLeaky_SimulationEngine.Engine
             output.Update(index, NitrateModule.PropVolSat);
         }
 
-        public void UpdateNitrateModule_DINDrainage(HowLeakyOutputTimeseriesActive output, int index)
-        {
-            output.Update(index, NitrateModule.DINDrainage);
-        }
+        //public void UpdateNitrateModule_DINDrainage(HowLeakyOutputTimeseriesActive output, int index)
+        //{
+        //    output.Update(index, NitrateModule.DINDrainage);
+        //}
 
         public void UpdateNitrateModule_NO3NDissolvedInRunoff(HowLeakyOutputTimeseriesActive output, int index)
         {
