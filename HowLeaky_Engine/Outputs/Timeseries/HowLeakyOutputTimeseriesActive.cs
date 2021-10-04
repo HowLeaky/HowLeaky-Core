@@ -22,6 +22,7 @@ namespace HowLeaky_SimulationEngine.Outputs
             EndDate=new BrowserDate(end);
             OutputDefn=outputtype;
             Index=outputtype.VectorIndex;
+            OrderIndex=outputtype.OrderIndex;
             ColorValue=outputtype.ColorValue;
             Width= outputtype.Width;
             DailyValues=new List<double?>(new double?[EndDate.DateInt-StartDate.DateInt+1]);
@@ -31,7 +32,7 @@ namespace HowLeaky_SimulationEngine.Outputs
         
 
        
-
+        
         public HowLeakyOutputDefinition OutputDefn {get;set;}
       //  public Action<HowLeakyOutputTimeseries> Action { get; set; }
 

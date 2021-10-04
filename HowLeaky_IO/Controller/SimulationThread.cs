@@ -51,18 +51,18 @@ namespace HowLeaky_IO
         private Dictionary<string, HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes> BuildOutputsRemapDict(List<string> outputs)
         {
             
-           
+           var orderindex=0;
             var dict = new Dictionary<string, HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes>();
             foreach (var output in outputs)
             {
                 var temp=output.ToLower();
                 if(temp.Contains("temp")||temp.Contains("conc"))
                 {
-                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, output, "#000000",1, false));
+                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, output, "#000000",1, orderindex++, false));
                 }
                 else
                 {
-                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, output, "#000000", 1, true));
+                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, output, "#000000", 1, orderindex++, true));;
                 }
                 
             }

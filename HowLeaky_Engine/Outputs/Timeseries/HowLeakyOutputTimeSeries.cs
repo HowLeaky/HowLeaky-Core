@@ -66,7 +66,7 @@ namespace HowLeaky_SimulationEngine.Outputs
         public string DisplayName { get { return $"{SimulationIndex}. {Name}"; } }
         public string Name { get; set; }
         public bool CanAccumulate { get; set; }
-
+        public int OrderIndex { get;set;}
         public int? SimulationIndex { get; set; }
         public string ColorValue { get; set; }
         public float Width { get;set;}

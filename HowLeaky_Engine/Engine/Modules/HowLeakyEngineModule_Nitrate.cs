@@ -312,39 +312,21 @@ namespace HowLeaky_SimulationEngine.Engine
             try
             {
                 int das = Engine.CurrentCrop.DaysSincePlanting;
-                Saturated = false;
-                if (Engine.TodaysDate.DateInt > Engine.StartDate.DateInt && Engine.SoilModule.Runoff > 0 &&
-                    YesterdaysRunoff > 0)
-                {
-                    Saturated = true;
-                }
 
-                //if (Engine.TodaysDate.DateInt > Engine.StartDate.DateInt)
-                //{
-                    //Excess N - calc from yesterdays values
-                    ExcessN = Math.Max(
-                        ExcessN + NitrogenApplication + Mineralisation - CropUseActual - Denitrification - NO3NLeachingLoad- NO3NRunoffLoad,
-                        0);
-                    //Denitrification
+
+                //Excess N - calc from yesterdays values
+                ExcessN = Math.Max( ExcessN + NitrogenApplication + Mineralisation - CropUseActual - Denitrification - NO3NLeachingLoad - NO3NRunoffLoad, 0);
+
+
+                //Denitrification               
+                if (Engine.SoilModule.Runoff > 0 && YesterdaysRunoff > 0) //Runoff 2 days in a row, you get Denitrification 
+                {
+                    Denitrification = InputModel.Denitrification * ExcessN;
+                }
+                else
+                {
                     Denitrification = 0;
-                    if (Saturated)
-                    {
-                        Denitrification = InputModel.Denitrification * ExcessN;
-                    }
-              //  }
-                //Stage
-                //if (das == 0)
-                //{
-                //    StageType = StageType.Fallow;
-                //}
-                //else if (das > 0 && das < InputModel.MainStemDuration)
-                //{
-                //    StageType = StageType.Plant;
-                //}
-                //else if (das > 0 && das > InputModel.MainStemDuration)
-                //{
-                //    StageType = StageType.Ratoon;
-                //}
+                }
 
                 if (das >= 0 && das < InputModel.MainStemDuration)
                 {
@@ -367,19 +349,12 @@ namespace HowLeaky_SimulationEngine.Engine
                 }
 
                 //Mineralisation
-                //Mineralisation = 0;
-                //if (StageType == StageType.Fallow)
-                //{
-                    Mineralisation = Math.Min(Engine.SoilModule.InputModel.OrganicCarbon * InputModel.CNSlope,
-                        InputModel.CNMax) / 365.0;
-                //}
+                Mineralisation = Math.Min(Engine.SoilModule.InputModel.OrganicCarbon * InputModel.CNSlope, InputModel.CNMax) / 365.0;
 
                 //Crop use
                 CropUseActual = 0;
-                CropUsePlant = (1 / (1 + (Math.Exp((das - InputModel.PlantA) * (-InputModel.PlantB))))) *
-                               InputModel.PlantDaily;
-                //CropUseRatoon = (1 / (1 + (Math.Exp((das - InputModel.RatoonA) * (-InputModel.RatoonB))))) *
-                //                 InputModel.RatoonDaily;
+                CropUsePlant = (1 / (1 + (Math.Exp((das - InputModel.PlantA) * (-InputModel.PlantB))))) * InputModel.PlantDaily;
+
 
                 if (StageType == StageType.Plant)
                 {
@@ -389,10 +364,6 @@ namespace HowLeaky_SimulationEngine.Engine
                 {
                     CropUseActual = 0;
                 }
-                //else if (StageType == StageType.Ratoon)
-                //{
-                //    CropUseActual = CropUseRatoon;
-                //}
 
                 //Vol of sat
                 PropVolSat = Engine.SoilModule.DeepDrainage / Engine.SoilModule.VolSat;
@@ -402,13 +373,13 @@ namespace HowLeaky_SimulationEngine.Engine
 
 
                 NO3NStoreBotLayer = MathTools.MISSING_DATA_VALUE;
-                if(Math.Abs(Engine.SoilModule.DeepDrainage)>0.000001)
-                { 
-                    NO3NDissolvedLeaching = NO3NLeachingLoad/ Engine.SoilModule.DeepDrainage*100;
+                if (Math.Abs(Engine.SoilModule.DeepDrainage) > 0.000001)
+                {
+                    NO3NDissolvedLeaching = NO3NLeachingLoad / Engine.SoilModule.DeepDrainage * 100;
                 }
                 else
                 {
-                    NO3NDissolvedLeaching = 0; 
+                    NO3NDissolvedLeaching = 0;
                 }
 
 

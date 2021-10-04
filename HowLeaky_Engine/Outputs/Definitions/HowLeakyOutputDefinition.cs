@@ -33,6 +33,7 @@ namespace HowLeaky_SimulationEngine.Outputs
                     ColorValue=attrs.ColorValue;
                     Width=attrs.Width;
                     CanAccumulate=attrs.CanAccumulate;
+                    OrderIndex=attrs.OrderIndex;
                 }
                 else
                 {
@@ -48,7 +49,7 @@ namespace HowLeaky_SimulationEngine.Outputs
 
 
         
-
+        public int OrderIndex { get;set;}
         public int? VectorIndex{get;set;}
         public List<Action<HowLeakyOutputTimeseriesActive,int>> Actions { get; set; }
         public string Module{get;set;}
