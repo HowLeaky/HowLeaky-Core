@@ -9,7 +9,7 @@ using HowLeaky_SimulationEngine.Errors;
 
 namespace HowLeaky_SimulationEngine.Engine
 {
-    class HowLeakyEngineModule_LAIVeg : _CustomHowLeakyEngine_VegModule
+    public class HowLeakyEngineModule_LAIVeg : _CustomHowLeakyEngine_VegModule
     {
 
 
@@ -27,7 +27,10 @@ namespace HowLeaky_SimulationEngine.Engine
                 throw ErrorLogger.CreateException(ex);
             }
         }
-       
+
+        public HowLeakyEngineModule_LAIVeg()
+        {
+        }
 
         public override string GetName()
         {
@@ -62,6 +65,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 Scurve();
                 HeatUnitIndex = 0;
                 Hrltp = 0;
+                INPUTS_SWPropForNoStress = InputModel.SWPropForNoStress;
             }
             catch (Exception ex)
             {
@@ -554,7 +558,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 {
                     if (CropStage <= 2.0)
                     {
-                        if (WaterStressIndex <= InputModel.SWPropForNoStress)
+                        if (WaterStressIndex <= InputModel.WaterStressThreshold)// Al Had this as SWPropForNoStress
                         {
                             ++KillDays;
                         }

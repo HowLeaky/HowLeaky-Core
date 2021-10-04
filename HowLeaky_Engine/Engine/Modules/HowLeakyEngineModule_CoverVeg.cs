@@ -9,7 +9,7 @@ using HowLeaky_SimulationEngine.Errors;
 
 namespace HowLeaky_SimulationEngine.Engine
 {
-    class HowLeakyEngineModule_CoverVeg : _CustomHowLeakyEngine_VegModule
+    public class HowLeakyEngineModule_CoverVeg : _CustomHowLeakyEngine_VegModule
     {
         public HowLeakyEngineModule_CoverVeg(HowLeakyEngine simulation, HowLeakyInputs_CoverVeg inputs) : base(simulation)
         {
@@ -24,6 +24,11 @@ namespace HowLeaky_SimulationEngine.Engine
                 throw ErrorLogger.CreateException(ex);
             }
         }
+
+        public HowLeakyEngineModule_CoverVeg() : base()
+        {
+        }
+
         public HowLeakyInputs_CoverVeg InputModel { get; set; }
 
         public int PanDayindex { get; set; }
@@ -31,10 +36,20 @@ namespace HowLeaky_SimulationEngine.Engine
 
         public override void Initialise()
         {
-            DaysSincePlanting=365-InputModel.PlantDay;
+            if (InputModel.PlantDay == 1)
+            {
+                DaysSincePlanting = 0;
+
+            }
+            else
+            {
+                DaysSincePlanting = 365 - InputModel.PlantDay - 1;
+            }
+            CropStatus = HowLeaky_SimulationEngine.Enums.CropStatus.Fallow;
+            INPUTS_SWPropForNoStress = InputModel.SWPropForNoStress;
             base.Initialise();
             InitialisedMeasuredInputs();
-            
+
         }
 
         public override string GetName()
@@ -74,7 +89,14 @@ namespace HowLeaky_SimulationEngine.Engine
         /// <returns></returns>
         public override bool DoesCropMeetSowingCriteria()
         {
-            return (Engine.TodaysDate.GetJDay() == InputModel.PlantDay && CropStatus != HowLeaky_SimulationEngine.Enums.CropStatus.Growing);
+            var today = Engine.TodaysDate.GetJDay();
+
+            if (today == InputModel.PlantDay && CropStatus != HowLeaky_SimulationEngine.Enums.CropStatus.Growing)
+            {
+                return true;
+            }
+            return false;
+
         }
 
         /// <summary>
@@ -96,6 +118,9 @@ namespace HowLeaky_SimulationEngine.Engine
                 //	CalculateRootGrowth();
                 CalculateTranspiration();
                 CalculateBiomass();
+
+                ++DaysSincePlanting;
+
                 if (DaysSincePlanting == InputModel.DaysPlantingToHarvest)
                 {
                     CalculateYield();
@@ -127,9 +152,12 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 TotalCover = ResidueCover * (1 - GreenCover) + GreenCover;
                 // was requested by VicDPI to account for animal trampling
-                if (TotalCover > InputModel.MaxAllowTotalCover)
+                if (Math.Abs(InputModel.MaxAllowTotalCover) > 0.001)
                 {
-                    TotalCover = InputModel.MaxAllowTotalCover;
+                    if (TotalCover > InputModel.MaxAllowTotalCover)
+                    {
+                        TotalCover = InputModel.MaxAllowTotalCover;
+                    }
                 }
                 return TotalCover;
             }
@@ -240,14 +268,14 @@ namespace HowLeaky_SimulationEngine.Engine
                 Engine.SoilModule.TotalResidueCoverPercent = ResidueCover * 100.0;
                 TotalCover = GetTotalCover();
                 Yield = 0;
-                if(CropCover>0)
-                {
-                    CropStatus=CropStatus.Growing;
-                }
-                else
-                {
-                    CropStatus=CropStatus.Fallow;
-                }
+                //if(CropCover>0)
+                //{
+                //    CropStatus=CropStatus.Growing;
+                //}
+                //else
+                //{
+                //    CropStatus=CropStatus.Fallow;
+                //}
                 //REVIEW
                 //Output.GreenCover = GreenCover * 100.0;
                 //CropCoverPercent = CropCover * 100.0;
@@ -288,7 +316,7 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 if (CropStatus == CropStatus.Growing)
                 {
-                    ++DaysSincePlanting;
+
                     if (InputModel.DaysPlantingToHarvest != 0)
                     {
                         CropStage = 3.0 * DaysSincePlanting / (double)(InputModel.DaysPlantingToHarvest);
@@ -327,8 +355,9 @@ namespace HowLeaky_SimulationEngine.Engine
                 //Output.Yield = Yield / 1000.0;
                 CumulativeYield += Yield;
                 ++HarvestCount;
-                //CropStatus = CropStatus.Fallow;
-                DaysSincePlanting = 0;
+                CropStatus = CropStatus.Fallow;
+                //DaysSincePlanting = 0;
+                DryMatter = 0;
             }
             catch (Exception ex)
             {

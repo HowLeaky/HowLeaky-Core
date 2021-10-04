@@ -15,7 +15,10 @@ namespace HowLeaky_SimulationEngine.Engine
     {
         public List<HowLeakyOutputDefinition> Definitions { get; set; }
         public HowLeakyOutputSummary_WaterBalance WaterBalanceSummary { get; set; }
-        public bool IncludeWaterBalanceSummary{get;set;}
+
+
+
+        public bool IncludeSummaries { get; set; }
 
         public void InitialiseOutputObject()
         {
@@ -30,9 +33,9 @@ namespace HowLeaky_SimulationEngine.Engine
                         Outputs.TimeSeries.Add(new HowLeakyOutputTimeseriesActive(outputtype, StartDate, EndDate));
                     }
                 }
-                if(IncludeWaterBalanceSummary)
+                if (IncludeSummaries)
                 {
-                    WaterBalanceSummary=new HowLeakyOutputSummary_WaterBalance();
+                    WaterBalanceSummary = new HowLeakyOutputSummary_WaterBalance();
                 }
             }
             catch (Exception ex)
@@ -44,20 +47,20 @@ namespace HowLeaky_SimulationEngine.Engine
 
 
         //This function is called from the constructor - only need to call it once per HowLeaky Instance.
-        public void BuildOutputDefinitions(string timeseriescsv, Dictionary<string,OutputAttributes>remapdict)
+        public void BuildOutputDefinitions(string timeseriescsv, Dictionary<string, OutputAttributes> remapdict)
         {
             try
             {
                 Definitions = new List<HowLeakyOutputDefinition>();
-                if (ClimateModule != null) LoadDefaultDefinitions(GetOutputProp(ClimateModule), "ClimateModule",remapdict);
-                if (SoilModule != null) LoadDefaultDefinitions(GetOutputProp(SoilModule), "SoilModule",remapdict);
-                if (IrrigationModule != null) LoadDefaultDefinitions(GetOutputProp(IrrigationModule), "IrrigationModule",remapdict);
-                if (PhosphorusModule != null) LoadDefaultDefinitions(GetOutputProp(PhosphorusModule), "PhosphorusModule",remapdict);
-                if (NitrateModule != null) LoadDefaultDefinitions(GetOutputProp(NitrateModule), "NitrateModule",remapdict);
-                if (SolutesModule != null) LoadDefaultDefinitions(GetOutputProp(SolutesModule), "SolutesModule",remapdict);
-                if (VegetationModules != null && VegetationModules.Count > 0) foreach (var veg in VegetationModules) LoadDefaultDefinitions2(GetOutputProp(veg), "VegetationModule", veg.GetName(), VegetationModules.IndexOf(veg),remapdict);
-                if (PesticideModules != null && PesticideModules.Count > 0) foreach (var pest in PesticideModules) LoadDefaultDefinitions2(GetOutputProp(pest), "PesticideModule", pest.GetName(), PesticideModules.IndexOf(pest),remapdict);
-                if (TillageModules != null && TillageModules.Count > 0) foreach (var till in TillageModules) LoadDefaultDefinitions2(GetOutputProp(till), "TillageModule", till.InputModel.Name, TillageModules.IndexOf(till),remapdict);
+                if (ClimateModule != null) LoadDefaultDefinitions(GetOutputProp(ClimateModule), "ClimateModule", remapdict);
+                if (SoilModule != null) LoadDefaultDefinitions(GetOutputProp(SoilModule), "SoilModule", remapdict);
+                if (IrrigationModule != null) LoadDefaultDefinitions(GetOutputProp(IrrigationModule), "IrrigationModule", remapdict);
+                if (PhosphorusModule != null) LoadDefaultDefinitions(GetOutputProp(PhosphorusModule), "PhosphorusModule", remapdict);
+                if (NitrateModule != null) LoadDefaultDefinitions(GetOutputProp(NitrateModule), "NitrateModule", remapdict);
+                if (SolutesModule != null) LoadDefaultDefinitions(GetOutputProp(SolutesModule), "SolutesModule", remapdict);
+                if (VegetationModules != null && VegetationModules.Count > 0) foreach (var veg in VegetationModules) LoadDefaultDefinitions2(GetOutputProp(veg), "VegetationModule", veg.GetName(), VegetationModules.IndexOf(veg), remapdict);
+                if (PesticideModules != null && PesticideModules.Count > 0) foreach (var pest in PesticideModules) LoadDefaultDefinitions2(GetOutputProp(pest), "PesticideModule", pest.GetName(), PesticideModules.IndexOf(pest), remapdict);
+                if (TillageModules != null && TillageModules.Count > 0) foreach (var till in TillageModules) LoadDefaultDefinitions2(GetOutputProp(till), "TillageModule", till.InputModel.Name, TillageModules.IndexOf(till), remapdict);
                 SelectTimeSeries(timeseriescsv);
                 AssignDelegates();
             }
@@ -74,7 +77,7 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 foreach (var prop in props)
                 {
-                    Definitions.Add(new HowLeakyOutputDefinition(prop, module, remapdict,"", null));
+                    Definitions.Add(new HowLeakyOutputDefinition(prop, module, remapdict, "", null));
                 }
             }
             catch (Exception ex)
@@ -89,7 +92,7 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 foreach (var prop in props)
                 {
-                    Definitions.Add(new HowLeakyOutputDefinition(prop, module,remapdict, prefix, index));
+                    Definitions.Add(new HowLeakyOutputDefinition(prop, module, remapdict, prefix, index));
                 }
             }
             catch (Exception ex)
@@ -101,10 +104,13 @@ namespace HowLeaky_SimulationEngine.Engine
         {
             try
             {
-                var items = csvlist.Split(',').ToList();
-                foreach (var item in items)
+                if (!string.IsNullOrEmpty(csvlist))
                 {
-                    ActivateOutput(item.Trim());
+                    var items = csvlist.Split(',').ToList();
+                    foreach (var item in items)
+                    {
+                        ActivateOutput(item.Trim());
+                    }
                 }
                 //var checkcount=Definitions.Count(x=>x.IsActive());
                 //if(items.Count!=checkcount)
@@ -168,45 +174,45 @@ namespace HowLeaky_SimulationEngine.Engine
                     {
                         try
                         {
-                        var action = (Action<HowLeakyOutputTimeseriesActive, int>)Delegate.CreateDelegate(typeof(Action<HowLeakyOutputTimeseriesActive, int>), this, methodInfo);
+                            var action = (Action<HowLeakyOutputTimeseriesActive, int>)Delegate.CreateDelegate(typeof(Action<HowLeakyOutputTimeseriesActive, int>), this, methodInfo);
 
 
-                        if (definition.VectorType == OutputVectorType.None)
-                        {
-                            //list.Add(new HowLeakyOutputTimeseries(outputtype,null,action));
-                            definition.Actions.Add(action);
-                        }
-                        else if (definition.VectorType == OutputVectorType.Crop)
-                        {
-                            //var index=0;
-                            foreach (var crop in VegetationModules)
+                            if (definition.VectorType == OutputVectorType.None)
                             {
+                                //list.Add(new HowLeakyOutputTimeseries(outputtype,null,action));
                                 definition.Actions.Add(action);
-                                // list.Add(new HowLeakyOutputTimeseries(outputtype,index,action));
-                                // ++index;
+                            }
+                            else if (definition.VectorType == OutputVectorType.Crop)
+                            {
+                                //var index=0;
+                                foreach (var crop in VegetationModules)
+                                {
+                                    definition.Actions.Add(action);
+                                    // list.Add(new HowLeakyOutputTimeseries(outputtype,index,action));
+                                    // ++index;
+                                }
+                            }
+                            else if (definition.VectorType == OutputVectorType.Pesticide)
+                            {
+                                //var index=0;
+                                foreach (var pest in PesticideModules)
+                                {
+                                    definition.Actions.Add(action);
+                                    //list.Add(new HowLeakyOutputTimeseries(outputtype,index,action));
+                                    //++index;
+                                }
+                            }
+                            else if (definition.VectorType == OutputVectorType.SoilLayer)
+                            {
+                                var layercount = SoilModule.LayerCount;
+                                for (var index = 0; index < layercount; ++index)
+                                {
+                                    definition.Actions.Add(action);
+                                    //list.Add(new HowLeakyOutputTimeseries(outputtype,index,action));
+                                }
                             }
                         }
-                        else if (definition.VectorType == OutputVectorType.Pesticide)
-                        {
-                            //var index=0;
-                            foreach (var pest in PesticideModules)
-                            {
-                                definition.Actions.Add(action);
-                                //list.Add(new HowLeakyOutputTimeseries(outputtype,index,action));
-                                //++index;
-                            }
-                        }
-                        else if (definition.VectorType == OutputVectorType.SoilLayer)
-                        {
-                            var layercount = SoilModule.LayerCount;
-                            for (var index = 0; index < layercount; ++index)
-                            {
-                                definition.Actions.Add(action);
-                                //list.Add(new HowLeakyOutputTimeseries(outputtype,index,action));
-                            }
-                        }
-                        }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             throw ErrorLogger.CreateException(ex);
                         }
@@ -238,7 +244,7 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 var index = TodaysDate.DateInt - StartDate.DateInt;
                 Outputs.UpdateDailyTimeseries(index);
-                if(IncludeWaterBalanceSummary)
+                if (IncludeSummaries)
                 {
                     WaterBalanceSummary.Update(this);
                 }
@@ -516,12 +522,12 @@ namespace HowLeaky_SimulationEngine.Engine
 
         public void UpdateSoilModule_TotalResidueCover(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, SoilModule.TotalResidueCover*100.0);
+            output.Update(index, SoilModule.TotalResidueCover * 100.0);
         }
 
         public void UpdateSoilModule_TotalCoverAllCrops(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, SoilModule.TotalCoverAllCrops*100.0);
+            output.Update(index, SoilModule.TotalCoverAllCrops * 100.0);
         }
 
         public void UpdateSoilModule_SoilWater(HowLeakyOutputTimeseriesActive output, int index)
@@ -534,34 +540,54 @@ namespace HowLeaky_SimulationEngine.Engine
             output.Update(index, SoilModule.Drainage[(int)output.Index]);
         }
 
-        public void UpdateSolutesModule_TotalSoilSolute(HowLeakyOutputTimeseriesActive output, int index)
+        //[Output] public double total_soil_solute_mg_per_kg { get; set; }
+        //[Output] public double total_soil_solute_mg_per_L { get; set; }
+        //[Output] public double total_soil_solute_kg_per_ha { get; set; }
+        //[Output] public List<double> solute_conc_layer_mg_per_L { get; set; }
+        //[Output] public List<double> solute_conc_layer_mg_per_kg { get; set; }
+        //[Output] public List<double> solute_load_layer_kg_per_ha { get; set; }
+        //[Output] public double solute_leaching_conc_mg_per_L { get; set; }
+        //[Output] public double solute_leaching_load_kg_per_ha { get; set; }
+
+
+        public void UpdateSolutesModule_total_soil_solute_mg_per_kg(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, SolutesModule.TotalSoilSolute);
+            output.Update(index, SolutesModule.total_soil_solute_mg_per_kg);
         }
 
-        public void UpdateSolutesModule_LayerSoluteLoad(HowLeakyOutputTimeseriesActive output, int index)
+        public void UpdateSolutesModule_total_soil_solute_mg_per_L(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, SolutesModule.LayerSoluteLoad[(int)output.Index]);
+            output.Update(index, SolutesModule.total_soil_solute_mg_per_L);
         }
 
-        public void UpdateSolutesModule_LayerSoluteConcmgPerL(HowLeakyOutputTimeseriesActive output, int index)
+        public void UpdateSolutesModule_total_soil_solute_kg_per_ha(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, SolutesModule.LayerSoluteConcmgPerL[(int)output.Index]);
+            output.Update(index, SolutesModule.total_soil_solute_kg_per_ha);
         }
 
-        public void UpdateSolutesModule_LayerSoluteConcmgPerkg(HowLeakyOutputTimeseriesActive output, int index)
+        public void UpdateSolutesModule_solute_conc_layer_mg_per_L(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, SolutesModule.LayerSoluteConcmgPerkg[(int)output.Index]);
+            output.Update(index, SolutesModule.solute_conc_layer_mg_per_L[(int)output.Index]);
         }
 
-        public void UpdateSolutesModule_LeachateSoluteConcmgPerL(HowLeakyOutputTimeseriesActive output, int index)
+        public void UpdateSolutesModule_solute_conc_layer_mg_per_kg(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, SolutesModule.LeachateSoluteConcmgPerL);
+            output.Update(index, SolutesModule.solute_conc_layer_mg_per_kg[(int)output.Index]);
         }
 
-        public void UpdateSolutesModule_LeachateSoluteLoadkgPerha(HowLeakyOutputTimeseriesActive output, int index)
+        public void UpdateSolutesModule_solute_load_layer_kg_per_ha(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, SolutesModule.LeachateSoluteLoadkgPerha);
+            output.Update(index, SolutesModule.solute_load_layer_kg_per_ha[(int)output.Index]);
+        }
+
+        public void UpdateSolutesModule_solute_leaching_conc_mg_per_L(HowLeakyOutputTimeseriesActive output, int index)
+        {
+            output.Update(index, SolutesModule.solute_leaching_conc_mg_per_L);
+        }
+
+        public void UpdateSolutesModule_solute_leaching_load_kg_per_ha(HowLeakyOutputTimeseriesActive output, int index)
+        {
+            output.Update(index, SolutesModule.solute_leaching_load_kg_per_ha);
         }
 
         public void UpdateNitrateModule_NitrogenApplication(HowLeakyOutputTimeseriesActive output, int index)
@@ -579,10 +605,10 @@ namespace HowLeaky_SimulationEngine.Engine
             output.Update(index, NitrateModule.CropUsePlant);
         }
 
-        public void UpdateNitrateModule_CropUseRatoon(HowLeakyOutputTimeseriesActive output, int index)
-        {
-            output.Update(index, NitrateModule.CropUseRatoon);
-        }
+        //public void UpdateNitrateModule_CropUseRatoon(HowLeakyOutputTimeseriesActive output, int index)
+        //{
+        //    output.Update(index, NitrateModule.CropUseRatoon);
+        //}
 
         public void UpdateNitrateModule_CropUseActual(HowLeakyOutputTimeseriesActive output, int index)
         {
@@ -604,10 +630,10 @@ namespace HowLeaky_SimulationEngine.Engine
             output.Update(index, NitrateModule.PropVolSat);
         }
 
-        public void UpdateNitrateModule_DINDrainage(HowLeakyOutputTimeseriesActive output, int index)
-        {
-            output.Update(index, NitrateModule.DINDrainage);
-        }
+        //public void UpdateNitrateModule_DINDrainage(HowLeakyOutputTimeseriesActive output, int index)
+        //{
+        //    output.Update(index, NitrateModule.DINDrainage);
+        //}
 
         public void UpdateNitrateModule_NO3NDissolvedInRunoff(HowLeakyOutputTimeseriesActive output, int index)
         {
@@ -826,17 +852,17 @@ namespace HowLeaky_SimulationEngine.Engine
 
         public void UpdateVegetationModule_GreenCover(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, VegetationModule(output.Index).GreenCover*100.0);
+            output.Update(index, VegetationModule(output.Index).GreenCover * 100.0);
         }
 
         public void UpdateVegetationModule_ResidueCover(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, VegetationModule(output.Index).ResidueCover*100.0);
+            output.Update(index, VegetationModule(output.Index).ResidueCover * 100.0);
         }
 
         public void UpdateVegetationModule_TotalCover(HowLeakyOutputTimeseriesActive output, int index)
         {
-            output.Update(index, VegetationModule(output.Index).TotalCover*100.0);
+            output.Update(index, VegetationModule(output.Index).TotalCover * 100.0);
         }
 
         public void UpdateVegetationModule_ResidueAmount(HowLeakyOutputTimeseriesActive output, int index)
@@ -869,12 +895,12 @@ namespace HowLeaky_SimulationEngine.Engine
             output.Update(index, VegetationModule(output.Index).GrowthRegulator);
         }
 
-        public void UpdateVegetationModule_WaterStressindex(HowLeakyOutputTimeseriesActive output, int index)
+        public void UpdateVegetationModule_WaterStressIndex(HowLeakyOutputTimeseriesActive output, int index)
         {
             output.Update(index, VegetationModule(output.Index).WaterStressIndex);
         }
 
-        public void UpdateVegetationModule_TempStressindex(HowLeakyOutputTimeseriesActive output, int index)
+        public void UpdateVegetationModule_TempStressIndex(HowLeakyOutputTimeseriesActive output, int index)
         {
             output.Update(index, VegetationModule(output.Index).TempStressIndex);
         }

@@ -2,6 +2,7 @@
 using HowLeaky_SimulationEngine.Enums;
 using HowLeaky_SimulationEngine.Errors;
 using HowLeaky_SimulationEngine.Inputs;
+using HowLeaky_SimulationEngine.Outputs;
 using HowLeaky_SimulationEngine.Tools;
 using System;
 using System.Collections.Generic;
@@ -12,17 +13,24 @@ namespace HowLeaky_SimulationEngine.Engine
 {
     public class HowLeakyEngineModule_Pesticide : _CustomHowLeakyEngineModule
     {
+        public HowLeakyOutputSummary_Pesticide Summary { get;set;}
+
         public HowLeakyEngineModule_Pesticide(HowLeakyEngine sim, HowLeakyInputs_Pesticide inputs) : base(sim)
         {
             try
             {
                 Name = inputs.Name;
                 InputModel = inputs;
+               
             }
             catch (Exception ex)
             {
                 throw ErrorLogger.CreateException(ex);
             }
+        }
+
+        public HowLeakyEngineModule_Pesticide()
+        {
         }
 
         public HowLeakyInputs_Pesticide InputModel { get; set; }
@@ -84,6 +92,53 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
+        public override void Initialise()
+        {
+            try
+            {
+                DaysSinceApplication = 0;
+                PestApplicCount = 0;
+                ApplicationIndex = 0;
+                ProductRateApplied = 0;
+                ConcSoilAfterLeach = 0;
+                LastPestInput = 0;
+                AppliedPestOnVeg = 0;
+                AppliedPestOnStubble = 0;
+                AppliedPestOnSoil = 0;
+                PestOnVeg = 0;
+                PestOnStubble = 0;
+                PestInSoil = 0;
+                PestSoilConc = 0;
+                PestSedPhaseConc = 0;
+                PestWaterPhaseConc = 0;
+                PestRunoffConc = 0;
+                PestLostInRunoffWater = 0;
+                PestLostInRunoffSediment = 0;
+                TotalPestLostInRunoff = 0;
+                PestLostInLeaching = 0;
+                PestLossesPercentOfInput = 0;
+                ApplicationCount = 0;
+                ProductApplication = 0;
+                AvgBoundPestConcInRunoff = 0;
+                AvgUnboundPestConcInRunoff = 0;
+                AvgCombinedPestConcInRunoff = 0;
+                AvgPestLoadWater = 0;
+                AvgPestLoadSediment = 0;
+                AvgTotalPestLoad = 0;
+                ApplicationLossRatio = 0;
+                DaysGreaterCrit1  = 0;
+                DaysGreaterCrit2  = 0;
+                DaysGreaterCrit3  = 0;
+                DaysGreaterCrit4 = 0;
+                PestEMCL = 0;
+                Summary = new HowLeakyOutputSummary_Pesticide();
+            }
+            catch (Exception ex)
+            {
+                throw ErrorLogger.CreateException(ex);
+            }
+        }
+
         public override void Simulate()
         {
             try
@@ -104,6 +159,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 CalculatePesticideRunoffConcentrations();
                 CalculatePesticideLosses();
                 CalculatePesticideDaysAboveCritical();
+                Summary.Update(Engine,this);
             }
             catch (Exception ex)
             {

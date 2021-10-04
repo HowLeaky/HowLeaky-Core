@@ -76,6 +76,7 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 if (VegetationModules != null)
                 {
+                    SortedVegetationModules=new List<_CustomHowLeakyEngine_VegModule>();
                     CurrentCrop = GetCrop(0);
                     DaysSinceHarvest = 0;
                     TotalTranspiration = 0;

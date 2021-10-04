@@ -1,6 +1,7 @@
 ﻿using HowLeaky_SimulationEngine.Tools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -26,7 +27,7 @@ namespace HowLeaky_SimulationEngine.Outputs
             CanAccumulate=true;
         }
 
-        public HowLeakyOutputTimeSeries(int? simindex, string name, BrowserDate start, BrowserDate end, int count, bool canAccumulate)
+        public HowLeakyOutputTimeSeries(int? simindex, string name,string color, float width, BrowserDate start, BrowserDate end, int count, bool canAccumulate)
         {
             SimulationIndex = simindex;
             Name = name;
@@ -35,9 +36,11 @@ namespace HowLeaky_SimulationEngine.Outputs
             Index = null;
             Initialise(count);
             CanAccumulate = canAccumulate;
+            ColorValue = color;
+            Width = width;
         }
 
-        public HowLeakyOutputTimeSeries(string name, string color, int? index, BrowserDate start, BrowserDate end, List<double?> values, bool canAccumulate)
+        public HowLeakyOutputTimeSeries(string name, string color, float width,int? index, BrowserDate start, BrowserDate end, List<double?> values, bool canAccumulate)
         {
             Name = name;
             StartDate = new BrowserDate(start);
@@ -46,8 +49,9 @@ namespace HowLeaky_SimulationEngine.Outputs
             ColorValue = color;
             DailyValues = values;
             CanAccumulate = canAccumulate;
+            Width=width;
         }
-        public HowLeakyOutputTimeSeries(string name, string color, int? index, BrowserDate start, BrowserDate end, List<double> values, bool canAccomulate)
+        public HowLeakyOutputTimeSeries(string name, string color, float width, int? index, BrowserDate start, BrowserDate end, List<double> values, bool canAccomulate)
         {
             Name = name;
             StartDate = new BrowserDate(start);
@@ -56,14 +60,16 @@ namespace HowLeaky_SimulationEngine.Outputs
             ColorValue = color;
             DailyValues = values.Select(x => (double?)x).ToList();
             CanAccumulate = canAccomulate;
+            Width = width;
         }
 
         public string DisplayName { get { return $"{SimulationIndex}. {Name}"; } }
         public string Name { get; set; }
         public bool CanAccumulate { get; set; }
-
+        public int OrderIndex { get;set;}
         public int? SimulationIndex { get; set; }
         public string ColorValue { get; set; }
+        public float Width { get;set;}
         public BrowserDate StartDate { get; set; }
         public BrowserDate EndDate { get; set; }
         public List<double?> DailyValues { get; set; }
@@ -192,15 +198,33 @@ namespace HowLeaky_SimulationEngine.Outputs
             EndDate = DateValues.LastOrDefault();
             var count = EndDate.DateInt - StartDate.DateInt + 1;
             var list = new List<double?>(new double?[count]);
+
+            int last=-1;
+            foreach(var date in DateValues)
+            {
+                if(date.DateInt<last)
+                {
+                    Debug.WriteLine(":");
+                }
+                last=date.DateInt;
+            }
+            BrowserDate lastDate=null;
             if (DateValues != null)
             {
                 var currentIndex = 0;
                 for (var i = 0; i < count; ++i)
                 {
+
                     var dateInt = StartDate.DateInt + i;
                     if (dateInt == DateValues[currentIndex].DateInt)
                     {
-                        list[i] = DailyValues[currentIndex++];
+                        list[i] = DailyValues[currentIndex];
+                        if(lastDate!=null&&DateValues[currentIndex].DateInt<=lastDate.DateInt)
+                        {
+                            throw new Exception($"Dates in data file are not sequential starting {lastDate.ToString("dd-MM-yyyy")}. ");
+                        }
+                        lastDate=DateValues[currentIndex];
+                        currentIndex++;
                     }
                     else
                     {

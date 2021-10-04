@@ -7,11 +7,16 @@ using HowLeaky_SimulationEngine.Attributes;
 using HowLeaky_SimulationEngine.Inputs;
 using HowLeaky_SimulationEngine.Engine;
 using HowLeaky_SimulationEngine.Errors;
+using HowLeaky_SimulationEngine.Outputs;
 
 namespace HowLeaky_SimulationEngine.Engine
 {
     public class HowLeakyEngineModule_Irrigation : _CustomHowLeakyEngineModule
     {
+
+        public HowLeakyOutputSummary_RingTank RingTankSummary { get; set; }
+
+
         public HowLeakyEngineModule_Irrigation()
         {
 
@@ -83,6 +88,7 @@ namespace HowLeaky_SimulationEngine.Engine
                         }
                     }
                 }
+               
             }
             catch (Exception ex)
             {
@@ -101,6 +107,10 @@ namespace HowLeaky_SimulationEngine.Engine
                 //	AdditionalInflowIndex=0;
                 IrrigationRunoffAmount = 0;
                 FirstIrrigation = true;
+                if (InputModel.UseRingTank)
+                {
+                    RingTankSummary = new HowLeakyOutputSummary_RingTank();
+                }
             }
             catch (Exception ex)
             {
@@ -120,6 +130,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 {
                     DistributeWaterThroughSoilLayers(IrrigationAmount);
                 }
+               
             }
             catch (Exception ex)
             {
@@ -167,7 +178,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 switch (InputModel.IrrigationFormat)
                 {
                     case IrrigationFormat.AutomaticDuringGrowthStage: return CropWantsIrrigating() && WaitingPeriodExceeded();
-                    case IrrigationFormat.AutomaticDuringWindow: return IsDateinIrrigationWindow()  && WaitingPeriodExceeded();//&& CropWantsIrrigating()
+                    case IrrigationFormat.AutomaticDuringWindow: return IsDateinIrrigationWindow() && WaitingPeriodExceeded();//&& CropWantsIrrigating()
                     case IrrigationFormat.FromSequenceFile: return IsDateInSequence();
                 }
             }
@@ -202,7 +213,11 @@ namespace HowLeaky_SimulationEngine.Engine
 
         public bool IsDateInSequence()
         {
-            return InputModel.IrrigSequence.ContainsDate(Engine.TodaysDate);
+            if (InputModel.IrrigRunoffSequence != null)
+            {
+                return InputModel.IrrigSequence.ContainsDate(Engine.TodaysDate);
+            }
+            return false;
         }
 
         public bool WaitingPeriodExceeded()
@@ -253,11 +268,11 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 if (InputModel.UseRingTank)
                 {
-                    double irrigatedareaM2 = InputModel.IrrigatedArea * 10000.0;
+                    double irrigatedareaM2 = InputModel.IrrigatedArea* 10000.0;
                     if (InputModel.IrrigDeliveryEfficiency > 0)
                     {
                         double deliveffic = (InputModel.IrrigDeliveryEfficiency / 100.0);
-                        double amountReqFromRingtankM3 = amount / 1000.0 * irrigatedareaM2 / InputModel.IrrigDeliveryEfficiency / 100.0;//m^3      //divide by zero checked above
+                        double amountReqFromRingtankM3 = amount / 1000.0 * irrigatedareaM2 / deliveffic;//m^3      //divide by zero checked above
 
                         if (amountReqFromRingtankM3 < StorageVolume)
                         {
@@ -266,7 +281,7 @@ namespace HowLeaky_SimulationEngine.Engine
                         }
                         else  //if we dont have enough water in the tank
                         {
-                            double irrigationAvailableM3 = StorageVolume * InputModel.IrrigDeliveryEfficiency;
+                            double irrigationAvailableM3 = StorageVolume * deliveffic;
                             amount = irrigationAvailableM3 / irrigatedareaM2 * 1000.0;
                             StorageVolume = 0;
                         }
@@ -406,13 +421,17 @@ namespace HowLeaky_SimulationEngine.Engine
             try
             {
                 // NOTE- WE HAVE ALREADY IRRIGATED BY THIS STAGE
-                if (CansimulateIrrigation() && InputModel.UseRingTank)
+                if (InputModel.UseRingTank)
                 {
-                    double in_RingTankArea_ha = InputModel.RingTankArea * 10000.0;
+                    
                     if (InputModel.ResetRingTank && InputModel.ResetRingTankDate.MatchesDate(Engine.TodaysDate))
                         ResetRingTank();
                     else
                         SimulateDailyRingTankWaterBalance();
+
+                    
+                     RingTankSummary.Update(Engine);
+                    
                 }
             }
             catch (Exception ex)
@@ -428,7 +447,8 @@ namespace HowLeaky_SimulationEngine.Engine
         {
             try
             {
-                double maxvolume = InputModel.RingTankDepth * InputModel.RingTankArea; //m^3
+                var ringtankarea_m2= InputModel.RingTankArea*10000;
+                double maxvolume = InputModel.RingTankDepth * ringtankarea_m2; //m^3
                 double oldvolume = StorageVolume;
                 StorageVolume = maxvolume * InputModel.CapactityAtReset / 100.0;
                 RingTankIrrigationLosses = 0;
@@ -444,9 +464,9 @@ namespace HowLeaky_SimulationEngine.Engine
                 RingTankIneffectiveAdditionalInflow = 0;
                 RingTankStorageVolume = StorageVolume / 1000.0;
 
-                if (!MathTools.DoublesAreEqual(InputModel.RingTankDepth * InputModel.RingTankArea, 0))
+                if (!MathTools.DoublesAreEqual(InputModel.RingTankDepth * ringtankarea_m2, 0))
                 {
-                    RingTankStorageLevel = StorageVolume / (InputModel.RingTankDepth * InputModel.RingTankArea) * 100.0;
+                    RingTankStorageLevel = StorageVolume / (InputModel.RingTankDepth * ringtankarea_m2) * 100.0;
                 }
                 else
                 {
@@ -466,14 +486,15 @@ namespace HowLeaky_SimulationEngine.Engine
             try
             {
                 //inflows
+                var ringtankarea_m2= InputModel.RingTankArea*10000;
                 double runoffCaptureInflowM3 = CalcRunoffCaptureInflow();
-                double rainfallInflowM3 = Engine.ClimateModule.Rain / 1000.0 * InputModel.RingTankArea;
+                double rainfallInflowM3 = Engine.ClimateModule.Rain / 1000.0 * ringtankarea_m2;
                 double additionalInflowM3 = GetAdditionalTankInflow();
                 double totalInflowM3 = runoffCaptureInflowM3 + rainfallInflowM3 + additionalInflowM3;
 
                 //losses
-                double seepageLossesM3 = InputModel.RingTankSeepageRate / 1000.0 * InputModel.RingTankArea;
-                double evaporationLossesM3 = Engine.ClimateModule.PanEvap * InputModel.RingTankEvapCoefficient / 1000.0 * InputModel.RingTankArea;
+                double seepageLossesM3 = InputModel.RingTankSeepageRate / 1000.0 * ringtankarea_m2;
+                double evaporationLossesM3 = Engine.ClimateModule.PanEvap * InputModel.RingTankEvapCoefficient / 1000.0 * ringtankarea_m2;
                 double seepagePlusEvapLossesM3 = seepageLossesM3 + evaporationLossesM3;
 
                 if (seepagePlusEvapLossesM3 > StorageVolume)
@@ -562,8 +583,9 @@ namespace HowLeaky_SimulationEngine.Engine
         {
             try
             {
+                var ringtankarea_m2= InputModel.RingTankArea*10000;
                 double level;
-                double capacity_m3 = InputModel.RingTankDepth * InputModel.RingTankArea * 10000.0;
+                double capacity_m3 = InputModel.RingTankDepth * ringtankarea_m2;// * 10000.0;
                 if (!MathTools.DoublesAreEqual(capacity_m3, 0))
                 {
                     level = storage_volume_m3 / capacity_m3 * 100.0;
@@ -632,14 +654,18 @@ namespace HowLeaky_SimulationEngine.Engine
                 }
                 else
                 {
-                    return InputModel.AdditionalInflowSequence.ValueAtDate(Engine.TodaysDate) * 1000.0;
+                    if (InputModel.AdditionalInflowSequence != null)
+                    {
+                        return InputModel.AdditionalInflowSequence.ValueAtDate(Engine.TodaysDate) * 1000.0;
+                    }
+
                 }
             }
             catch (Exception ex)
             {
                 throw ErrorLogger.CreateException(ex);
             }
-            //return 0;
+            return 0;
 
         }
 

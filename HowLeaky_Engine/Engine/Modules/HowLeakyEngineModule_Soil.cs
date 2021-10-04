@@ -16,7 +16,9 @@ namespace HowLeaky_SimulationEngine.Engine
             InputModel = inputs;
         }
 
-
+        public HowLeakyEngineModule_Soil()
+        {
+        }
 
         public HowLeakyInputs_Soil InputModel { get; set; }
 
@@ -54,7 +56,7 @@ namespace HowLeaky_SimulationEngine.Engine
         [Internal] public double PredRh { get; set; }
 
 
-
+        [Internal]public double PAWC { get;set;}
         [Internal] public List<double> MCFC { get; set; }
         [Internal] public List<double> SoilWaterRelWP { get; set; }
         [Internal] public List<double> DrainUpperLimitRelWP { get; set; }
@@ -175,10 +177,10 @@ namespace HowLeaky_SimulationEngine.Engine
                         AirDryLimitRelWP[0] = 0;
                     }
                 }
-
+                var initpawc= Engine.GetInitialPAW();
                 for (int i = 0; i < LayerCount; ++i)
                 {
-                    SoilWaterRelWP[i] = Engine.GetInitialPAW() * DrainUpperLimitRelWP[i];
+                    SoilWaterRelWP[i] = initpawc * DrainUpperLimitRelWP[i];
 
                     if (SoilWaterRelWP[i] > SaturationLimitRelWP[i])
                     {
@@ -190,6 +192,12 @@ namespace HowLeaky_SimulationEngine.Engine
                     }
                     TotalSoilWater += SoilWaterRelWP[i];
                 }
+
+
+                PAWC = 0.0;
+                for (int i = 0; i < LayerCount; ++i)
+                    PAWC += DrainUpperLimitRelWP[i];
+
 
                 TotalCropResidue = 0;
                 TotalResidueCover = 0;  //0.707*(1.0-exp(-1.0*total_crop_residue/1000.0));
@@ -556,7 +564,7 @@ namespace HowLeaky_SimulationEngine.Engine
 
 
 
-        public void CalculatSoilEvaporation()
+        public void CalculateSoilEvaporation()
         {
             try
             {

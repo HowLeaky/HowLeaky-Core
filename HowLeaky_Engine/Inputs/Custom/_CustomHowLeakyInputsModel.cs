@@ -9,6 +9,10 @@ namespace HowLeaky_SimulationEngine.Inputs
 {
     public class _CustomHowLeakyInputsModel
     {
+        public _CustomHowLeakyInputsModel()
+        {
+        }
+
         public _CustomHowLeakyInputsModel(Guid? id, string name)
         {
             Id=id;

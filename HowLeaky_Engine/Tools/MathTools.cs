@@ -23,6 +23,17 @@ namespace HowLeaky_SimulationEngine.Tools
 
             return false;
         }
+
+
+        public static bool NotZero(double a)
+        {
+            if ((Math.Abs(a ) > 0.0000001))
+            {
+                return true;
+            }
+
+            return false;
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -8,25 +8,23 @@ namespace HowLeaky_SimulationEngine.Inputs
     public enum DissolvedNinLeachingType
     {
         None=0,
-        ImportedTimeSeries=1,
-        UserDefinedProfile=2,        
-        ModifiedSafegaugeModel=3
+        HowLeaky2012=1,        
+        ModifiedSafegaugeModel=2
 
     }
      public enum DissolvedNinRunoffType
     {
        None=0,
-        ImportedTimeSeries=1,
-        UserDefinedProfile=2,
-        RattrayEmpiricalModel=3,
-        FraserEmpiricalModel=4,
+       HowLeaky2012=1,
+       BananaEmpiricalModel=2,
+
         
     }
      public enum ParticulateNinRunoffType
     {
         None=0,
-        ImportedTimeSeries=1,
-        UserDefinedProfile=2,
+        HowLeaky2012=1
+
         
     }
 
@@ -42,42 +40,50 @@ namespace HowLeaky_SimulationEngine.Inputs
           
         }
 
-        public DissolvedNinLeachingType DissolvedNinLeaching { get; set; }
-        public DissolvedNinRunoffType DissolvedNinRunoff { get; set; }
-        public ParticulateNinRunoffType ParticulateNinRunoff { get; set; }
+        public DissolvedNinLeachingType DissolvedNinLeachingOptions { get; set; }
+        public DissolvedNinRunoffType DissolvedNinRunoffOptions { get; set; }
+        public ParticulateNinRunoffType ParticulateNinRunoffOptions { get; set; }
 
-        public Sequence FertilizerInputDateSequences { get; set; } = null;      
-        public TimeSeriesData NLoadInSurfaceLayerTimeSeries { get; set; } = null;   
-        public TimeSeriesData NLoadInLowerLayersTimeSeries { get; set; } = null;
+        public Sequence FertilizerInputDateSequences { get; set; } = null;     
+        public Sequence SoilNLoadData1 { get; set; } = null;    
+        public Sequence SoilNLoadData2 { get; set; } = null;
+        public Sequence SoilNLoadData3 { get; set; } = null;
+        // public TimeSeriesData NLoadInSurfaceLayerTimeSeries { get; set; } = null;   
+        // public TimeSeriesData NLoadInLowerLayersTimeSeries { get; set; } = null;
 
-        public ProfileData SoilNLoadData3 { get; set; } = null;
-        public TimeSeriesData InorganicNitrateNTimeseries { get; set; }    
-        public TimeSeriesData InorganicAmmoniumNTimeseries { get; set; }
-        public TimeSeriesData OrganicNTimeseries { get; set; }      
+       
+        // public TimeSeriesData InorganicNitrateNTimeseries { get; set; }    
+        // public TimeSeriesData InorganicAmmoniumNTimeseries { get; set; }
+        // public TimeSeriesData OrganicNTimeseries { get; set; }      
        
 
         public double NDepthTopLayer1 { get; set; }      
         public double Nk { get; set; }      
         public double Ncv { get; set; }      
-        public double NAlpha { get; set; }      
+        public double NAlpha_Disolved { get; set; }
+        public double NBeta_Disolved { get; set; }
+        public double NBeta_Particulate { get; set; }
+        public double NAlpha_Particulate { get; set; }
         public double SoilNitrateLoadWeighting1 { get; set; }      
          public double SoilNitrateLoadWeighting2 { get; set; }
           public double SoilNitrateLoadWeighting3 { get; set; }
 
-        public ProfileData SoilNLoadData1 { get; set; } = null;      
-        public double N_DanRat_Alpha { get; set; }      
-        public double N_DanRat_Beta { get; set; }      
+        
+        
+        
+        // public double N_DanRat_Alpha { get; set; }      
+        // public double N_DanRat_Beta { get; set; }      
         public double N_DanRat_MaxRunOffConc { get; set; }      
         public double N_DanRat_MinRunOffConc { get; set; }
       
-        public ProfileData SoilNLoadData2 { get; set; } = null;
+       
         public double DepthBottomLayer { get; set; }
         public double NitrateLeachingEfficiency { get; set; }
        
         
         public double NDepthTopLayer2 { get; set; }
         public double NEnrichmentRatio { get; set; }
-        public double NBeta { get; set; }
+       
      
         
         

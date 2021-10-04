@@ -8,6 +8,10 @@ namespace HowLeaky_SimulationEngine.Inputs
 {
     public class HowLeakyInputs_LAIVeg : _CustomCropInputsModel
     {
+        public HowLeakyInputs_LAIVeg()
+        {
+        }
+
         public HowLeakyInputs_LAIVeg(string name):base(null,name)
         {
 
@@ -35,7 +39,8 @@ namespace HowLeaky_SimulationEngine.Inputs
         public double BaseTemp { get; set; }                    // The lower limit of plant development and growth, with respect to temperature (the average day temperature, degrees Celsius). The base temperature of vegetation is dependent on the type of environment in which the plant has evolved, and any breeding for hot or cold conditions.
         public double OptTemp { get; set; }                     // The temperature for maximum biomass production.  Biomass production is a linear function of temperature between the Base temperature and the Optimum temperature.
         public double MaxRootDepth { get; set; }                // located in CustomVegObject - >The maximum depth of the roots from the soil surface.  For the LAI model, the model calculates daily root growth from the root depth increase parameter
-        public double SWPropForNoStress { get; set; } = 0.3;    // Ratio of water supply to potential water supply that indicates a stress day
+        public double SWPropForNoStress { get; set; } = 0.3;    // Ratio of water supply to potential water supply that indicates a stress day      
+        public double WaterStressThreshold { get;set;}        
         public double MaxResidueLoss { get; set; }              //Decomposition Rate
         public DayMonthData PlantDate { get; set; }
         public int PlantingRulesOptions { get; set; }

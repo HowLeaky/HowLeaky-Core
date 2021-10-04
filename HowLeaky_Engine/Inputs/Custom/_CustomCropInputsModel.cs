@@ -6,6 +6,9 @@ namespace HowLeaky_SimulationEngine.Inputs
 {
     public class _CustomCropInputsModel:_CustomHowLeakyInputsModel
     {
+        public _CustomCropInputsModel():base()
+        {
+        }
 
         public _CustomCropInputsModel(Guid? id, string name):base(id,name)
         {

@@ -245,74 +245,74 @@ namespace HowLeaky_IO.Tools
 
 
             //NITRATE 
-            dict.Add("DissolvedNinRunoffOptions","DissolvedNinRunoff");
-            dict.Add("NDepthTopLayer1","NDepthTopLayer1");
-            dict.Add("Nk","Nk");
-            dict.Add("Ncv","Ncv");
-            dict.Add("Nalpha","NAlpha");
-            dict.Add("N_DanRat_Alpha","N_DanRat_Alpha");
-            dict.Add("N_DanRat_Beta","N_DanRat_Beta");
-            dict.Add("N_DanRat_MaxRunOffConc","N_DanRat_MaxRunOffConc");
-            dict.Add("N_DanRat_MinRunOffConc","N_DanRat_MinRunOffConc");
+            //dict.Add("DissolvedNinRunoffOptions", "DissolvedNinRunoffOptions");
+            //dict.Add("NDepthTopLayer1","NDepthTopLayer1");
+            //dict.Add("Nk","Nk");
+            //dict.Add("Ncv","Ncv");
+            //dict.Add("Nalpha","NAlpha");
+            //dict.Add("N_DanRat_Alpha","N_DanRat_Alpha");
+            //dict.Add("N_DanRat_Beta","N_DanRat_Beta");
+            //dict.Add("N_DanRat_MaxRunOffConc","N_DanRat_MaxRunOffConc");
+            //dict.Add("N_DanRat_MinRunOffConc","N_DanRat_MinRunOffConc");
 
 
-            dict.Add("SoilNLoadData1","SoilNLoadData1");
+            //dict.Add("SoilNLoadData1","SoilNLoadData1");
 
-            //dict.Add("N_GraFraz_DL","N_GraFraz_DL");
-            //dict.Add("N_GraFraz_RL","N_GraFraz_RL");
-            //dict.Add("N_GraFraz_LowLimitDINConc","XXXX");
-            dict.Add("FertilizerInputDateSequences","FertilizerInputDateSequences");          
+            ////dict.Add("N_GraFraz_DL","N_GraFraz_DL");
+            ////dict.Add("N_GraFraz_RL","N_GraFraz_RL");
+            ////dict.Add("N_GraFraz_LowLimitDINConc","XXXX");
+            //dict.Add("FertilizerInputDateSequences","FertilizerInputDateSequences");          
 
-            dict.Add("SoilNitrateLevels","SoilNitrateLevels");
-            dict.Add("SoilNLoadData2","SoilNLoadData2");
+            //dict.Add("SoilNitrateLevels","SoilNitrateLevels");
+            //dict.Add("SoilNLoadData2","SoilNLoadData2");
 
-            dict.Add("Mineralisation","Mineralisation");
+            //dict.Add("Mineralisation","Mineralisation");
 
-             dict.Add("VolSat","VolSat");
+            // dict.Add("VolSat","VolSat");
 
-              dict.Add("NitrogenApplication","NitrogenApplication");
+            //  dict.Add("NitrogenApplication","NitrogenApplication");
 
-             dict.Add("NitrogenFrequency","NitrogenFrequency");
-            dict.Add("SoilCarbon","SoilCarbon");
+            // dict.Add("NitrogenFrequency","NitrogenFrequency");
+            //dict.Add("SoilCarbon","SoilCarbon");
 
-             dict.Add("InitialExcessN","InitialExcessN");
+            // dict.Add("InitialExcessN","InitialExcessN");
 
  
 
-            dict.Add("DepthBottomLayer","DepthBottomLayer");
-            dict.Add("NitrateLeachingEfficiency","NitrateLeachingEfficiency");
+            //dict.Add("DepthBottomLayer","DepthBottomLayer");
+            //dict.Add("NitrateLeachingEfficiency","NitrateLeachingEfficiency");
               
-            dict.Add("NLoadInSurfaceLayerTimeSeries","NLoadInSurfaceLayerTimeSeries");
-            dict.Add("NLoadInLowerLayersTimeSeries","NLoadInLowerLayersTimeSeries");
+            //dict.Add("NLoadInSurfaceLayerTimeSeries","NLoadInSurfaceLayerTimeSeries");
+            //dict.Add("NLoadInLowerLayersTimeSeries","NLoadInLowerLayersTimeSeries");
 
-            dict.Add("NDepthTopLayer2","NDepthTopLayer2");
-            dict.Add("NEnrichmentRatio","NEnrichmentRatio");
-             dict.Add("NAlpha","NAlpha");
-            dict.Add("SoilNitrateLoadWeighting1","SoilNitrateLoadWeighting1");
-            dict.Add("DissolvedNinLeachingOptions","DissolvedNinLeaching");
-            dict.Add("SoilNitrateLoadWeighting2","SoilNitrateLoadWeighting2");
-            dict.Add("ParticulateNinRunoffOptions","ParticulateNinRunoff");
-            dict.Add("NBeta","NBeta");
-            dict.Add("SoilNitrateLoadWeighting3","SoilNitrateLoadWeighting3");
-            dict.Add("NitrateSourceData","NitrateSourceData");
-            dict.Add("SoilNitrateTimeseries","SoilNitrateTimeseries");
-            dict.Add("InorganicNitrateNTimeseries","InorganicNitrateNTimeseries");
-            dict.Add("InorganicAmmoniumNTimeseries","InorganicAmmoniumNTimeseries");
-            dict.Add("OrganicNTimeseries","OrganicNTimeseries");
-            dict.Add("OrganicCarbon","OrganicCarbon");
-            dict.Add("Nbeta","NBeta"); 
-            dict.Add("PlantA","PlantA"); 
-            dict.Add("PlantB","PlantB"); 
-            dict.Add("PlantAnnual","PlantAnnual"); // This is something that Al did. 
-            dict.Add("RatoonA","RatoonA"); 
-            dict.Add("RatoonB","RatoonB"); 
-            dict.Add("RatoonAnnual","RatoonAnnual");// This is something that Al did. 
-            dict.Add("Denitrification","Denitrification"); 
-            dict.Add("NitrateDrainageRetention","NitrateDrainageRetention"); 
-            dict.Add("CNSlope","CNSlope"); 
-            dict.Add("CNMax","CNMax"); 
-            dict.Add("MainStemDuration","MainStemDuration"); 
-            dict.Add("SoilNLoadData3","SoilNLoadData3");
+            //dict.Add("NDepthTopLayer2","NDepthTopLayer2");
+            //dict.Add("NEnrichmentRatio","NEnrichmentRatio");
+            // dict.Add("NAlpha","NAlpha");
+            //dict.Add("SoilNitrateLoadWeighting1","SoilNitrateLoadWeighting1");
+            //dict.Add("DissolvedNinLeachingOptions","DissolvedNinLeaching");
+            //dict.Add("SoilNitrateLoadWeighting2","SoilNitrateLoadWeighting2");
+            //dict.Add("ParticulateNinRunoffOptions","ParticulateNinRunoff");
+            //dict.Add("NBeta","NBeta");
+            //dict.Add("SoilNitrateLoadWeighting3","SoilNitrateLoadWeighting3");
+            //dict.Add("NitrateSourceData","NitrateSourceData");
+            //dict.Add("SoilNitrateTimeseries","SoilNitrateTimeseries");
+            //dict.Add("InorganicNitrateNTimeseries","InorganicNitrateNTimeseries");
+            //dict.Add("InorganicAmmoniumNTimeseries","InorganicAmmoniumNTimeseries");
+            //dict.Add("OrganicNTimeseries","OrganicNTimeseries");
+            //dict.Add("OrganicCarbon","OrganicCarbon");
+            //dict.Add("Nbeta","NBeta"); 
+            //dict.Add("PlantA","PlantA"); 
+            //dict.Add("PlantB","PlantB"); 
+            //dict.Add("PlantAnnual","PlantAnnual"); // This is something that Al did. 
+            //dict.Add("RatoonA","RatoonA"); 
+            //dict.Add("RatoonB","RatoonB"); 
+            //dict.Add("RatoonAnnual","RatoonAnnual");// This is something that Al did. 
+            //dict.Add("Denitrification","Denitrification"); 
+            //dict.Add("NitrateDrainageRetention","NitrateDrainageRetention"); 
+            //dict.Add("CNSlope","CNSlope"); 
+            //dict.Add("CNMax","CNMax"); 
+            //dict.Add("MainStemDuration","MainStemDuration"); 
+            //dict.Add("SoilNLoadData3","SoilNLoadData3");
       
 
             //SOLUTES 

@@ -34,9 +34,15 @@ namespace HowLeaky_SimulationEngine.Outputs.maries
         public List<double> Drainage { get; set; }
         public List<double> LateralFlow { get; set; }
         public List<double> SoilErosion { get; set; }
-        public List<int> Counts{get;set;}
+        public List<int> Counts{get;set; }
 
-       
+       //public double AnnualAvgRainfall { get;set;}
+       // public double AnnualAvgIrrigation { get; set; }
+       // public double AnnualAvgEvaporation { get; set; }
+       // public double AnnualAvgTranspiration { get; set; }
+       // public double AnnualAvgRunoff { get; set; }
+       // public double AnnualAvgDrainage { get; set; }
+       // public double AnnualAvgErosion { get; set; }
 
         public void Update(HowLeakyEngine Sim)
         {

@@ -7,6 +7,10 @@ namespace HowLeaky_SimulationEngine.Inputs
 {
     public class HowLeakyInputs_CoverVeg:_CustomCropInputsModel
     {
+        public HowLeakyInputs_CoverVeg():base()
+        {
+        }
+
         public HowLeakyInputs_CoverVeg(string name):base(null,name)
         {
 

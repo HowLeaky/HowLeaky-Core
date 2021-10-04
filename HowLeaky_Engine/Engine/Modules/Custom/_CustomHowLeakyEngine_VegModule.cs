@@ -13,6 +13,10 @@ namespace HowLeaky_SimulationEngine.Engine
         {
         }
 
+        public _CustomHowLeakyEngine_VegModule()
+        {
+        }
+
         public bool IsLAI()
         {
             return this is HowLeakyEngineModule_LAIVeg;
@@ -22,6 +26,8 @@ namespace HowLeaky_SimulationEngine.Engine
         {
             return "Unknown";
         }
+
+        public double INPUTS_SWPropForNoStress { get;set;}
          public bool TodayIsHarvestDay { get; set; }
         public bool PredefinedResidue { get; set; }
         public CropStatus CropStatus { get; set; }
@@ -209,13 +215,13 @@ namespace HowLeaky_SimulationEngine.Engine
 
                     //TODO: the 0.3 here is the SWPropForNoStress variable - need to implement
 
-                    if (Engine.SoilModule.MCFC[i] >= 0.3)
+                    if (Engine.SoilModule.MCFC[i] >= INPUTS_SWPropForNoStress) //this input is common to both LAI and Cover models - It should be initialised once inputs are loaded
                     {
                         supply[i] = 1.0;
                     }
                     else
                     {
-                        supply[i] = Engine.SoilModule.MCFC[i] / 0.3;
+                        supply[i] = Engine.SoilModule.MCFC[i] / INPUTS_SWPropForNoStress;
                     }
                 }
 

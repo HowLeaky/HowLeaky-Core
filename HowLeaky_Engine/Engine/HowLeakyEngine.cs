@@ -11,13 +11,16 @@ namespace HowLeaky_SimulationEngine.Engine
 {
     public partial class HowLeakyEngine
     {
-
+        public HowLeakyEngine()
+        {
+            InitialPAW = 0.5;
+        }
        
         public HowLeakyEngine(string outputs, Dictionary<string,OutputAttributes>remapdict=null)
         {
             RemapDict=remapdict;
             OutputsCSV = outputs;
-            SortedVegetationModules=new List<_CustomHowLeakyEngine_VegModule>();
+            
         }
 
         public static string GetAppVersion()
