@@ -77,7 +77,10 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 foreach (var prop in props)
                 {
-                    Definitions.Add(new HowLeakyOutputDefinition(prop, module, remapdict, "", null));
+                    if(remapdict!=null)//&&remapdict.ContainsKey(prop.Name))
+                    { 
+                        Definitions.Add(new HowLeakyOutputDefinition(prop, module, remapdict, "", null));
+                    }
                 }
             }
             catch (Exception ex)
@@ -92,7 +95,14 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 foreach (var prop in props)
                 {
-                    Definitions.Add(new HowLeakyOutputDefinition(prop, module, remapdict, prefix, index));
+                    if (remapdict != null)// && remapdict.ContainsKey(prop.Name))
+                    {
+                        //var attribute=remapdict[prop.Name];
+                        //if(attribute.DataIndex==index)
+                        //{ 
+                            Definitions.Add(new HowLeakyOutputDefinition(prop, module, remapdict, prefix, index));
+                       // }
+                    }
                 }
             }
             catch (Exception ex)

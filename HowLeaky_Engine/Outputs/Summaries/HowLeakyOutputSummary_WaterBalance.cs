@@ -10,18 +10,19 @@ namespace HowLeaky_SimulationEngine.Outputs.maries
     {
         public HowLeakyOutputSummary_WaterBalance()
         {
-            Rainfall=new List<double>(new double[12]);
-            Irrigation=new List<double>(new double[12]);
-            Runoff=new List<double>(new double[12]);
-            Potevap=new List<double>(new double[12]);
-            SoilEvaporation=new List<double>(new double[12]);
-            Transpiration=new List<double>(new double[12]);
-            Evapotranspiration=new List<double>(new double[12]);
-            Overflow=new List<double>(new double[12]);
-            Drainage=new List<double>(new double[12]);
-            LateralFlow=new List<double>(new double[12]);
-            SoilErosion=new List<double>(new double[12]);
-            Counts=new List<int>(new int[12]);
+            Rainfall = new List<double>(new double[12]);
+            Irrigation = new List<double>(new double[12]);
+            Runoff = new List<double>(new double[12]);
+            Potevap = new List<double>(new double[12]);
+            SoilEvaporation = new List<double>(new double[12]);
+            Transpiration = new List<double>(new double[12]);
+            Evapotranspiration = new List<double>(new double[12]);
+            Overflow = new List<double>(new double[12]);
+            Drainage = new List<double>(new double[12]);
+            LateralFlow = new List<double>(new double[12]);
+            SoilErosion = new List<double>(new double[12]);
+            OffSiteSedDelivery = new List<double>(new double[12]);
+            Counts = new List<int>(new int[12]);
         }
         public List<double> Rainfall { get; set; }
         public List<double> Irrigation { get; set; }
@@ -34,33 +35,35 @@ namespace HowLeaky_SimulationEngine.Outputs.maries
         public List<double> Drainage { get; set; }
         public List<double> LateralFlow { get; set; }
         public List<double> SoilErosion { get; set; }
-        public List<int> Counts{get;set; }
+        public List<double> OffSiteSedDelivery { get; set; }
+        public List<int> Counts { get; set; }
 
-       //public double AnnualAvgRainfall { get;set;}
-       // public double AnnualAvgIrrigation { get; set; }
-       // public double AnnualAvgEvaporation { get; set; }
-       // public double AnnualAvgTranspiration { get; set; }
-       // public double AnnualAvgRunoff { get; set; }
-       // public double AnnualAvgDrainage { get; set; }
-       // public double AnnualAvgErosion { get; set; }
+        //public double AnnualAvgRainfall { get;set;}
+        // public double AnnualAvgIrrigation { get; set; }
+        // public double AnnualAvgEvaporation { get; set; }
+        // public double AnnualAvgTranspiration { get; set; }
+        // public double AnnualAvgRunoff { get; set; }
+        // public double AnnualAvgDrainage { get; set; }
+        // public double AnnualAvgErosion { get; set; }
 
         public void Update(HowLeakyEngine Sim)
         {
             try
             {
-                var month=Sim.TodaysDate.Month-1;
-                Rainfall[month]+= Sim.ClimateModule.Rain;
-                Irrigation[month]+= Sim.SoilModule.Irrigation;
-                Runoff[month]+= Sim.SoilModule.Runoff;
-                Potevap[month]+= Sim.SoilModule.PotSoilEvap;
-                SoilEvaporation[month]+= Sim.SoilModule.SoilEvap;
-                Transpiration[month]+= Sim.GetTotalTranspiration();
-                Evapotranspiration[month]+= (Sim.SoilModule.SoilEvap + Sim.GetTotalTranspiration());
-                Overflow[month]+= Sim.SoilModule.Overflow;
-                Drainage[month]+= Sim.SoilModule.DeepDrainage;
-                LateralFlow[month]+= Sim.SoilModule.LateralFlow;
-                SoilErosion[month]+= Sim.SoilModule.HillSlopeErosion;
-                Counts[month]+=1;
+                var month = Sim.TodaysDate.Month - 1;
+                Rainfall[month] += Sim.ClimateModule.Rain;
+                Irrigation[month] += Sim.SoilModule.Irrigation;
+                Runoff[month] += Sim.SoilModule.Runoff;
+                Potevap[month] += Sim.SoilModule.PotSoilEvap;
+                SoilEvaporation[month] += Sim.SoilModule.SoilEvap;
+                Transpiration[month] += Sim.GetTotalTranspiration();
+                Evapotranspiration[month] += (Sim.SoilModule.SoilEvap + Sim.GetTotalTranspiration());
+                Overflow[month] += Sim.SoilModule.Overflow;
+                Drainage[month] += Sim.SoilModule.DeepDrainage;
+                LateralFlow[month] += Sim.SoilModule.LateralFlow;
+                SoilErosion[month] += Sim.SoilModule.HillSlopeErosion;
+                OffSiteSedDelivery[month] += Sim.SoilModule.OffSiteSedDelivery;
+                Counts[month] += 1;
             }
             catch (Exception e)
             {
@@ -96,7 +99,7 @@ namespace HowLeaky_SimulationEngine.Outputs.maries
         {
             return Overflow.Sum();
         }
-        
+
         public double GetTotalDrainage()
         {
             return Drainage.Sum();
@@ -109,104 +112,113 @@ namespace HowLeaky_SimulationEngine.Outputs.maries
         {
             return SoilErosion.Sum();
         }
-
+        public double GetTotalOffSiteSedDelivery()
+        {
+            return OffSiteSedDelivery.Sum();
+        }
         public List<double> GetMonthlyAvgRainfall()
         {
-            return Rainfall.Select(x=>x/(((double)Counts[Rainfall.IndexOf(x)])/365.25*12.0)).ToList();
+            return Rainfall.Select(x => x / (((double)Counts[Rainfall.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
         public List<double> GetMonthlyAvgIrrigation()
         {
-            return Irrigation.Select(x=>x/(((double)Counts[Irrigation.IndexOf(x)])/365.25*12.0)).ToList();
+            return Irrigation.Select(x => x / (((double)Counts[Irrigation.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
         public List<double> GetMonthlyAvgRunoff()
         {
-            return Runoff.Select(x=>x/(((double)Counts[Runoff.IndexOf(x)])/365.25*12.0)).ToList();
+            return Runoff.Select(x => x / (((double)Counts[Runoff.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
         public List<double> GetMonthlyAvgPotevap()
         {
-            return Potevap.Select(x=>x/(((double)Counts[Potevap.IndexOf(x)])/365.25*12.0)).ToList();
+            return Potevap.Select(x => x / (((double)Counts[Potevap.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
         public List<double> GetMonthlyAvgSoilEvaporation()
         {
-            return SoilEvaporation.Select(x=>x/(((double)Counts[SoilEvaporation.IndexOf(x)])/365.25*12.0)).ToList();
+            return SoilEvaporation.Select(x => x / (((double)Counts[SoilEvaporation.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
         public List<double> GetMonthlyAvgTranspiration()
         {
-            return Transpiration.Select(x=>x/(((double)Counts[Transpiration.IndexOf(x)])/365.25*12.0)).ToList();
+            return Transpiration.Select(x => x / (((double)Counts[Transpiration.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
 
-         public List<double> GetMonthlyAvgEvapotranspiration()
+        public List<double> GetMonthlyAvgEvapotranspiration()
         {
-            return Evapotranspiration.Select(x=>x/(((double)Counts[Evapotranspiration.IndexOf(x)])/365.25*12.0)).ToList();
+            return Evapotranspiration.Select(x => x / (((double)Counts[Evapotranspiration.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
         public List<double> GetMonthlyAvgOverflow()
         {
-            return Overflow.Select(x=>x/(((double)Counts[Overflow.IndexOf(x)])/365.25*12.0)).ToList();
+            return Overflow.Select(x => x / (((double)Counts[Overflow.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
-        
+
         public List<double> GetMonthlyAvgDrainage()
         {
-            return Drainage.Select(x=>x/(((double)Counts[Drainage.IndexOf(x)])/365.25*12.0)).ToList();
+            return Drainage.Select(x => x / (((double)Counts[Drainage.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
         public List<double> GetMonthlyAvgLateralFlow()
         {
-            return LateralFlow.Select(x=>x/(((double)Counts[LateralFlow.IndexOf(x)])/365.25*12.0)).ToList();
+            return LateralFlow.Select(x => x / (((double)Counts[LateralFlow.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
         public List<double> GetMonthlyAvgSoilErosion()
         {
-            return SoilErosion.Select(x=>x/(((double)Counts[SoilErosion.IndexOf(x)])/365.25*12.0)).ToList();
+            return SoilErosion.Select(x => x / (((double)Counts[SoilErosion.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
-
+        public List<double> GetMonthlyAvgOffSiteSedDelivery()
+        {
+            return OffSiteSedDelivery.Select(x => x / (((double)Counts[OffSiteSedDelivery.IndexOf(x)]) / 365.25 * 12.0)).ToList();
+        }
 
 
         public double GetAnnualAvgRainfall()
         {
-            var yrs=((float)Counts.Sum()/365.25);
-            return Rainfall.Sum()/yrs;
+            var yrs = ((float)Counts.Sum() / 365.25);
+            return Rainfall.Sum() / yrs;
         }
         public double GetAnnualAvgIrrigation()
         {
-            return Irrigation.Sum()/((float)Counts.Sum()/365.25);
+            return Irrigation.Sum() / ((float)Counts.Sum() / 365.25);
         }
         public double GetAnnualAvgRunoff()
         {
-            return Runoff.Sum()/((float)Counts.Sum()/365.25);
+            return Runoff.Sum() / ((float)Counts.Sum() / 365.25);
         }
         public double GetAnnualAvgPotevap()
         {
-            return Potevap.Sum()/((float)Counts.Sum()/365.25);
+            return Potevap.Sum() / ((float)Counts.Sum() / 365.25);
         }
         public double GetAnnualAvgSoilEvaporation()
         {
-            return SoilEvaporation.Sum()/((float)Counts.Sum()/365.25);
+            return SoilEvaporation.Sum() / ((float)Counts.Sum() / 365.25);
         }
         public double GetAnnualAvgTranspiration()
         {
-            return Transpiration.Sum()/((float)Counts.Sum()/365.25);
+            return Transpiration.Sum() / ((float)Counts.Sum() / 365.25);
         }
 
-         public double GetAnnualAvgEvapotranspiration()
+        public double GetAnnualAvgEvapotranspiration()
         {
-            return Evapotranspiration.Sum()/((float)Counts.Sum()/365.25);
+            return Evapotranspiration.Sum() / ((float)Counts.Sum() / 365.25);
         }
         public double GetAnnualAvgOverflow()
         {
-            return Overflow.Sum()/((float)Counts.Sum()/365.25);
+            return Overflow.Sum() / ((float)Counts.Sum() / 365.25);
         }
-        
+
         public double GetAnnualAvgDrainage()
         {
-            return Drainage.Sum()/((float)Counts.Sum()/365.25);
+            return Drainage.Sum() / ((float)Counts.Sum() / 365.25);
         }
         public double GetAnnualAvgLateralFlow()
         {
-            return LateralFlow.Sum()/((float)Counts.Sum()/365.25);
+            return LateralFlow.Sum() / ((float)Counts.Sum() / 365.25);
         }
         public double GetAnnualAvgSoilErosion()
         {
-            return SoilErosion.Sum()/((float)Counts.Sum()/365.25);
+            return SoilErosion.Sum() / ((float)Counts.Sum() / 365.25);
         }
-
+        public double GetAnnualAvgOffSiteSedDelivery()
+        {
+            return OffSiteSedDelivery.Sum() / ((float)Counts.Sum() / 365.25);
+        }
 
 
 

@@ -13,7 +13,7 @@ namespace HowLeaky_SimulationEngine.Engine
 {
     public class HowLeakyEngineModule_Pesticide : _CustomHowLeakyEngineModule
     {
-        public HowLeakyOutputSummary_Pesticide Summary { get;set;}
+        public HowLeakyOutputSummary_Pesticide Summary { get; set; }
 
         public HowLeakyEngineModule_Pesticide(HowLeakyEngine sim, HowLeakyInputs_Pesticide inputs) : base(sim)
         {
@@ -21,7 +21,7 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 Name = inputs.Name;
                 InputModel = inputs;
-               
+
             }
             catch (Exception ex)
             {
@@ -46,7 +46,7 @@ namespace HowLeaky_SimulationEngine.Engine
         [Internal] public double ProductRateApplied { get; set; }
         [Internal] public double ConcSoilAfterLeach { get; set; }
         [Internal] public double LastPestInput { get; set; }
-
+        [Internal] public double pest_application { get; set; }
 
 
         //Reportable Outputs
@@ -70,7 +70,7 @@ namespace HowLeaky_SimulationEngine.Engine
         [Output] public double AvgBoundPestConcInRunoff { get; set; }
         [Output] public double AvgUnboundPestConcInRunoff { get; set; }
 
-        
+
 
         [Output] public double AvgCombinedPestConcInRunoff { get; set; }
         [Output] public double AvgPestLoadWater { get; set; }
@@ -126,12 +126,12 @@ namespace HowLeaky_SimulationEngine.Engine
                 AvgPestLoadSediment = 0;
                 AvgTotalPestLoad = 0;
                 ApplicationLossRatio = 0;
-                DaysGreaterCrit1  = 0;
-                DaysGreaterCrit2  = 0;
-                DaysGreaterCrit3  = 0;
+                DaysGreaterCrit1 = 0;
+                DaysGreaterCrit2 = 0;
+                DaysGreaterCrit3 = 0;
                 DaysGreaterCrit4 = 0;
                 PestEMCL = 0;
-                Summary = new HowLeakyOutputSummary_Pesticide();
+                Summary = new HowLeakyOutputSummary_Pesticide(InputModel.CritPestConc);
             }
             catch (Exception ex)
             {
@@ -159,7 +159,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 CalculatePesticideRunoffConcentrations();
                 CalculatePesticideLosses();
                 CalculatePesticideDaysAboveCritical();
-                Summary.Update(Engine,this);
+                Summary.Update(Engine, this);
             }
             catch (Exception ex)
             {
@@ -238,7 +238,13 @@ namespace HowLeaky_SimulationEngine.Engine
                     }
                 }
                 if (ProductRateApplied > 0)
+                {
                     ApplyPesticide();
+                }
+                else
+                {
+                    pest_application = 0;
+                }
             }
             catch (Exception ex)
             {
@@ -330,7 +336,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 //   Sim.UpdateManagementEventHistory(ManagementEvent.Pesticide, PesticideIndex);
                 DaysSinceApplication = 0;
                 EPestApplicationPosition pos = (EPestApplicationPosition)InputModel.ApplicationPosition;
-                double pest_application = InputModel.ConcActiveIngred * ProductRateApplied * InputModel.PestEfficiency / 100.0 * InputModel.BandSpraying / 100.0;
+                pest_application = InputModel.ConcActiveIngred * ProductRateApplied * InputModel.PestEfficiency / 100.0 * InputModel.BandSpraying / 100.0;
                 LastPestInput = pest_application;
 
                 if (pos == EPestApplicationPosition.ApplyToVegetationLayer)
@@ -389,17 +395,45 @@ namespace HowLeaky_SimulationEngine.Engine
                     vegdegrate = 0;
                     MathTools.LogDivideByZeroError("CalculateDegradingPestOnVeg", "HalfLifeVeg_adjusted", "vegdegrate");
                 }
-                if (Engine.ClimateModule.YesterdaysRain < 5.0)
+
+                if (InputModel.WashoffMethod == 0)
                 {
-                    PestOnVeg = PestOnVeg * vegdegrate + AppliedPestOnVeg;
-                    if (Engine.ClimateModule.Rain >= 5) //rain over 5mm will wash part of pest of veg
-                    {
-                        PestOnVeg = PestOnVeg * (1 - InputModel.CoverWashoffFraction);
+                    //if (Engine.ClimateModule.YesterdaysRain < 5.0)
+                    //{
+                        PestOnVeg = PestOnVeg * vegdegrate + AppliedPestOnVeg;
+                        if (Engine.ClimateModule.Rain >= 5) //rain over 5mm will wash part of pest of veg
+                        {
+                       var temp=PestOnVeg;
+                            PestOnVeg = PestOnVeg * (1 - InputModel.CoverWashoffFraction);
+                        if (PestOnVeg < 0)
+                        {
+                            PestOnVeg = 0;
+                        }
+                        PestInSoil = PestInSoil + temp - PestOnVeg;
+
                     }
+                    //}
+                    //else
+                    //{
+                    //    PestOnVeg = 0;
+                    //}
                 }
                 else
                 {
-                    PestOnVeg = 0;
+
+                    //PestOnVeg = PestOnVeg * vegdegrate + AppliedPestOnVeg;
+                    //PestOnVeg = PestOnVeg * Math.Pow(2.718281828, (-(1 - InputModel.CoverWashoffFraction) * Engine.ClimateModule.YesterdaysRain));
+
+                    // pest_washedoffVeg_g_per_ha = (PestOnVeg * vegdegrate + AppliedPestOnVeg) - ((PestOnVeg * vegdegrate + AppliedPestOnVeg) * CoverWashOffFraction * Math.Pow(2.718281828, (-InputModel.CoverWashoffFraction * Engine.ClimateModule.YesterdaysRain)));
+                    PestOnVeg = PestOnVeg * vegdegrate + AppliedPestOnVeg;
+                    var temp = PestOnVeg;
+                    PestOnVeg = PestOnVeg * InputModel.CoverWashoffFraction2 * Math.Pow(2.718281828, (-InputModel.RainWashoffCoefficient * Engine.ClimateModule.Rain));
+                    if (PestOnVeg < 0)
+                    {
+                        PestOnVeg = 0;
+                    }
+                    PestInSoil = PestInSoil + temp - PestOnVeg;
+
                 }
             }
             catch (Exception ex)
@@ -437,18 +471,44 @@ namespace HowLeaky_SimulationEngine.Engine
                     stubdegrate = 0;
                     MathTools.LogDivideByZeroError("CalculateDegradingPestOnStubble", "HalfLifeStubble_adjusted", "stubdegrate");
                 }
-                if (Engine.ClimateModule.YesterdaysRain < 5.0)
+                if (InputModel.WashoffMethod == 0)
                 {
-                    PestOnStubble = PestOnStubble * stubdegrate + AppliedPestOnStubble;
-                    if (Engine.ClimateModule.Rain >= 5) //rain over 5mm will wash part of pest of stubble
-                    {
-                        PestOnStubble = PestOnStubble * (1 - InputModel.CoverWashoffFraction);
-                    }
+                    //if (Engine.ClimateModule.YesterdaysRain < 5.0)
+                    //{
+                        PestOnStubble = PestOnStubble * stubdegrate + AppliedPestOnStubble;
+                        if (Engine.ClimateModule.Rain >= 5) //rain over 5mm will wash part of pest of stubble
+                        {
+                            var temp=PestOnStubble;
+                            PestOnStubble = PestOnStubble * (1 - InputModel.CoverWashoffFraction);
+                        if (PestOnStubble < 0)
+                        {
+                            PestOnStubble = 0;
+                        }
+                        PestInSoil =PestInSoil+temp-PestOnStubble;
+                        }
+                    //}
+                    //else
+                    //{
+                    //    PestOnStubble = 0;
+                    //}
                 }
                 else
                 {
-                    PestOnStubble = 0;
+                    //PestOnStubble = PestOnStubble * stubdegrate + AppliedPestOnStubble;
+                    //PestOnStubble = PestOnStubble * Math.Pow(2.718281828, (-(1 - InputModel.CoverWashoffFraction) * Engine.ClimateModule.YesterdaysRain));
+                    PestOnStubble = PestOnStubble * stubdegrate + AppliedPestOnStubble;
+                    var temp = PestOnStubble;
+                    PestOnStubble = PestOnStubble * InputModel.CoverWashoffFraction2 * Math.Pow(2.718281828, (-InputModel.RainWashoffCoefficient * Engine.ClimateModule.Rain));
+                    if (PestOnStubble < 0)
+                    {
+                        PestOnStubble = 0;
+                    }
+                    PestInSoil = PestInSoil + temp - PestOnStubble;
                 }
+                //pest_washedoffStubble_g_per_ha = (pest_PestOnStubble_g_per_ha * pest_stubdegrate + AppliedPestOnStubble_g_per_ha) - ((pest_PestOnStubble_g_per_ha * pest_stubdegrate + AppliedPestOnStubble_g_per_ha) * CoverWashOffFraction * Math.Pow(2.718281828, (-RainWashoffCoefficient * rain)));
+                //pest_PestOnStubble_g_per_ha = (pest_PestOnStubble_g_per_ha * pest_stubdegrate + AppliedPestOnStubble_g_per_ha) * CoverWashOffFraction * Math.Pow(2.718281828, (-RainWashoffCoefficient * rain));
+
+
             }
             catch (Exception ex)
             {
@@ -487,10 +547,10 @@ namespace HowLeaky_SimulationEngine.Engine
                 }
 
                 PestInSoil = PestInSoil * soildegrate + AppliedPestOnSoil - PestLostInLeaching - TotalPestLostInRunoff;
-                if (Engine.ClimateModule.Rain >= 5.0)
-                {
-                    PestInSoil = PestInSoil + (PestOnStubble + PestOnVeg) * InputModel.CoverWashoffFraction;
-                }
+                //if (Engine.ClimateModule.Rain >= 5.0)
+                //{
+                //    PestInSoil = PestInSoil + (PestOnStubble + PestOnVeg) * InputModel.CoverWashoffFraction;
+                //}
 
 
                 denom = (Engine.SoilModule.InputModel.BulkDensity[0] * InputModel.MixLayerThickness * 10);
@@ -522,6 +582,8 @@ namespace HowLeaky_SimulationEngine.Engine
                 }
                 if (!MathTools.DoublesAreEqual(denom, 0))
                 {
+                    //NOTE - THIS IS INCORRECT - DOESN'T ACCOUNT FOR IRRIGATION.
+
                     double infiltration = Engine.ClimateModule.Rain - Engine.SoilModule.Runoff - availwaterstorageinmixing;
                     if (infiltration < 0)
                     {

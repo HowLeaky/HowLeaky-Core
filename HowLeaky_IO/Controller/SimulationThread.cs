@@ -58,11 +58,11 @@ namespace HowLeaky_IO
                 var temp=output.ToLower();
                 if(temp.Contains("temp")||temp.Contains("conc"))
                 {
-                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, output, "#000000",1, orderindex++, false));
+                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output,null, output, "#000000",1, orderindex++, false));
                 }
                 else
                 {
-                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, output, "#000000", 1, orderindex++, true));;
+                    dict.Add(output, new HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes(output, null, output, "#000000", 1, orderindex++, true));;
                 }
                 
             }

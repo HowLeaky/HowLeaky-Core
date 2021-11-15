@@ -245,26 +245,38 @@ namespace HowLeaky_IO.Tools
 
 
             //NITRATE 
-            //dict.Add("DissolvedNinRunoffOptions", "DissolvedNinRunoffOptions");
-            //dict.Add("NDepthTopLayer1","NDepthTopLayer1");
-            //dict.Add("Nk","Nk");
-            //dict.Add("Ncv","Ncv");
-            //dict.Add("Nalpha","NAlpha");
-            //dict.Add("N_DanRat_Alpha","N_DanRat_Alpha");
-            //dict.Add("N_DanRat_Beta","N_DanRat_Beta");
-            //dict.Add("N_DanRat_MaxRunOffConc","N_DanRat_MaxRunOffConc");
-            //dict.Add("N_DanRat_MinRunOffConc","N_DanRat_MinRunOffConc");
-
-
-            //dict.Add("SoilNLoadData1","SoilNLoadData1");
-
-            ////dict.Add("N_GraFraz_DL","N_GraFraz_DL");
-            ////dict.Add("N_GraFraz_RL","N_GraFraz_RL");
-            ////dict.Add("N_GraFraz_LowLimitDINConc","XXXX");
-            //dict.Add("FertilizerInputDateSequences","FertilizerInputDateSequences");          
-
-            //dict.Add("SoilNitrateLevels","SoilNitrateLevels");
-            //dict.Add("SoilNLoadData2","SoilNLoadData2");
+            dict.Add("FertilizerInputDateSequences", "FertilizerInputDateSequences");
+            dict.Add("DissolvedNinRunoffOptions", "DissolvedNinRunoffOptions");
+            dict.Add("SoilNLoadData1", "SoilNLoadData1");
+            dict.Add("NDepthTopLayer1", "NDepthTopLayer1");
+            dict.Add("SoilNitrateLoadWeighting1", "SoilNitrateLoadWeighting1");
+            dict.Add("Nk", "Nk");
+            dict.Add("Ncv", "Ncv");
+            dict.Add("NAlpha_Disolved", "NAlpha_Disolved");
+            dict.Add("N_DanRat_MaxRunOffConc", "N_DanRat_MaxRunOffConc");
+            dict.Add("N_DanRat_MinRunOffConc", "N_DanRat_MinRunOffConc");
+            dict.Add("NBeta_Disolved", "NBeta_Disolved");
+            dict.Add("ParticulateNinRunoffOptions", "ParticulateNinRunoffOptions");
+            dict.Add("SoilNLoadData3", "SoilNLoadData3");
+            dict.Add("NDepthTopLayer2", "NDepthTopLayer2");
+            dict.Add("SoilNitrateLoadWeighting3", "SoilNitrateLoadWeighting3");
+            dict.Add("NAlpha_Particulate", "NAlpha_Particulate");
+            dict.Add("NBeta_Particulate", "NBeta_Particulate");
+            dict.Add("NEnrichmentRatio", "NEnrichmentRatio");
+            dict.Add("DissolvedNinLeachingOptions", "DissolvedNinLeachingOptions");
+            dict.Add("SoilNLoadData2", "SoilNLoadData2");
+            dict.Add("DepthBottomLayer", "DepthBottomLayer");
+            dict.Add("SoilNitrateLoadWeighting2", "SoilNitrateLoadWeighting2");
+            dict.Add("NitrateLeachingEfficiency", "NitrateLeachingEfficiency");
+            dict.Add("PlantAnnual", "PlantAnnual");
+            dict.Add("PlantA", "PlantA");
+            dict.Add("PlantB", "PlantB");
+            dict.Add("MainStemDuration", "MainStemDuration");
+            dict.Add("CMRMax", "CMRMax");
+            dict.Add("CMRSlope", "CMRSlope");
+            dict.Add("Denitrification", "Denitrification");
+            dict.Add("NitrateDrainageRetention", "NitrateDrainageRetention");
+            
 
             //dict.Add("Mineralisation","Mineralisation");
 
@@ -277,11 +289,11 @@ namespace HowLeaky_IO.Tools
 
             // dict.Add("InitialExcessN","InitialExcessN");
 
- 
+
 
             //dict.Add("DepthBottomLayer","DepthBottomLayer");
             //dict.Add("NitrateLeachingEfficiency","NitrateLeachingEfficiency");
-              
+
             //dict.Add("NLoadInSurfaceLayerTimeSeries","NLoadInSurfaceLayerTimeSeries");
             //dict.Add("NLoadInLowerLayersTimeSeries","NLoadInLowerLayersTimeSeries");
 
@@ -313,7 +325,7 @@ namespace HowLeaky_IO.Tools
             //dict.Add("CNMax","CNMax"); 
             //dict.Add("MainStemDuration","MainStemDuration"); 
             //dict.Add("SoilNLoadData3","SoilNLoadData3");
-      
+
 
             //SOLUTES 
             dict.Add("InitialStartingConditionsOptions","StartConcOption");

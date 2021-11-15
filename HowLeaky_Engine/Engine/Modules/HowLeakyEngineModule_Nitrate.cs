@@ -349,7 +349,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 }
 
                 //Mineralisation
-                Mineralisation = Math.Min(Engine.SoilModule.InputModel.OrganicCarbon * InputModel.CNSlope, InputModel.CNMax) / 365.0;
+                Mineralisation = Math.Min(Engine.SoilModule.InputModel.OrganicCarbon * InputModel.CMRSlope, InputModel.CMRMax) / 365.0;
 
                 //Crop use
                 CropUseActual = 0;

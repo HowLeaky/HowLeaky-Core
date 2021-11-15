@@ -91,16 +91,16 @@ namespace HowLeaky_SimulationEngine.Inputs
         public double NitrateDrainageRetention { get; set; } 
                  
          public double InitialExcessN { get; set; }    
-        public double CNSlope { get; set; } 
-        public double CNMax { get; set; } 
+        public double CMRSlope { get; set; } 
+        public double CMRMax { get; set; } 
         public int MainStemDuration { get; set; } 
-        public double RatoonA { get; set; }
+    //    public double RatoonA { get; set; }
         public double PlantA { get; set; }
-        public double RatoonB { get; set; }
+      //  public double RatoonB { get; set; }
         public double PlantB { get; set; }
-         public double RatoonAnnual { get; set; } // This is something that Al did. Is listed as Annual in file
+     //    public double RatoonAnnual { get; set; } // This is something that Al did. Is listed as Annual in file
         public double PlantAnnual { get; set; } // This is something that Al did.  Is listed as Annual in file
-        public double RatoonDaily { get{return RatoonAnnual/365.0; } } // This is something that Al did. Is listed as Annual in file
+   //     public double RatoonDaily { get{return RatoonAnnual/365.0; } } // This is something that Al did. Is listed as Annual in file
         public double PlantDaily { get{return PlantAnnual/365.0; } } // This is something that Al did.  Is listed as Annual in file
 
          //public TimeSeriesData SoilNitrateTimeseries { get; set; }        

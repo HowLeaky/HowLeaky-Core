@@ -550,7 +550,16 @@ namespace HowLeaky_IO
             {
                 var current = nodes.Current;
                 var name = current.Name;
-                var isSequence = (name == "PesticideDatesAndRates" || name == "FertilizerInputDateSequences" || name == "IrrigationDates" || name == "IrrigationRunoffSequence" || name == "AdditionalInflowSequence");
+                var isSequence =   (name == "PesticideDatesAndRates" ||
+                                    name == "FertilizerInputDateSequences" || 
+                                    name == "IrrigationDates" || 
+                                    name == "IrrigationRunoffSequence" || 
+                                    name == "AdditionalInflowSequence" ||
+                                    name == "FertilizerInputDateSequences" ||
+                                    name == "SoilNLoadData1" ||
+                                    name == "SoilNLoadData2" ||
+                                    name == "SoilNLoadData3" 
+                                    );
                 var hasAttributes = current.HasAttributes;
                 var hasChildren = current.HasChildren;
                 var arrayvalues = GetArrayValues(current);

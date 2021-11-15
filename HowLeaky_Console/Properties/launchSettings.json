@@ -2,7 +2,7 @@
   "profiles": {
     "HowLeakyConsole": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\Aggregator_test\\Input\\Grains_Fitrzoy_test.hlk -m -x  -o\"Rain,Runoff\""
+      "commandLineArgs": "D:\\Test\\HowLeaky2.hlk -m -o\\\"Rain,Runoff,DeepDrainage\\\""
     }
   }
 }

@@ -52,32 +52,35 @@ namespace HowLeaky_SimulationEngine.Inputs
         public int TriggerDaysFirst { get; set; }
         public int TriggerDaysSubsequent{ get; set; }
         public int ApplicationPosition{ get; set; }
+        public int WashoffMethod { get;  set; }
+        public double RainWashoffCoefficient { get; set; }
+        public double CoverWashoffFraction2 { get;  set; }
 
 
         //public bool tbPestVegIndex1 { get; set; }
-               
+
         //public bool tbPestVegIndex2 { get; set; }
-               
+
         //public bool tbPestVegIndex3 { get; set; }
-               
+
         //public bool tbPestVegIndex4 { get; set; }
-               
+
         //public bool tbPestVegIndex5 { get; set; }
-               
+
         //public bool tbPestVegIndex6 { get; set; }
-               
+
         //public bool tbPestVegIndex7 { get; set; }
-               
+
         //public bool tbPestVegIndex8 { get; set; }
-               
+
         //public bool tbPestVegIndex9 { get; set; }
-               
+
         //public bool tbPestVegIndex10 { get; set; }
-       
 
 
 
-         internal string GetName()
+
+        internal string GetName()
         {
             var name=Name.ToLower().Replace("-","_");
             if(name.Contains("24_d"))return "24_d";

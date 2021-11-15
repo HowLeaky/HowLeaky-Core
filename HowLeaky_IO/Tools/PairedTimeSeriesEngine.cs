@@ -34,6 +34,7 @@ namespace HowLeaky_IO.Tools
         public string Title { get; set; }
 
         public float? MaxY { get;set;}
+        public float? MaxX { get;set;}
       
 
 
