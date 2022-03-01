@@ -17,6 +17,7 @@ namespace HowLeaky_SimulationEngine.Inputs
        None=0,
        HowLeaky2012=1,
        BananaEmpiricalModel=2,
+       FixedEMC=3
 
         
     }
@@ -26,6 +27,17 @@ namespace HowLeaky_SimulationEngine.Inputs
         HowLeaky2012=1
 
         
+    }
+    public enum CropUseOption
+    {
+        SafeGauge,
+        Freebairn
+    }
+
+    public enum DenitrificationOption
+    {
+        SafeGauge,
+        Freebairn
     }
 
 
@@ -88,7 +100,7 @@ namespace HowLeaky_SimulationEngine.Inputs
         
         
         public double Denitrification { get; set; }
-        public double NitrateDrainageRetention { get; set; } 
+        //public double NitrateDrainageRetention { get; set; } 
                  
          public double InitialExcessN { get; set; }    
         public double CMRSlope { get; set; } 
@@ -103,14 +115,21 @@ namespace HowLeaky_SimulationEngine.Inputs
    //     public double RatoonDaily { get{return RatoonAnnual/365.0; } } // This is something that Al did. Is listed as Annual in file
         public double PlantDaily { get{return PlantAnnual/365.0; } } // This is something that Al did.  Is listed as Annual in file
 
+        public CropUseOption CropUseOption { get;set;}
+        public double NCropUseEfficiency { get;set;}
+
+        public double FixedEMC { get;set;}
+
+        public DenitrificationOption DenitficationOption { get;set;}
          //public TimeSeriesData SoilNitrateTimeseries { get; set; }        
-          //public List<XYXData> SoilNitrateLevels { get; set; } = null;
+         //public List<XYXData> SoilNitrateLevels { get; set; } = null;
          //public double Mineralisation { get; set; } 
-        //public double VolSat { get; set; } 
-        //public double NitrogenApplication { get; set; }
-        //public double NitrogenFrequency { get; set; } 
-        //public double SoilCarbon { get; set; } 
+         //public double VolSat { get; set; } 
+         //public double NitrogenApplication { get; set; }
+         //public double NitrogenFrequency { get; set; } 
+         //public double SoilCarbon { get; set; } 
 
-
+        public int MineralisationOption { get;set;}
+        public double NitrateMineralisationCoefficient { get; set; }
     }
 }

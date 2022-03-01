@@ -142,7 +142,7 @@ namespace HowLeaky_SimulationEngine.Engine
             return true;
         }
 
-        internal bool InFallow()
+        public bool InFallow()
         {
             try
             {

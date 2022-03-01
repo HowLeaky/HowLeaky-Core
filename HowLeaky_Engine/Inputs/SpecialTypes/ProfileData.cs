@@ -6,10 +6,10 @@ using System.Text;
 
 namespace HowLeaky_SimulationEngine.Tools
 {
-     public class ProfileData
+    public class ProfileData
     {
-       public List<int> jdays;
-       public Dictionary<string, List<double>> values;
+        public List<int> jdays;
+        public Dictionary<string, List<double>> values;
 
         int dayIndex = 0;
         //public ProfileData(List<string> columns)
@@ -27,7 +27,7 @@ namespace HowLeaky_SimulationEngine.Tools
 
         public ProfileData(string stringvalue)
         {
-            var headers=new List<string> (new string[] { "Green Cover", "Residue Cover","Root Depth" });
+            var headers = new List<string>(new string[] { "Green Cover", "Residue Cover", "Root Depth" });
             jdays = new List<int>();
             values = new Dictionary<string, List<double>>
             {
@@ -38,21 +38,24 @@ namespace HowLeaky_SimulationEngine.Tools
 
             dayIndex = 0;
 
-            
-                 var list=stringvalue.Split('|').ToList();                    
-                foreach(var item in list)
+
+            var list = stringvalue.Split('|').ToList();
+            foreach (var item in list)
+            {
+                var values = item.Split(',').ToList();
+                var dateint = int.Parse(values[0]);
+                var value1 = double.Parse(values[1]);
+                var value2 = double.Parse(values[2]);
+                var value3 = double.Parse(values[3]);
+                if (dateint > 0)
                 {
-                    var values=item.Split(',').ToList();
-                    var dateint=int.Parse(values[0]);
-                    var value1=double.Parse(values[1]);
-                    var value2=double.Parse(values[2]);
-                    var value3=double.Parse(values[3]);
                     AddDate(dateint);
-                    AddValue("Green Cover",value1);
+                    AddValue("Green Cover", value1);
                     AddValue("Residue Cover", value2);
-                    AddValue("Root Depth", value3);    
+                    AddValue("Root Depth", value3);
                 }
-            
+            }
+
         }
 
         public void AddDate(int jday)
@@ -71,9 +74,9 @@ namespace HowLeaky_SimulationEngine.Tools
         public double GetValueForDayIndex(string datakey, BrowserDate today)
         {
 
-            
-            
-           // UpdateDayIndex(today);
+
+
+            // UpdateDayIndex(today);
             List<double> data = values[datakey];
             int count = data.Count;
             for (int i = 0; i < count; ++i)

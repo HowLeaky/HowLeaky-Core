@@ -426,45 +426,45 @@ namespace HowLeaky_Engine.UnitTests
             engine.SolutesModule.Initialise();
         }
 
-        public void LoadNitrate_N03NInRuoff(HowLeakyEngine engine)
-        {
-            var inputs = FetchNitrateInputs(engine);
-            inputs.DissolvedNinRunoffOptions = DissolvedNinRunoffType.HowLeaky2012;
-            inputs.NDepthTopLayer1 = 100;
-            inputs.Nk = 0.3;
-            inputs.Ncv = 0.2;
-            inputs.NAlpha_Disolved = 1;
-            inputs.NBeta_Disolved = 0;
-            inputs.SoilNLoadData1 = new Sequence("1,10");
-            inputs.SoilNitrateLoadWeighting1 = 1;
+        //public void LoadNitrate_N03NInRuoff(HowLeakyEngine engine)
+        //{
+        //    var inputs = FetchNitrateInputs(engine);
+        //    inputs.DissolvedNinRunoffOptions = DissolvedNinRunoffType.HowLeaky2012;
+        //    inputs.NDepthTopLayer1 = 100;
+        //    inputs.Nk = 0.3;
+        //    inputs.Ncv = 0.2;
+        //    inputs.NAlpha_Disolved = 1;
+        //    inputs.NBeta_Disolved = 0;
+        //    inputs.SoilNLoadData1 = new Sequence("1,10");
+        //    inputs.SoilNitrateLoadWeighting1 = 1;
 
-        }
+        //}
 
-        public void LoadNitrate_N03NInLeaching(HowLeakyEngine engine)
-        {
-            var inputs = FetchNitrateInputs(engine);
-            inputs.DissolvedNinLeachingOptions = DissolvedNinLeachingType.HowLeaky2012;
-            inputs.DepthBottomLayer = 100;
-            inputs.NitrateLeachingEfficiency = 0.5;
+        //public void LoadNitrate_N03NInLeaching(HowLeakyEngine engine)
+        //{
+        //    var inputs = FetchNitrateInputs(engine);
+        //    inputs.DissolvedNinLeachingOptions = DissolvedNinLeachingType.HowLeaky2012;
+        //    inputs.DepthBottomLayer = 100;
+        //    inputs.NitrateLeachingEfficiency = 0.5;
 
-            inputs.SoilNLoadData2 = new Sequence("1,10");
-            inputs.SoilNitrateLoadWeighting2 = 1;
+        //    inputs.SoilNLoadData2 = new Sequence("1,10");
+        //    inputs.SoilNitrateLoadWeighting2 = 1;
 
-        }
+        //}
 
-        public void LoadNitrate_ParticNInRunoff(HowLeakyEngine engine)
-        {
-            var inputs = FetchNitrateInputs(engine);
-            inputs.ParticulateNinRunoffOptions = ParticulateNinRunoffType.HowLeaky2012;
-            inputs.NDepthTopLayer2 = 20;
-            inputs.NEnrichmentRatio = 0.5;
-            inputs.NAlpha_Particulate = 1;
-            inputs.NBeta_Particulate = 0.5;
-            inputs.SoilNLoadData3 = new Sequence("1,10");
-            inputs.SoilNitrateLoadWeighting3 = 1;
+        //public void LoadNitrate_ParticNInRunoff(HowLeakyEngine engine)
+        //{
+        //    var inputs = FetchNitrateInputs(engine);
+        //    inputs.ParticulateNinRunoffOptions = ParticulateNinRunoffType.HowLeaky2012;
+        //    inputs.NDepthTopLayer2 = 20;
+        //    inputs.NEnrichmentRatio = 0.5;
+        //    inputs.NAlpha_Particulate = 1;
+        //    inputs.NBeta_Particulate = 0.5;
+        //    inputs.SoilNLoadData3 = new Sequence("1,10");
+        //    inputs.SoilNitrateLoadWeighting3 = 1;
 
 
-        }
+        //}
 
         public void LoadIrrigation_Constant(HowLeakyEngine engine)
         {
@@ -473,7 +473,7 @@ namespace HowLeaky_Engine.UnitTests
             inputs.IrrigationFormat = IrrigationFormat.FromSequenceFile;
             inputs.IrrigWindowStartDate = new DayMonthData(1, 1);
             inputs.IrrigWindowEndDate = new DayMonthData(1, 12);
-            inputs.IrrigSequence = new Sequence("1,100");
+            inputs.IrrigSequence = new Sequence("1,100",false);
 
             inputs.SWDToIrrigate = 0;
             inputs.TargetAmountOptions = TargetAmountOptions.FixedAmount;
@@ -496,12 +496,12 @@ namespace HowLeaky_Engine.UnitTests
 
             inputs.CapactityAtReset = 0;
 
-            inputs.AdditionalInflowSequence = new Sequence("1,1");
+            inputs.AdditionalInflowSequence = new Sequence("1,1",false);
             inputs.IrrigRunoffOptions = 0;
             inputs.IrrigRunoffProportion1 = 0;
             inputs.IrrigRunoffProportion2 = 0;
             inputs.IrrigCoverEffects = 0;
-            inputs.IrrigRunoffSequence = new Sequence("1,1");
+            inputs.IrrigRunoffSequence = new Sequence("1,1",false);
 
 
             inputs.EvaporationProportion = 0;
@@ -515,7 +515,7 @@ namespace HowLeaky_Engine.UnitTests
             inputs.IrrigationFormat = IrrigationFormat.FromSequenceFile;
             inputs.IrrigWindowStartDate = new DayMonthData(1, 1);
             inputs.IrrigWindowEndDate = new DayMonthData(1, 12);
-            inputs.IrrigSequence = new Sequence("1,100");
+            inputs.IrrigSequence = new Sequence("1,100",false);
 
             inputs.SWDToIrrigate = 0;
             inputs.TargetAmountOptions = TargetAmountOptions.FixedAmount;
@@ -538,12 +538,12 @@ namespace HowLeaky_Engine.UnitTests
 
             inputs.CapactityAtReset = 0;
 
-            inputs.AdditionalInflowSequence = new Sequence("1,1");
+            inputs.AdditionalInflowSequence = new Sequence("1,1",false);
             inputs.IrrigRunoffOptions = 0;
             inputs.IrrigRunoffProportion1 = 0;
             inputs.IrrigRunoffProportion2 = 0;
             inputs.IrrigCoverEffects = 0;
-            inputs.IrrigRunoffSequence = new Sequence("1,1");
+            inputs.IrrigRunoffSequence = new Sequence("1,1",false);
 
 
             inputs.EvaporationProportion = 0;

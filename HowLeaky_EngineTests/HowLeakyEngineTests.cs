@@ -16,9 +16,9 @@ namespace HowLeaky_Engine.UnitTests
             var engine = new HowLeakyEngine();
             LoadSoil(engine);
             var check1 = ValuesAreEqual(engine.SoilModule.Sse1, 4);
-            var check2 = ValuesAreEqual(engine.SoilModule.Sse2, 21);
-            var check3 = ValuesAreEqual(engine.SoilModule.Dsr, 27.5625);
-            var check4 = ValuesAreEqual(engine.SoilModule.Sse1, 4);
+            var check2 = ValuesAreEqual(engine.SoilModule.Sse2, 8.5);
+            var check3 = ValuesAreEqual(engine.SoilModule.Dsr, 4.515625);
+            var check4 = ValuesAreEqual(engine.SoilModule.PAWC, 300);
             //var check5 = ValuesAreEqual(engine.SoilModule.WF[0], 4);
             //var check5 = ValuesAreEqual(engine.SoilModule.WF[1], 4);
             //var check5 = ValuesAreEqual(engine.SoilModule.WF[2], 4);
@@ -49,8 +49,8 @@ namespace HowLeaky_Engine.UnitTests
             engine.ClimateModule.Rain = 10;
             engine.SetStartOfDayParameters();
             var check1 = ValuesAreEqual(engine.SoilModule.EffectiveRain,10);
-            var check2 = ValuesAreEqual(engine.SoilModule.Satd, 425);
-            var check3 = ValuesAreEqual(engine.SoilModule.SoilWaterDeficit, 300);
+            var check2 = ValuesAreEqual(engine.SoilModule.Satd, 275);
+            var check3 = ValuesAreEqual(engine.SoilModule.SoilWaterDeficit, 150);
             
             Assert.IsTrue(check1 && check2 && check3 );
         }
@@ -105,10 +105,10 @@ namespace HowLeaky_Engine.UnitTests
 
             engine.SoilModule.EffectiveRain = 100;
             engine.SoilModule.CalculateRunoff();
-            var check1 = ValuesAreEqual(engine.SoilModule.RunoffRetentionNumber, 109);
+            var check1 = ValuesAreEqual(engine.SoilModule.RunoffRetentionNumber, 71);
             var check2 = ValuesAreEqual(engine.SoilModule.RunoffCurveNo, 82);
-            var check3 = ValuesAreEqual(engine.SoilModule.Runoff, 32.666880341880351);
-            var check4 = ValuesAreEqual(engine.SoilModule.Infiltration, 67.333119658119642);
+            var check3 = ValuesAreEqual(engine.SoilModule.Runoff, 46.949234693877543);
+            var check4 = ValuesAreEqual(engine.SoilModule.Infiltration, 53.050765306122457);
             Assert.IsTrue(check1 && check2 && check3 && check4);
         }
         [Test]
@@ -292,55 +292,55 @@ namespace HowLeaky_Engine.UnitTests
             Assert.IsTrue(check1 && check2 && check3 && check4);
         }
 
-        [Test]
-        public void Test_NitrateModel_1_CalculateDissolvedNInRunoff()
-        {
-            var engine = new HowLeakyEngine();           
-            LoadClimate(engine);
-            LoadSoil(engine);                        
-            LoadNitrate_N03NInRuoff(engine);
-            InitialiseEngine(engine);
-            engine.SoilModule.Runoff=5;
-            engine.NitrateModule.CalculateDissolvedNInRunoff();
-            bool check1 = ValuesAreEqual(engine.NitrateModule.NO3NStoreTopLayer, 10);
-            bool check2 = ValuesAreEqual(engine.NitrateModule.NO3NDissolvedInRunoff, 1.896361676485673);
-            bool check3 = ValuesAreEqual(engine.NitrateModule.NO3NRunoffLoad, 0.094818083824283653);
-            Assert.IsTrue(check1 && check2 && check3 );
-        }
+        //[Test]
+        //public void Test_NitrateModel_1_CalculateDissolvedNInRunoff()
+        //{
+        //    var engine = new HowLeakyEngine();           
+        //    LoadClimate(engine);
+        //    LoadSoil(engine);                        
+        //    LoadNitrate_N03NInRuoff(engine);
+        //    InitialiseEngine(engine);
+        //    engine.SoilModule.Runoff=5;
+        //    engine.NitrateModule.CalculateDissolvedNInRunoff();
+        //    bool check1 = ValuesAreEqual(engine.NitrateModule.NO3NStoreTopLayer, 10);
+        //    bool check2 = ValuesAreEqual(engine.NitrateModule.NO3NDissolvedInRunoff, 1.896361676485673);
+        //    bool check3 = ValuesAreEqual(engine.NitrateModule.NO3NRunoffLoad, 0.094818083824283653);
+        //    Assert.IsTrue(check1 && check2 && check3 );
+        //}
 
-        [Test]
-        public void Test_NitrateModel_2_CalculateDissolvedNInLeaching()
-        {
-            var engine = new HowLeakyEngine();
-            LoadClimate(engine);
-            LoadSoil(engine);
-            LoadNitrate_N03NInLeaching(engine);
-            InitialiseEngine(engine);
-            engine.SoilModule.DeepDrainage = 1;
-            engine.NitrateModule.CalculateDissolvedNInLeaching();
-            bool check1 = ValuesAreEqual(engine.NitrateModule.NO3NStoreBotLayer, 10);
-            bool check2 = ValuesAreEqual(engine.NitrateModule.NO3NDissolvedLeaching, 58.823529411764703);
-            bool check3 = ValuesAreEqual(engine.NitrateModule.NO3NLeachingLoad, 0.29411764705882348);
-            Assert.IsTrue(check1 && check2 && check3);
-        }
-        [Test]
-        public void Test_NitrateModel_3_CalculatParticulateNInRunoff()
-        {
-            var engine = new HowLeakyEngine();
+        //[Test]
+        //public void Test_NitrateModel_2_CalculateDissolvedNInLeaching()
+        //{
+        //    var engine = new HowLeakyEngine();
+        //    LoadClimate(engine);
+        //    LoadSoil(engine);
+        //    LoadNitrate_N03NInLeaching(engine);
+        //    InitialiseEngine(engine);
+        //    engine.SoilModule.DeepDrainage = 1;
+        //    engine.NitrateModule.CalculateDissolvedNInLeaching();
+        //    bool check1 = ValuesAreEqual(engine.NitrateModule.NO3NStoreBotLayer, 10);
+        //    bool check2 = ValuesAreEqual(engine.NitrateModule.NO3NDissolvedLeaching, 58.823529411764703);
+        //    bool check3 = ValuesAreEqual(engine.NitrateModule.NO3NLeachingLoad, 0.29411764705882348);
+        //    Assert.IsTrue(check1 && check2 && check3);
+        //}
+        //[Test]
+        //public void Test_NitrateModel_3_CalculatParticulateNInRunoff()
+        //{
+        //    var engine = new HowLeakyEngine();
 
             
-            LoadClimate(engine);
-            LoadSoil(engine);
-            LoadNitrate_ParticNInRunoff(engine);
-            InitialiseEngine(engine);
-            engine.SoilModule.Runoff = 5;
-            engine.SoilModule.HillSlopeErosion = 2;
-            engine.NitrateModule.CalculateParticulateNInRunoff();
-            bool check1 = ValuesAreEqual(engine.NitrateModule.TotalNStoreTopLayer, 10);
-            bool check2 = ValuesAreEqual(engine.NitrateModule.PNHLCa, 0.031859621048828821);
-            bool check3 = ValuesAreEqual(engine.NitrateModule.ParticNInRunoff, 0.0035);
-            Assert.IsTrue(check1 && check2 && check3);
-        }
+        //    LoadClimate(engine);
+        //    LoadSoil(engine);
+        //    LoadNitrate_ParticNInRunoff(engine);
+        //    InitialiseEngine(engine);
+        //    engine.SoilModule.Runoff = 5;
+        //    engine.SoilModule.HillSlopeErosion = 2;
+        //    engine.NitrateModule.CalculateParticulateNInRunoff();
+        //    bool check1 = ValuesAreEqual(engine.NitrateModule.TotalNStoreTopLayer, 10);
+        //    bool check2 = ValuesAreEqual(engine.NitrateModule.PNHLCa, 0.031859621048828821);
+        //    bool check3 = ValuesAreEqual(engine.NitrateModule.ParticNInRunoff, 0.0035);
+        //    Assert.IsTrue(check1 && check2 && check3);
+        //}
 
         [Test]
         public void Test_Irrigation_1_Constant()

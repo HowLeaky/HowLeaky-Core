@@ -19,6 +19,7 @@ namespace HowLeaky_SimulationEngine.Tools
     }
     public class Sequence
     {
+       
         private String _Value;
 
         public List<BrowserDate> Dates { get; set; }
@@ -39,6 +40,7 @@ namespace HowLeaky_SimulationEngine.Tools
         }
 
         public SequenceType Type { get; set; }
+        
 
         public Sequence()
         {
@@ -48,14 +50,14 @@ namespace HowLeaky_SimulationEngine.Tools
             Value = "";
         }
 
-        public Sequence(string stringvalue) : this()
+        public Sequence(string stringvalue, bool canInterpolate) : this()
         {
             try
             {
                 Type = ExtractType(stringvalue);
                 switch (Type)
                 {
-                    case SequenceType.JDayValue: ExtractJDayValues(stringvalue); break;
+                    case SequenceType.JDayValue: ExtractJDayValues(stringvalue, canInterpolate); break;
                     case SequenceType.DateValue: ExtractDateValues(stringvalue); break;
                     case SequenceType.Date: ExtractDates(stringvalue); break;
                 }
@@ -99,13 +101,13 @@ namespace HowLeaky_SimulationEngine.Tools
 
 
 
-        private void ExtractJDayValues(string stringvalue)
+        private void ExtractJDayValues(string stringvalue, bool canInterpolate)
         {
-            var interpolate=true;
+           
             if (!String.IsNullOrEmpty(stringvalue))
             {
 
-                var items = stringvalue.Replace("\"", "").Split(',').ToList();
+                var items = stringvalue.Replace("\"", "").Replace("[", "").Replace("]", "").Split(',').ToList();
                 for (var i = 0; i < items.Count; i = i + 2)
                 {
                     if (i + 1 < items.Count)
@@ -117,11 +119,7 @@ namespace HowLeaky_SimulationEngine.Tools
 
                         if (int.TryParse(first, out value1))
                         {
-                            if (second[0] == '[')
-                            {
-                                interpolate=false;
-                                second=second.Replace("[","").Replace("]","");
-                            }
+                            
                             if (double.TryParse(second, out value2))
                             {
                                 JDays.Add(value1);
@@ -134,7 +132,7 @@ namespace HowLeaky_SimulationEngine.Tools
                 }
                 Dict = new Dictionary<int, double>();
 
-                if (interpolate)
+                if (canInterpolate)
                 {
                     int count = JDays.Count;
                     if (count > 1)

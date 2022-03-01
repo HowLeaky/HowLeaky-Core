@@ -417,8 +417,8 @@ namespace HowLeaky_SimulationEngine.Inputs
                 }
                 else if (type == typeof(Sequence))
                 {
-                    var results = new Sequence(stringvalue);
-
+                    var canInterpolate = property.Name != "FertilizerInputDateSequences";
+                    var results = new Sequence(stringvalue, canInterpolate);                    
                     property.SetValue(source, results);
                     return true;
 
@@ -470,7 +470,24 @@ namespace HowLeaky_SimulationEngine.Inputs
                         return true;
                     }
                 }
-
+                else if (type == typeof(CropUseOption))
+                {
+                    int value;
+                    if (int.TryParse(stringvalue, out value))
+                    {
+                        property.SetValue(source, (CropUseOption)value);
+                        return true;
+                    }
+                }
+                else if (type == typeof(DenitrificationOption))
+                {
+                    int value;
+                    if (int.TryParse(stringvalue, out value))
+                    {
+                        property.SetValue(source, (DenitrificationOption)value);
+                        return true;
+                    }
+                }
 
 
 

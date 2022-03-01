@@ -27,8 +27,9 @@ namespace HowLeaky_SimulationEngine.Outputs
             CanAccumulate=true;
         }
 
-        public HowLeakyOutputTimeSeries(int? simindex, string name,string color, float width, BrowserDate start, BrowserDate end, int count, bool canAccumulate)
+        public HowLeakyOutputTimeSeries(int? simindex,  string name,string color, float width, BrowserDate start, BrowserDate end, int count, bool canAccumulate)
         {
+           
             SimulationIndex = simindex;
             Name = name;
             StartDate = new BrowserDate(start);
@@ -40,8 +41,9 @@ namespace HowLeaky_SimulationEngine.Outputs
             Width = width;
         }
 
-        public HowLeakyOutputTimeSeries(string name, string color, float width,int? index, BrowserDate start, BrowserDate end, List<double?> values, bool canAccumulate)
+        public HowLeakyOutputTimeSeries(string name, Guid? id, string color, float width,int? index, BrowserDate start, BrowserDate end, List<double?> values, bool canAccumulate)
         {
+            Id = id;
             Name = name;
             StartDate = new BrowserDate(start);
             EndDate = new BrowserDate(end);
@@ -51,8 +53,9 @@ namespace HowLeaky_SimulationEngine.Outputs
             CanAccumulate = canAccumulate;
             Width=width;
         }
-        public HowLeakyOutputTimeSeries(string name, string color, float width, int? index, BrowserDate start, BrowserDate end, List<double> values, bool canAccomulate)
+        public HowLeakyOutputTimeSeries(string name, Guid? id, string color, float width, int? index, BrowserDate start, BrowserDate end, List<double> values, bool canAccomulate)
         {
+            Id = id;
             Name = name;
             StartDate = new BrowserDate(start);
             EndDate = new BrowserDate(end);
@@ -62,7 +65,8 @@ namespace HowLeaky_SimulationEngine.Outputs
             CanAccumulate = canAccomulate;
             Width = width;
         }
-
+        public Guid? Id { get;set;}
+        public Guid? SimulationId { get;set;}
         public string DisplayName { get { return $"{SimulationIndex}. {Name}"; } }
         public string Name { get; set; }
         public bool CanAccumulate { get; set; }

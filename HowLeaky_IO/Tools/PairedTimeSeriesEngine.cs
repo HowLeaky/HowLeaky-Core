@@ -2,6 +2,7 @@
 using HowLeaky_SimulationEngine.Tools;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HowLeaky_IO.Tools
@@ -13,9 +14,10 @@ namespace HowLeaky_IO.Tools
         {
             XData = new List<double>();
             YData = new List<double>();
+            Annotations=new List<string>();
 
         }
-
+        public List<string> Annotations { get;set;}
         public List<double> XData { get; set; }
         public List<double> YData { get; set; }
         public BrowserDate StartDate { get; set; }
@@ -24,7 +26,7 @@ namespace HowLeaky_IO.Tools
         public int Missing { get; set; }
         public int Symbol { get; set; }
         public float Size1 { get; set; }
-        public float Size2 { get;set;}
+        public float Size2 { get; set; }
         public string Color1 { get; set; }
         public string Color2 { get; set; }
         public float Slope { get; set; }
@@ -33,15 +35,18 @@ namespace HowLeaky_IO.Tools
         public float RMSE { get; set; }
         public string Title { get; set; }
 
-        public float? MaxY { get;set;}
-        public float? MaxX { get;set;}
-      
+        public float? MaxY { get; set; }
+        public float? MaxX { get; set; }
+
 
 
         public string XAxisTitle { get; set; }
         public string YAxisTitle { get; set; }
         public string TimeSeriesName1 { get; set; }
         public string TimeSeriesName2 { get; set; }
+        public string GenTitle1 { get; set; }
+        public string GenTitle2 { get; set; }
+        public string GenTitle3 { get; set; }
 
         public List<float[]> GetDataArray()
         {
@@ -69,7 +74,7 @@ namespace HowLeaky_IO.Tools
 
         public List<float[]> GetSeriesArray2()
         {
-            var index=0;
+            var index = 0;
             var list = new List<float[]>();
             for (var i = 0; i < YData.Count; ++i)
             {
@@ -96,8 +101,14 @@ namespace HowLeaky_IO.Tools
                 sum2 += data;
                 ydata.Add(sum2);
             }
-            XData=xdata;
-            YData=ydata;
+            XData = xdata;
+            YData = ydata;
+        }
+
+        public void UpdateMaxXY()
+        {
+            MaxX = (float)XData.Max();
+            MaxY = (float)YData.Max();
         }
     }
     public class PairedTimeSeriesEngine
@@ -110,11 +121,14 @@ namespace HowLeaky_IO.Tools
             TimeSeries1 = timeseries1;
             TimeSeries2 = timeseries2;
         }
-        public PairedTimeSeries Generate(int dataformat, BrowserDate datastart, BrowserDate dataend,int? jstart, int? jend, bool infill)
+        public PairedTimeSeries Generate(int dataformat, BrowserDate datastart, BrowserDate dataend, int? jstart, int? jend, bool infill)
         {
             try
             {
                 var pair = new PairedTimeSeries();
+                if (TimeSeries1==null||TimeSeries2==null)
+                    return null;
+                
                 var start1 = TimeSeries1.StartDate;
                 var end1 = TimeSeries1.EndDate;
                 var values1 = TimeSeries1.DailyValues;
@@ -136,117 +150,141 @@ namespace HowLeaky_IO.Tools
 
                 pair.StartDate = mindate;
                 pair.EndDate = maxdate;
-                                    
-                    bool foundfirst = false;
-                    for (var index = mindate.DateInt; index <= maxdate.DateInt; ++index)
+                var dates=new List<BrowserDate>();
+
+                bool foundfirst = false;
+                for (var index = mindate.DateInt; index <= maxdate.DateInt; ++index)
+                {
+                    var date = new BrowserDate(index);
+                    var index1 = index - start1.DateInt;
+                    var index2 = index - start2.DateInt;
+                    if (!foundfirst)
                     {
-                        var date = new BrowserDate(index);
-                        var index1 = index - start1.DateInt;
-                        var index2 = index - start2.DateInt;
-                        if (!foundfirst)
-                        {
-                            var check1 = index >= start1.DateInt;
-                            var check2 = index >= start2.DateInt;
-                           
-                            foundfirst = check1 && check2 ;
-                            pair.StartDate = date;
-                        }
-                        if (foundfirst)
-                        {
-                            var check1 = index <= end1.DateInt;
-                            var check2 = index <= end2.DateInt;
-                            
-                            var cancontinue = check1 && check2 ;
+                        var check1 = index >= start1.DateInt;
+                        var check2 = index >= start2.DateInt;
 
-                            if (cancontinue)
+                        foundfirst = check1 && check2;
+                        pair.StartDate = date;
+                    }
+                    if (foundfirst)
+                    {
+                        var check1 = index <= end1.DateInt;
+                        var check2 = index <= end2.DateInt;
+
+                        var cancontinue = check1 && check2;
+
+                        if (cancontinue)
+                        {
+                            var assigned = false;
+                            var value1 = index1 < values1.Count ? values1[index1] : null;
+                            var value2 = index2 < values2.Count ? values2[index2] : null;
+                            if (jstart != null && jend != null)
                             {
-                                var assigned = false;
-                                var value1 = index1 < values1.Count ? values1[index1] : null;
-                                var value2 = index2 < values2.Count ? values2[index2] : null;
-                                if (jstart != null && jend != null)
+                                var jday = date.GetJDay();
+                                if ((int)jstart < (int)jend)
                                 {
-                                    var jday = date.GetJDay();
-                                    if ((int)jstart < (int)jend)
+                                    if (jday >= jstart && jday <= jend)
                                     {
-                                        if (jday >= jstart && jday <= jend)
+                                        if (value1 != null && value2 != null)
                                         {
-                                            if (value1 != null && value2 != null)
+                                            pair.XData.Add((double)value1);
+                                            pair.YData.Add((double)value2);
+                                            dates.Add(date);
+                                            if(dataformat==0)
                                             {
-                                                pair.XData.Add((double)value1);
-                                                pair.YData.Add((double)value2);
-                                                assigned = true;
+                                                pair.Annotations.Add(date.ToString("dd/MM/yyyy"));
                                             }
-
+                                            assigned = true;
                                         }
 
                                     }
-                                    else
-                                    {
-                                        if (jday >= jend && jday <= jstart)
-                                        {
-                                            if (value1 != null && value2 != null)
-                                            {
-                                                pair.XData.Add((double)value1);
-                                                pair.YData.Add((double)value2);
-                                                assigned = true;
-                                            }
-                                        }
 
-                                    }
                                 }
                                 else
                                 {
-                                    if (value1 != null && value2 != null)
+                                    if (jday >= jend && jday <= jstart)
                                     {
-                                        pair.XData.Add((double)value1);
-                                        pair.YData.Add((double)value2);
-                                        assigned = true;
+                                        if (value1 != null && value2 != null)
+                                        {
+                                            pair.XData.Add((double)value1);
+                                            pair.YData.Add((double)value2);
+                                            if (dataformat == 0)
+                                            {
+                                                pair.Annotations.Add(date.ToString("dd/MM/yyyy"));
+                                            }
+                                            dates.Add(date);
+                                            assigned = true;
+                                        }
                                     }
-                                }
-                                if (!assigned && infill)
-                                {
-                                    if (value1 != null)
-                                        pair.XData.Add((double)value1);
-                                    else
-                                        pair.XData.Add(0);
-                                    if (value2 != null)
-                                        pair.YData.Add((double)value2);
-                                    else
-                                        pair.YData.Add(0);
+
                                 }
                             }
                             else
                             {
-                                pair.EndDate = date;
-                                index = maxdate.DateInt + 1;
+                                if (value1 != null && value2 != null)
+                                {
+                                    pair.XData.Add((double)value1);
+                                    pair.YData.Add((double)value2);
+                                    if (dataformat == 0)
+                                    {
+                                        pair.Annotations.Add(date.ToString("dd/MM/yyyy"));
+                                    }
+                                    dates.Add(date);
+                                    assigned = true;
+                                }
+                            }
+                            if (!assigned && infill)
+                            {
+                                if (value1 != null)
+                                    pair.XData.Add((double)value1);
+                                else
+                                    pair.XData.Add(0);
+                                if (value2 != null)
+                                    pair.YData.Add((double)value2);
+                                else
+                                    pair.YData.Add(0);
+                                if (dataformat == 0)
+                                {
+                                    pair.Annotations.Add(date.ToString("dd/MM/yyyy"));
+                                }
+                                dates.Add(date);
                             }
                         }
+                        else
+                        {
+                            pair.EndDate = date;
+                            index = maxdate.DateInt + 1;
+                        }
                     }
+                }
 
-                 if (dataformat==1)
+                if (dataformat == 1)
                 {
-                    var xvalues=new List<double>();
-                    var yvalues=new List<double>();
-                    var startdate=pair.StartDate;
-                    var currentmonth=startdate.Month;
+                    var xvalues = new List<double>();
+                    var yvalues = new List<double>();
+                    var startdate = pair.StartDate;
+                    var currentmonth = startdate.Month;
                     var sum1 = 0.0;
                     var sum2 = 0.0;
-                    var count=0;
-                    for(var i=0;i<pair.XData.Count;++i)
+                    var count = 0;
+                   var trackmonth=0;
+                    var trackyear=0;
+                    for (var i = 0; i < pair.XData.Count; ++i)
                     {
-                        var date=startdate.AddDays(i);
-                        var month=date.Month;
-                        var x=pair.XData[i];
-                        var y=pair.YData[i];
-                        if(month==currentmonth)
+                        var date = dates[i];
+                        var month = date.Month;
+                        var year = date.Year;
+                        var x = pair.XData[i];
+                        var y = pair.YData[i];
+                        if (month == currentmonth)
                         {
-                            if(Math.Abs(x - 32768)>0.00001)
-                            { 
-                                sum1+=x;
+                            if (Math.Abs(x - 32768) > 0.00001)
+                            {
+                                sum1 += x;
                             }
                             if (Math.Abs(y - 32768) > 0.00001)
                             {
-                                sum2 +=y;
+                                sum2 += y;
                             }
                             ++count;
                         }
@@ -254,9 +292,12 @@ namespace HowLeaky_IO.Tools
                         {
                             xvalues.Add(sum1);
                             yvalues.Add(sum2);
-                            currentmonth=month;
-                            sum1=0;
-                            sum2=0;
+                            
+                            pair.Annotations.Add($"{GetMonthText(trackmonth)} {trackyear}");
+                            
+                            currentmonth = month;
+                            sum1 = 0;
+                            sum2 = 0;
                             count = 1;
                             if (Math.Abs(x - 32768) > 0.00001)
                             {
@@ -266,11 +307,14 @@ namespace HowLeaky_IO.Tools
                             {
                                 sum2 = y;
                             }
-                        }                        
+                        }
+                        trackmonth=month;
+                        trackyear=year;
                     }
-                    pair.XData=xvalues;
-                    pair.YData=yvalues;
-                    pair.Count=pair.XData.Count;
+                    
+                    pair.XData = xvalues;
+                    pair.YData = yvalues;
+                    pair.Count = pair.XData.Count;
                 }
                 else if (dataformat == 2)
                 {
@@ -281,9 +325,10 @@ namespace HowLeaky_IO.Tools
                     var sum1 = 0.0;
                     var sum2 = 0.0;
                     var count = 0;
+                    var trackyear=0;
                     for (var i = 0; i < pair.XData.Count; ++i)
                     {
-                        var date = startdate.AddDays(i);
+                        var date = dates[i];
                         var year = date.Year;
                         var x = pair.XData[i];
                         var y = pair.YData[i];
@@ -303,6 +348,7 @@ namespace HowLeaky_IO.Tools
                         {
                             xvalues.Add(sum1);
                             yvalues.Add(sum2);
+                            pair.Annotations.Add($"{trackyear}");
                             currentyear = year;
                             sum1 = 0;
                             sum2 = 0;
@@ -316,18 +362,39 @@ namespace HowLeaky_IO.Tools
                                 sum2 = y;
                             }
                         }
+                        trackyear=year;
                     }
                     pair.XData = xvalues;
                     pair.YData = yvalues;
                     pair.Count = pair.XData.Count;
                 }
-                 return pair;
+                return pair;
             }
             catch (Exception ex)
             {
 
             }
             return null;
+        }
+
+        private string GetMonthText(int month)
+        {
+            switch(month)
+            {
+                case 1:return "Jan";
+                case 2: return "Feb";
+                case 3: return "Mar";
+                case 4: return "Apr";
+                case 5: return "May";
+                case 6: return "Jun";
+                case 7: return "Jul";
+                case 8: return "Aug";
+                case 9: return "Sep";
+                case 10: return "Oct";
+                case 11: return "Nov";
+                case 12: return "Dec";
+            }
+            return "";
         }
     }
 }

@@ -52,7 +52,10 @@ namespace HowLeaky_SimulationEngine.Inputs
         public double MaxInfiltIntoCracks { get; set; }
         public double SedDelivRatio { get; set; }
 
+
         public double OrganicCarbon { get; set; } = 1;
+        public double CarbonNitrogenRatio { get;set;}
+      
 
         public double PAWC{get;set;}
 
