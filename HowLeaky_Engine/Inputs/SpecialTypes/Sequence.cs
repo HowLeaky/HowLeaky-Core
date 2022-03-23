@@ -341,7 +341,7 @@ namespace HowLeaky_SimulationEngine.Tools
         /// <returns></returns>
         public bool ContainsDate(BrowserDate date)
         {
-            if (Type == SequenceType.Date && Type == SequenceType.DateValue)
+            if (Type == SequenceType.Date || Type == SequenceType.DateValue)
             {
                 if (Dates.Any(x => x.DateInt == date.DateInt))
                 {
@@ -361,7 +361,7 @@ namespace HowLeaky_SimulationEngine.Tools
         /// <returns></returns>
         public double ValueAtDate(BrowserDate date)
         {
-            if (Type == SequenceType.Date && Type == SequenceType.DateValue)
+            if (Type == SequenceType.Date || Type == SequenceType.DateValue)
             {
                 var dateobject = Dates.FirstOrDefault(x => x.DateInt == date.DateInt);
                 if (dateobject != null)

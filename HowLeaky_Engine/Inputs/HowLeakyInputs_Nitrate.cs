@@ -54,12 +54,12 @@ namespace HowLeaky_SimulationEngine.Inputs
 
         public DissolvedNinLeachingType DissolvedNinLeachingOptions { get; set; }
         public DissolvedNinRunoffType DissolvedNinRunoffOptions { get; set; }
-        public ParticulateNinRunoffType ParticulateNinRunoffOptions { get; set; }
+       // public ParticulateNinRunoffType ParticulateNinRunoffOptions { get; set; } //REmoved Dec 2021
 
         public Sequence FertilizerInputDateSequences { get; set; } = null;     
         public Sequence SoilNLoadData1 { get; set; } = null;    
         public Sequence SoilNLoadData2 { get; set; } = null;
-        public Sequence SoilNLoadData3 { get; set; } = null;
+      //  public Sequence SoilNLoadData3 { get; set; } = null;
         // public TimeSeriesData NLoadInSurfaceLayerTimeSeries { get; set; } = null;   
         // public TimeSeriesData NLoadInLowerLayersTimeSeries { get; set; } = null;
 
@@ -74,11 +74,11 @@ namespace HowLeaky_SimulationEngine.Inputs
         public double Ncv { get; set; }      
         public double NAlpha_Disolved { get; set; }
         public double NBeta_Disolved { get; set; }
-        public double NBeta_Particulate { get; set; }
-        public double NAlpha_Particulate { get; set; }
-        public double SoilNitrateLoadWeighting1 { get; set; }      
-         public double SoilNitrateLoadWeighting2 { get; set; }
-          public double SoilNitrateLoadWeighting3 { get; set; }
+        // public double NBeta_Particulate { get; set; }old parameter removed Dec 2021
+        //public double NAlpha_Particulate { get; set; }old parameter removed Dec 2021
+      //  public double SoilNitrateLoadWeighting1 { get; set; }      
+        // public double SoilNitrateLoadWeighting2 { get; set; } removed Dec 2021
+       //   public double SoilNitrateLoadWeighting3 { get; set; } removed Dec 2021
 
         
         
@@ -93,7 +93,7 @@ namespace HowLeaky_SimulationEngine.Inputs
         public double NitrateLeachingEfficiency { get; set; }
        
         
-        public double NDepthTopLayer2 { get; set; }
+       // public double NDepthTopLayer2 { get; set; } //old parameter removed Mar 2022
         public double NEnrichmentRatio { get; set; }
        
      
@@ -120,7 +120,7 @@ namespace HowLeaky_SimulationEngine.Inputs
 
         public double FixedEMC { get;set;}
 
-        public DenitrificationOption DenitficationOption { get;set;}
+        //public DenitrificationOption DenitficationOption { get;set;}
          //public TimeSeriesData SoilNitrateTimeseries { get; set; }        
          //public List<XYXData> SoilNitrateLevels { get; set; } = null;
          //public double Mineralisation { get; set; } 

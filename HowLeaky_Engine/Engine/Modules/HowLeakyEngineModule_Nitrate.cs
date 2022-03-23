@@ -241,7 +241,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 double nlKgHa = GetNO3NStoreTopLayerkgPerha(); //Nitrate load in surface layer (From Dairymod)
                 if (!MathTools.DoublesAreEqual(nlKgHa, MathTools.MISSING_DATA_VALUE))
                 {
-                    nlKgHa = nlKgHa * InputModel.SoilNitrateLoadWeighting1;
+                    //nlKgHa = nlKgHa * InputModel.SoilNitrateLoadWeighting1; REMOVED DEC 2021
                     double k = InputModel.Nk; // INPUT parameter that regulates mixing of soil and runoff water
                     double
                         cv = InputModel
@@ -294,7 +294,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 double nSoilKgPerHa = GetNO3NStoreBotLayerkgPerha(); //nitrate concentrate in the soil (kg/ha)
                 if (!MathTools.DoublesAreEqual(nSoilKgPerHa, MathTools.MISSING_DATA_VALUE))
                 {
-                    nSoilKgPerHa = nSoilKgPerHa * InputModel.SoilNitrateLoadWeighting2;
+                    //nSoilKgPerHa = nSoilKgPerHa * InputModel.SoilNitrateLoadWeighting2; REMVOED DEC 2021
                     double deltaDepth = InputModel.DepthBottomLayer;
                     if (deltaDepth > 0)
                     {
@@ -341,8 +341,8 @@ namespace HowLeaky_SimulationEngine.Engine
                 //Excess N - calc from yesterdays values
                 ExcessN = Math.Max(ExcessN + NitrogenApplication + Mineralisation - CropUseActual - Denitrification - NO3NLeachingLoad - NO3NRunoffLoad, 0);
 
-                if (InputModel.DenitficationOption == DenitrificationOption.SafeGauge)
-                {
+                //if (InputModel.DenitficationOption == DenitrificationOption.SafeGauge)
+                //{
                     //Denitrification               
                     if (Engine.SoilModule.Runoff > 0 && YesterdaysRunoff > 0) //Runoff 2 days in a row, you get Denitrification 
                     {
@@ -352,11 +352,11 @@ namespace HowLeaky_SimulationEngine.Engine
                     {
                         Denitrification = 0;
                     }
-                }
-                else
-                {
+                //}
+                //else
+                //{
 
-                }
+                //}
 
                 //if (das >= 0 && das < InputModel.MainStemDuration)
                 //{
@@ -587,29 +587,30 @@ namespace HowLeaky_SimulationEngine.Engine
             return 0;
         }
 
-        private double GetTotalNStoreTopLayerkgPerha()
-        {
-            try
-            {
-                if (InputModel.ParticulateNinRunoffOptions == ParticulateNinRunoffType.HowLeaky2012)
-                {
-                    return InputModel.SoilNLoadData3.ValueAtDate(Engine.TodaysDate);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ErrorLogger.CreateException(ex);
-            }
+        //removed December 2021
+        //private double GetTotalNStoreTopLayerkgPerha()
+        //{
+        //    try
+        //    {
+        //        if (InputModel.ParticulateNinRunoffOptions == ParticulateNinRunoffType.HowLeaky2012)
+        //        {
+        //            return InputModel.SoilNLoadData3.ValueAtDate(Engine.TodaysDate);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ErrorLogger.CreateException(ex);
+        //    }
 
-            return 0;
-        }
+        //    return 0;
+        //}
 
         public bool CanSimulateNitrate()
         {
             try
             {
-                return (InputModel.DissolvedNinRunoffOptions != 0 || InputModel.DissolvedNinLeachingOptions != 0 ||
-                        InputModel.ParticulateNinRunoffOptions != 0);
+                return (InputModel.DissolvedNinRunoffOptions != 0 || InputModel.DissolvedNinLeachingOptions != 0 );//||
+                       // InputModel.ParticulateNinRunoffOptions != 0);
             }
             catch (Exception ex)
             {

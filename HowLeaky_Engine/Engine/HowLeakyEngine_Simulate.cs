@@ -23,7 +23,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 SetStartOfDayParameters();
                 ApplyResetsIfAny();
                 TryModelIrrigation();
-                TryModelSoilCracking();
+               // TryModelSoilCracking();//Removed Mar 2022
                 CalculateRunoff();
                 CalculatSoilEvaporation();
                 TryModelVegetation();
@@ -169,22 +169,23 @@ namespace HowLeaky_SimulationEngine.Engine
 
         }
 
-        public void TryModelSoilCracking()
-        {
-            try
-            {
-                if (SoilModule != null)
-                {
-                    SoilModule.TryModelSoilCracking();
+        //Removed Mar 2022
+        //public void TryModelSoilCracking()
+        //{
+        //    try
+        //    {
+        //        if (SoilModule != null)
+        //        {
+        //            SoilModule.TryModelSoilCracking();
 
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ErrorLogger.CreateException(ex);
-            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ErrorLogger.CreateException(ex);
+        //    }
 
-        }
+        //}
 
         public void CalculateRunoff()
         {

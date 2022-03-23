@@ -287,102 +287,103 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
-        public void TryModelSoilCracking()
-        {
-            try
-            {
-                if (InputModel.SoilCrack)
-                {
-                    //************************************************************************
-                    //*                                                                      *
-                    //*  This function allows for water to directly enter lower layers     *
-                    //*  of the soil profile through cracks. For cracks to occur the top     *
-                    //*  and second profile layers must be less than 30% and 50%             *
-                    //*  respectively of field capacity. Cracks can extend down the          *
-                    //*  profile using similar criteria. This subroutine assumes all         *
-                    //*  cracks must exist at the surface. Water is placed into the          *
-                    //*  lowest accessable layer first.                                      *
-                    //*                                                                      *
-                    //************************************************************************
-                    int nod;
-                    //  Initialise total water redistributed through cracks
-                    double tred = 0;
-                    for (int i = 0; i < LayerCount; ++i)
-                    {
-                        Red[i] = 0;
-                        if (!MathTools.DoublesAreEqual(DrainUpperLimitRelWP[i], 0))
-                        {
-                            MCFC[i] = SoilWaterRelWP[i] / DrainUpperLimitRelWP[i];
-                        }
-                        else
-                        {
-                            MCFC[i] = 0;
+        //Removed Mar 2022
+        //public void TryModelSoilCracking()
+        //{
+        //    try
+        //    {
+        //        if (InputModel.SoilCrack)
+        //        {
+        //            //************************************************************************
+        //            //*                                                                      *
+        //            //*  This function allows for water to directly enter lower layers     *
+        //            //*  of the soil profile through cracks. For cracks to occur the top     *
+        //            //*  and second profile layers must be less than 30% and 50%             *
+        //            //*  respectively of field capacity. Cracks can extend down the          *
+        //            //*  profile using similar criteria. This subroutine assumes all         *
+        //            //*  cracks must exist at the surface. Water is placed into the          *
+        //            //*  lowest accessable layer first.                                      *
+        //            //*                                                                      *
+        //            //************************************************************************
+        //            int nod;
+        //            //  Initialise total water redistributed through cracks
+        //            double tred = 0;
+        //            for (int i = 0; i < LayerCount; ++i)
+        //            {
+        //                Red[i] = 0;
+        //                if (!MathTools.DoublesAreEqual(DrainUpperLimitRelWP[i], 0))
+        //                {
+        //                    MCFC[i] = SoilWaterRelWP[i] / DrainUpperLimitRelWP[i];
+        //                }
+        //                else
+        //                {
+        //                    MCFC[i] = 0;
 
-                            LogDivideByZeroError("ModelSoilCracking", "DrainUpperLimit_rel_wp[i]", "mcfc[i]");
-                        }
-                        if (MCFC[i] < 0)
-                        {
-                            MCFC[i] = 0;
-                        }
-                        else if (MCFC[i] > 1)
-                        {
-                            MCFC[i] = 1;
-                        }
-                    }
+        //                    LogDivideByZeroError("ModelSoilCracking", "DrainUpperLimit_rel_wp[i]", "mcfc[i]");
+        //                }
+        //                if (MCFC[i] < 0)
+        //                {
+        //                    MCFC[i] = 0;
+        //                }
+        //                else if (MCFC[i] > 1)
+        //                {
+        //                    MCFC[i] = 1;
+        //                }
+        //            }
 
-                    //  Don't continue if rainfall is less than 10mm
-                    if (EffectiveRain < 10)
-                    {
-                        return;
-                    }
-                    //  Check if profile is dry enough for cracking to occur.
-                    if (MCFC[0] >= 0.3 || MCFC[1] >= 0.3)
-                    {
-                        return;
-                    }
-                    //  Calculate number of depths to which cracks extend
-                    nod = 1;
-                    for (int i = 1; i < LayerCount; ++i)
-                    {
-                        if (MCFC[i] >= 0.3)
-                        {
-                            i = LayerCount;
-                        }
-                        else
-                        {
-                            ++nod;
-                        }
-                    }
-                    //  Fill cracks from lowest cracked layer first to a maximum of 50% of
-                    //  field capacity.
-                    tred = Math.Min(InputModel.MaxInfiltIntoCracks, EffectiveRain);
-                    for (int i = nod - 1; i >= 0; --i)
-                    {
-                        Red[i] = Math.Min(tred, DrainUpperLimitRelWP[i] / 2.0 - SoilWaterRelWP[i]);
-                        tred -= Red[i];
-                        if (tred <= 0)
-                        {
-                            i = -1;
-                        }
-                    }
+        //            //  Don't continue if rainfall is less than 10mm
+        //            if (EffectiveRain < 10)
+        //            {
+        //                return;
+        //            }
+        //            //  Check if profile is dry enough for cracking to occur.
+        //            if (MCFC[0] >= 0.3 || MCFC[1] >= 0.3)
+        //            {
+        //                return;
+        //            }
+        //            //  Calculate number of depths to which cracks extend
+        //            nod = 1;
+        //            for (int i = 1; i < LayerCount; ++i)
+        //            {
+        //                if (MCFC[i] >= 0.3)
+        //                {
+        //                    i = LayerCount;
+        //                }
+        //                else
+        //                {
+        //                    ++nod;
+        //                }
+        //            }
+        //            //  Fill cracks from lowest cracked layer first to a maximum of 50% of
+        //            //  field capacity.
+        //            tred = Math.Min(InputModel.MaxInfiltIntoCracks, EffectiveRain);
+        //            for (int i = nod - 1; i >= 0; --i)
+        //            {
+        //                Red[i] = Math.Min(tred, DrainUpperLimitRelWP[i] / 2.0 - SoilWaterRelWP[i]);
+        //                tred -= Red[i];
+        //                if (tred <= 0)
+        //                {
+        //                    i = -1;
+        //                }
+        //            }
 
-                    //  calculate effective rainfall after infiltration into cracks.
-                    //  Note that redistribution of water into layer 1 is ignored.
-                    EffectiveRain = EffectiveRain + Red[0] - Math.Min(InputModel.MaxInfiltIntoCracks, EffectiveRain);
-                    Red[0] = 0.0;
+        //            //  calculate effective rainfall after infiltration into cracks.
+        //            //  Note that redistribution of water into layer 1 is ignored.
+        //            EffectiveRain = EffectiveRain + Red[0] - Math.Min(InputModel.MaxInfiltIntoCracks, EffectiveRain);
+        //            Red[0] = 0.0;
 
-                    //  calculate total amount of water in cracks
-                    for (int i = 0; i < LayerCount; ++i)
-                    {
-                        tred += Red[i];
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ErrorLogger.CreateException(ex);
-            }
-        }
+        //            //  calculate total amount of water in cracks
+        //            for (int i = 0; i < LayerCount; ++i)
+        //            {
+        //                tred += Red[i];
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ErrorLogger.CreateException(ex);
+        //    }
+        //}
 
 
         public void CalculateRunoff()

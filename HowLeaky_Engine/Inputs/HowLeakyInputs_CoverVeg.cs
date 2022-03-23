@@ -22,8 +22,8 @@ namespace HowLeaky_SimulationEngine.Inputs
 
         
         //public int CoverInputOptions { get; set; }
-        public int ModelType { get; set; }
-        public int SourceData { get; set; }
+       // public int ModelType { get; set; }
+      //  public int SourceData { get; set; }
        // public List<XYXData> CropFactorMatrix { get; set; }
         public int PlantDay { get; set; } = 1;
         public int CoverDataType { get; set; } = 0;             //for no time series
@@ -37,7 +37,7 @@ namespace HowLeaky_SimulationEngine.Inputs
         public double GreenCoverMultiplier { get; set; } = 1;   // Scaling factor for green cover
         public double ResidueCoverMultiplier { get; set; } = 1; // Scaling factor for residue cover
         public double RootDepthMultiplier { get; set; } = 1;    // Scaling factor for root depth
-        public double MaxAllowTotalCover { get; set; } = 1;     // Maximum allowable total cover
+        //public double MaxAllowTotalCover { get; set; } = 1;     // Maximum allowable total cover
         public double MaxRootDepth { get; set; }                // located in CustomVegObject - >The maximum depth of the roots from the soil surface.  For the LAI model, the model calculates daily root growth from the root depth increase parameter
         public double SWPropForNoStress { get; set; } = 0.3;
 

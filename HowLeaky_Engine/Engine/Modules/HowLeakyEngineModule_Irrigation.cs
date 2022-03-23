@@ -213,7 +213,7 @@ namespace HowLeaky_SimulationEngine.Engine
 
         public bool IsDateInSequence()
         {
-            if (InputModel.IrrigRunoffSequence != null)
+            if (InputModel.IrrigSequence != null)
             {
                 return InputModel.IrrigSequence.ContainsDate(Engine.TodaysDate);
             }

@@ -374,7 +374,14 @@ namespace HowLeaky_IO
                 }
                 else
                 {
-                    if (parameter.NameInCode != "PAWC" && parameter.NameInCode != "MaxDailyDrainVolume" && parameter.NameInCode != "NitrateSourceData" && parameter.NameInCode != "WatStressForDeath" && parameter.NameInCode != "SoilNitrateTimeseries")
+                    if (parameter.NameInCode != "PAWC" && 
+                        parameter.NameInCode != "MaxDailyDrainVolume" && 
+                        parameter.NameInCode != "NitrateSourceData" && 
+                        parameter.NameInCode != "WatStressForDeath" &&
+                        parameter.NameInCode != "ModelType" &&
+                        parameter.NameInCode != "SourceData" &&
+                         parameter.NameInCode != "MaxAllowTotalCover" &&
+                        parameter.NameInCode != "SoilCrack")
                     {
                         list.Add($"Could not FIND {parameter.NameInCode} parameter in input parameters (from {source.DataSet.SourceFileName})");
                     }
@@ -395,7 +402,18 @@ namespace HowLeaky_IO
                     }
                     else
                     {
-                        list.Add($"Could not FIND {parameter.CodeName} override in input parameters");
+                        if (parameter.CodeName != "PAWC" &&
+                        parameter.CodeName != "MaxDailyDrainVolume" &&
+                        parameter.CodeName != "NitrateSourceData" &&
+                        parameter.CodeName != "WatStressForDeath" &&
+                        parameter.CodeName != "ModelType" &&
+                         parameter.CodeName != "SourceData" &&
+                         parameter.CodeName != "MaxAllowTotalCover" &&
+                        parameter.CodeName != "SoilCrack")
+                        {
+                            list.Add($"Could not FIND {parameter.CodeName} parameter in input parameters (from {source.DataSet.SourceFileName})");
+                        }
+                        //list.Add($"Could not FIND {parameter.CodeName} override in input parameters");
                     }
                 }
                 else

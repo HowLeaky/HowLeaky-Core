@@ -148,18 +148,18 @@ namespace HowLeaky_IO
                                 if (IsValidateType(item))
                                 {
                                     var itemfilename = Path.GetFileName(item);
-                                    string updateditem=item;
+                                    string updateditem = item;
                                     if (!File.Exists(item))
                                     {
                                         var oldpathname1 = Path.GetDirectoryName(item);
                                         var oldpathname = Path.GetDirectoryName(oldpathname1);
                                         updateditem = item.Replace(oldpathname, path).ToLower();
                                     }
-                                   
+
                                     if (updateditem.Contains("p51"))
                                     {
                                         var datafile = new P51DataFile(updateditem);
-                                        
+
                                         datafiles.Add(itemfilename, datafile);
 
                                     }
@@ -207,7 +207,7 @@ namespace HowLeaky_IO
 
         private bool IsValidateType(string item)
         {
-            var filename=item.ToLower();
+            var filename = item.ToLower();
             return !String.IsNullOrEmpty(filename) && !filename.Contains(".tee") && !filename.Contains(".sim") && !filename.Contains(".jpg") && !filename.Contains(".sen");
         }
 
@@ -377,7 +377,7 @@ namespace HowLeaky_IO
                 if (node.Name.Contains(elementname))
                 {
                     var href = node.Attributes["href"].Value;
-                    var filename=Path.GetFileName(href);
+                    var filename = Path.GetFileName(href);
                     var dataset = datasets[filename];
                     if (dataset != null)
                     {
@@ -398,7 +398,7 @@ namespace HowLeaky_IO
             if (node != null)
             {
                 var href = node.Attributes["href"].Value;
-                var filename=Path.GetFileName(href);
+                var filename = Path.GetFileName(href);
                 var dataset = datasets[filename];
                 if (dataset != null)
                 {
@@ -424,7 +424,8 @@ namespace HowLeaky_IO
                 }
                 else
                 {
-                    throw new Exception($"Key {overrideParam.XMLNode} doesn't exist in Remap Dictioary");
+                    overrideParam.CodeName = overrideParam.XMLNode;
+                    //throw new Exception($"Key {overrideParam.XMLNode} doesn't exist in Remap Dictioary");
                 }
                 var valuenode = node.SelectSingleNode("Value");
                 if (valuenode != null)
@@ -441,7 +442,7 @@ namespace HowLeaky_IO
             if (node != null)
             {
                 var href = node.Attributes["href"].Value;
-                var filename=Path.GetFileName(href);
+                var filename = Path.GetFileName(href);
                 var datafile = datafiles[filename];
                 if (datafile != null)
                 {
@@ -529,7 +530,7 @@ namespace HowLeaky_IO
             else if (filename.Contains(".till")) { return HowLeakyDataType.Tillage; }
             else if (filename.Contains(".phos")) { return HowLeakyDataType.Phosphorus; }
             else if (filename.Contains(".pest")) { return HowLeakyDataType.Pesticides; }
-            else if (filename.Contains(".nitr")) { return HowLeakyDataType.Nitrates; }
+            else if (filename.Contains(".no3n")) { return HowLeakyDataType.Nitrates; }
             else if (filename.Contains(".solt")) { return HowLeakyDataType.Solutes; }
             else if (filename.Contains(".p51")) { return HowLeakyDataType.Climate; }
             else if (filename.Contains(".txt")) { return HowLeakyDataType.Measured; }
@@ -550,15 +551,15 @@ namespace HowLeaky_IO
             {
                 var current = nodes.Current;
                 var name = current.Name;
-                var isSequence =   (name == "PesticideDatesAndRates" ||
-                                    name == "FertilizerInputDateSequences" || 
-                                    name == "IrrigationDates" || 
-                                    name == "IrrigationRunoffSequence" || 
+                var isSequence = (name == "PesticideDatesAndRates" ||
+                                    name == "FertilizerInputDateSequences" ||
+                                    name == "IrrigationDates" ||
+                                    name == "IrrigationRunoffSequence" ||
                                     name == "AdditionalInflowSequence" ||
                                     name == "FertilizerInputDateSequences" ||
                                     name == "SoilNLoadData1" ||
-                                    name == "SoilNLoadData2" ||
-                                    name == "SoilNLoadData3" 
+                                    name == "SoilNLoadData2"
+                                    //||name == "SoilNLoadData3" 
                                     );
                 var hasAttributes = current.HasAttributes;
                 var hasChildren = current.HasChildren;
@@ -684,31 +685,25 @@ namespace HowLeaky_IO
 
         private void UpdateValue(ParameterDataSet dataset, string name, string value, string comments, string lastmodified)
         {
+            var codename="";
             if (RemapDictionary.ContainsKey(name))
             {
-
-                var codename = RemapDictionary[name];
-                if (codename != "XXXX")
-                {
-                    var param = new InputParameter()
-                    {
-                        Id = Guid.NewGuid(),
-                        NameInFile = name,
-                        Value = value,
-                        NameInCode = codename
-                    };
-
-                    dataset.AddParameter(param);
-                }
-                else
-                {
-                    AddErrorOutput($"Parameter {name} is defined as XXXX in remap dictionary");
-                }
+                codename = RemapDictionary[name];
             }
             else
             {
-                AddErrorOutput($"Parameter {name} not in remap dictionary");
+                codename=name;
             }
+
+            var param = new InputParameter()
+            {
+                Id = Guid.NewGuid(),
+                NameInFile = name,
+                Value = value,
+                NameInCode = codename
+            };
+
+            dataset.AddParameter(param);
 
         }
 

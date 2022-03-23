@@ -152,13 +152,13 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 TotalCover = ResidueCover * (1 - GreenCover) + GreenCover;
                 // was requested by VicDPI to account for animal trampling
-                if (Math.Abs(InputModel.MaxAllowTotalCover) > 0.001)
-                {
-                    if (TotalCover > InputModel.MaxAllowTotalCover)
-                    {
-                        TotalCover = InputModel.MaxAllowTotalCover;
-                    }
-                }
+                //if (Math.Abs(InputModel.MaxAllowTotalCover) > 0.001)
+                //{
+                //    if (TotalCover > InputModel.MaxAllowTotalCover)
+                //    {
+                //        TotalCover = InputModel.MaxAllowTotalCover;
+                //    }
+                //}
                 return TotalCover;
             }
             catch (Exception ex)

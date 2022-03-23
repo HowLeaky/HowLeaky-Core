@@ -321,8 +321,8 @@ namespace HowLeaky_Engine.UnitTests
             inputs.FieldSlope = 7;
             inputs.SlopeLength = 22;
             inputs.RillRatio = 1;
-            inputs.SoilCrack = false;
-            inputs.MaxInfiltIntoCracks = 0;
+            //inputs.SoilCrack = false;
+            //inputs.MaxInfiltIntoCracks = 0;
             inputs.SedDelivRatio = 0.14;
             engine.SoilModule.Initialise();
         }
@@ -330,8 +330,8 @@ namespace HowLeaky_Engine.UnitTests
         public void LoadCoverVeg(HowLeakyEngine engine)
         {
             var inputs = FetchCoverVegInputs(engine);
-            inputs.ModelType = 0;
-            inputs.SourceData = 0;
+            //inputs.ModelType = 0;
+            //inputs.SourceData = 0;
             inputs.PlantDay = 1;
             inputs.CoverDataType = 0;
             inputs.CoverProfile = new ProfileData("1,40,30,100|365,1,40,30,100");
@@ -344,7 +344,7 @@ namespace HowLeaky_Engine.UnitTests
             inputs.GreenCoverMultiplier = 1;
             inputs.ResidueCoverMultiplier = 1;
             inputs.RootDepthMultiplier = 1;
-            inputs.MaxAllowTotalCover = 100;
+          //  inputs.MaxAllowTotalCover = 100;
             inputs.MaxRootDepth = 2000;
             inputs.SWPropForNoStress = 0.3;
             inputs.MaximumRootDepth = 2000;

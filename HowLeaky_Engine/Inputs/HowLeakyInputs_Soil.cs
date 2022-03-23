@@ -37,7 +37,7 @@ namespace HowLeaky_SimulationEngine.Inputs
         public List<double> Saturation { get; set; }
         public List<double> MaxDailyDrainRate { get; set; }
         public List<double> BulkDensity { get; set; }
-        public bool SoilCrack { get; set; }
+       // public bool SoilCrack { get; set; } Remove Mar 2022
         public double Stage2SoilEvapCona { get; set; }
         public double Stage1SoilEvapU { get; set; }
         public double RunoffCurveNumber { get; set; }
@@ -49,7 +49,7 @@ namespace HowLeaky_SimulationEngine.Inputs
         public double FieldSlope { get; set; }
         public double SlopeLength { get; set; }
         public double RillRatio { get; set; }
-        public double MaxInfiltIntoCracks { get; set; }
+        //public double MaxInfiltIntoCracks { get; set; }//Remove mar 2022
         public double SedDelivRatio { get; set; }
 
 
