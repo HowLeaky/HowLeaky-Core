@@ -105,7 +105,7 @@ namespace HowLeaky_SimulationEngine.Inputs
          public double InitialExcessN { get; set; }    
         public double CMRSlope { get; set; } 
         public double CMRMax { get; set; } 
-        public double MainStemDuration { get; set; } 
+       // public double MainStemDuration { get; set; } 
     //    public double RatoonA { get; set; }
         public double PlantA { get; set; }
       //  public double RatoonB { get; set; }
