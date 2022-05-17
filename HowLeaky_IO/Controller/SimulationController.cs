@@ -64,7 +64,10 @@ namespace HowLeaky_IO
                     var climatedatasets=project.DataFiles.ToList();
                     foreach(var datafile in climatedatasets)
                     {
-                        datafile.OpenFull();
+                        if(!datafile.OpenFull())
+                        {
+                            throw new Exception($"Climate file {datafile} could not be openned");
+                        }
                     }
                 
                     var simulations=targetindex==null?project.Simulations:new List<Simulation>(){project.Simulations.FirstOrDefault(x=>x.Index==(int)targetindex)};

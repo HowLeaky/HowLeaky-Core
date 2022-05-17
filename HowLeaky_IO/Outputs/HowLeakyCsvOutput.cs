@@ -29,6 +29,10 @@ namespace HowLeaky_IO.Outputs
                     }
                     list.Add(values);
                 }
+                if(count==0)
+                {
+                    throw new Exception("No data in outputs");
+                }
                 return WriteOutputs(filename,  outputs.StartDate, outputs.EndDate, 1, headers,count, list);
             }
             return false;

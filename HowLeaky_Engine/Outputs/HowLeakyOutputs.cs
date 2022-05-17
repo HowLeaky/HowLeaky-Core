@@ -141,6 +141,7 @@ namespace HowLeaky_SimulationEngine.Outputs
             
             foreach(var output in TimeSeries)
             {
+                
                 output.UpdateTimeseries(index);
             }
            

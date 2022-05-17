@@ -15,58 +15,72 @@ namespace HowLeakyConsole
         {
             try
             {
-                
-                if (args!=null&&args.Length>0 && args[0].Contains(".hlk"))
+
+                if (args != null && args.Length > 0 && args[0].Contains(".hlk"))
                 {
                     var consoleoutput = new ConsoleOutputLogger(true);
                     var argstrings = string.Join(",", args);
                     var inputspath = args[0];
-                    var deleteExisting=argstrings.Contains("-x");
+                    var deleteExisting = argstrings.Contains("-x");
                     var outputdaily = argstrings.Contains("-d");
                     var outputmonthly = argstrings.Contains("-m");
                     var outputyear = argstrings.Contains("-y");
-                    var type= outputyear ? HowLeakyOutputType.YearlyCsv:(outputmonthly?HowLeakyOutputType.MonthlyCsv: HowLeakyOutputType.DailyCsv);
+                    var type = outputyear ? HowLeakyOutputType.YearlyCsv : (outputmonthly ? HowLeakyOutputType.MonthlyCsv : HowLeakyOutputType.DailyCsv);
                     var outputscsv = GetOutputsCSV(args);
                     var cores = GetCores(args);
                     var controller = new SimulationController();
                     var project = new ProjectHLK();
-                    project.Open(consoleoutput, inputspath);
-                    try
+                    var projecterrorsummary=project.Open(consoleoutput, inputspath);
+                    if(projecterrorsummary!=null)
                     {
-                        project.AddConsoleOutput("Preparing to rerun all simulations...");
-                        project.AddConsoleOutput($"Outputs will be saved in {project.OutputsDirectory}...");
-                        if(deleteExisting)
-                        { 
-                            if (Directory.Exists(project.OutputsDirectory))
+                        try
+                        {
+                            project.AddConsoleOutput("Preparing to rerun all simulations...");
+                            project.AddConsoleOutput($"Outputs will be saved in {project.OutputsDirectory}...");
+                            if (deleteExisting)
                             {
-                                var files = Directory.GetFiles(project.OutputsDirectory, "*.hlkbinout", SearchOption.AllDirectories).ToList();
-                                if (files.Count > 0)
+                                if (Directory.Exists(project.OutputsDirectory))
                                 {
-                                    project.AddConsoleOutput($"Please wait... deleting {files.Count} existing binary output files");
-                                    foreach (var file in files)
+                                    var files = Directory.GetFiles(project.OutputsDirectory, "*.hlkbinout", SearchOption.AllDirectories).ToList();
+                                    if (files.Count > 0)
                                     {
-                                        File.Delete(file);
+                                        project.AddConsoleOutput($"Please wait... deleting {files.Count} existing binary output files");
+                                        foreach (var file in files)
+                                        {
+                                            File.Delete(file);
+                                        }
+                                    }
+                                    var files2 = Directory.GetFiles(project.OutputsDirectory, "*.csv", SearchOption.AllDirectories).ToList();
+                                    if (files2.Count > 0)
+                                    {
+                                        project.AddConsoleOutput($"Please wait... deleting {files2.Count} existing csv output files");
+                                        foreach (var file in files2)
+                                        {
+                                            File.Delete(file);
+                                        }
                                     }
                                 }
-                                var files2 = Directory.GetFiles(project.OutputsDirectory, "*.csv", SearchOption.AllDirectories).ToList();
-                                if (files2.Count > 0)
-                                {
-                                    project.AddConsoleOutput($"Please wait... deleting {files2.Count} existing csv output files");
-                                    foreach (var file in files2)
-                                    {
-                                        File.Delete(file);
-                                    }
-                                }
+                                
+                            }
+                            if (project.Simulations.Count > 0)
+                            {
+                                SimulationEngineExecute(project, outputscsv, cores, type, null);
+                            }
+                            else
+                            {
+                                project.AddErrorOutput("No SIMULATIONS were defined (or loaded in without error");
                             }
                         }
-                        
-                        SimulationEngineExecute(project, outputscsv, cores, type, null);
+                        catch (Exception ex)
+                        {
+                            project.AddErrorOutput(ex.ToString());
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        project.AddErrorOutput(ex.ToString());
+                        project.AddErrorOutput("Error when loading project file");
+
                     }
-                    
                 }
                 else
                 {
@@ -235,7 +249,7 @@ namespace HowLeakyConsole
             {
                 if (arg.Contains("-o"))
                 {
-                    return arg.Replace("-o","").Trim();
+                    return arg.Replace("-o", "").Trim();
                 }
             }
             return "Rain,Runoff";
@@ -260,7 +274,7 @@ namespace HowLeakyConsole
             return Environment.ProcessorCount - 1;
         }
 
-        private static void SimulationEngineExecute(ProjectHLK project, string outputs, int cores, HowLeakyOutputType outputType,int? targetindex, Action onSuccess = null)
+        private static void SimulationEngineExecute(ProjectHLK project, string outputs, int cores, HowLeakyOutputType outputType, int? targetindex, Action onSuccess = null)
         {
             var controller = new SimulationController();
             var myprogress = new GlobalProgress(project.Simulations.Count);
@@ -270,11 +284,11 @@ namespace HowLeakyConsole
             project.OutputsCSV = outputs;
             project.AddConsoleOutput("Running simulations... please wait...");
             //var runSimulationsTask = Task.Run(() => Controller.Execute(CurrentProject, MyProgress));
-            var taskList=new System.Collections.Generic.List<Task>();
-            taskList.Add( Task.Factory.StartNew(delegate
-            {               
-                controller.Execute(project, tokenSource, cores, targetindex, outputType, myprogress);
-            }, tokenSource.Token)); // Pass same token to StartNew.
+            var taskList = new System.Collections.Generic.List<Task>();
+            taskList.Add(Task.Factory.StartNew(delegate
+           {
+               controller.Execute(project, tokenSource, cores, targetindex, outputType, myprogress);
+           }, tokenSource.Token)); // Pass same token to StartNew.
             Task.WaitAll(taskList.ToArray());
         }
 

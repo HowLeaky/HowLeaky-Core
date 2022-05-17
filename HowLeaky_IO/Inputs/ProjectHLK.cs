@@ -153,29 +153,46 @@ namespace HowLeaky_IO
                                     {
                                         var oldpathname1 = Path.GetDirectoryName(item);
                                         var oldpathname = Path.GetDirectoryName(oldpathname1);
-                                        updateditem = item.Replace(oldpathname, path).ToLower();
-                                    }
-
-                                    if (updateditem.Contains("p51"))
-                                    {
-                                        var datafile = new P51DataFile(updateditem);
-
-                                        datafiles.Add(itemfilename, datafile);
-
-                                    }
-                                    else
-                                    {
-                                        var dataset = ExtractParameterDataSet(updateditem);
-                                        if (dataset != null)
+                                        if (!String.IsNullOrEmpty(oldpathname))
                                         {
-
-                                            datasets.Add(itemfilename, dataset);
-                                            alldatasets.Add(dataset);
+                                            updateditem = item.Replace(oldpathname, path).ToLower();
                                         }
                                         else
                                         {
-                                            AddErrorOutput($"CORRUPTED PARAMETERSET -Couldn't read {item}");
+                                            updateditem = Path.Combine(path, item);
                                         }
+                                        updateditem = updateditem.Replace("./", "");
+                                    }
+                                    if (File.Exists(updateditem))
+                                    {
+                                        if (updateditem.Contains("p51"))
+                                        {
+
+                                            var datafile = new P51DataFile(updateditem);
+
+                                            datafiles.Add(itemfilename, datafile);
+                                        }
+                                        else
+                                        {
+                                            var dataset = ExtractParameterDataSet(updateditem);
+                                            if (dataset != null)
+                                            {
+
+                                                datasets.Add(itemfilename, dataset);
+                                                alldatasets.Add(dataset);
+                                            }
+                                            else
+                                            {
+                                                AddErrorOutput($"CORRUPTED PARAMETERSET -Couldn't read {item}");
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        AddErrorOutput($"*********************************************************");
+                                        AddErrorOutput($"Error opening {updateditem}... Path is not correct");
+                                        AddErrorOutput($"*********************************************************");
+                                        throw new Exception("Simulation aborted - due to error locating files");
                                     }
                                 }
                             }
@@ -685,14 +702,14 @@ namespace HowLeaky_IO
 
         private void UpdateValue(ParameterDataSet dataset, string name, string value, string comments, string lastmodified)
         {
-            var codename="";
+            var codename = "";
             if (RemapDictionary.ContainsKey(name))
             {
                 codename = RemapDictionary[name];
             }
             else
             {
-                codename=name;
+                codename = name;
             }
 
             var param = new InputParameter()
