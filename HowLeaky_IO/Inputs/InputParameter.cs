@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HowLeaky_IO
 {
-    public class InputParameter
+    public class DataSetParameter
     {
-        public InputParameter()
+        public DataSetParameter()
         {
 
         }

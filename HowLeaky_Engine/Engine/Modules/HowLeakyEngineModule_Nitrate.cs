@@ -6,6 +6,7 @@ using HowLeaky_SimulationEngine.Inputs;
 using HowLeaky_SimulationEngine.Tools;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HowLeaky_SimulationEngine.Engine
@@ -61,7 +62,8 @@ namespace HowLeaky_SimulationEngine.Engine
         [Output] public double PropVolSat { get; set; } //SAFEGAUGE MODEL
                                                         // [Output] public double DINDrainage { get; set; } //SAFEGAUGE MODEL
 
-
+        public List<BrowserDate> Cycle1ApplicationDates { get; set; }
+        public List<BrowserDate> Cycle2ApplicationDates { get; set; }
         public override void Initialise()
         {
             Nitratesdayindex1 = 0;
@@ -121,11 +123,15 @@ namespace HowLeaky_SimulationEngine.Engine
 
                 if (InputModel.DissolvedNinLeachingOptions == DissolvedNinLeachingType.HowLeaky2012)
                 {
-                    CalculateDissolvedNInLeaching();
+                    CalculateDissolvedNInLeaching_Method1();
                 }
                 else if (InputModel.DissolvedNinLeachingOptions == DissolvedNinLeachingType.ModifiedSafegaugeModel)
                 {
-                    CalculateDissolvedNInLeaching_SafeGauge();
+                    CalculateDissolvedNInLeaching_Method2_SafeGauge();
+                }
+                else if (InputModel.DissolvedNinLeachingOptions == DissolvedNinLeachingType.FixedEMC)
+                {
+                    CalculateDissolvedNInLeaching_Method3_FixedEMC();
                 }
 
 
@@ -159,11 +165,11 @@ namespace HowLeaky_SimulationEngine.Engine
                 double b = InputModel.NBeta_Disolved;
                 double maxConc = InputModel.N_DanRat_MaxRunOffConc;
                 double minConc = InputModel.N_DanRat_MinRunOffConc;
-                double rate = InputModel.FertilizerInputDateSequences.ValueAtDate(Engine.TodaysDate);
-                if (rate > 0 && Math.Abs(rate - MathTools.MISSING_DATA_VALUE) > 0.0001)
+                NitrogenApplication = ExtractFertiliserRate();
+                if (NitrogenApplication > 0 && Math.Abs(NitrogenApplication - MathTools.MISSING_DATA_VALUE) > 0.0001)
                 {
                     NitrateCumRain = Engine.SoilModule.EffectiveRain;
-                    LastNAppliedRate = rate;
+                    LastNAppliedRate = NitrogenApplication;
                 }
                 else
                 {
@@ -203,14 +209,16 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
+        
+
         public void CalculateDissolvedNInRunoffFixedEMC()
         {
             try
             {
 
                 NO3NStoreTopLayer = MathTools.MISSING_DATA_VALUE;
-                NO3NDissolvedInRunoff = InputModel.FixedEMC;
-                NO3NRunoffLoad = InputModel.FixedEMC * Engine.SoilModule.Runoff / 100.0;
+                NO3NDissolvedInRunoff = InputModel.FixedEMC_Runoff;
+                NO3NRunoffLoad = InputModel.FixedEMC_Runoff * Engine.SoilModule.Runoff / 100.0;
                
             }
             catch (Exception ex)
@@ -251,7 +259,7 @@ namespace HowLeaky_SimulationEngine.Engine
                     double phi =
                         Engine.SoilModule.InputModel
                             .BulkDensity[0]; //soil density t/m3       ( BulkDensity is in g/cm3)
-                    double NSoil = InputModel.NAlpha_Disolved * 100.0 * nlKgHa / (d * phi); //mg/kg
+                    double NSoil = 1.0 * 100.0 * nlKgHa / (d * phi); //mg/kg
                     double DN = NSoil * k * (1 - Math.Exp(-cv * Q));
                     double DL = DN * Q / 100.0;
 
@@ -287,7 +295,7 @@ namespace HowLeaky_SimulationEngine.Engine
         /// <summary>
         /// 
         /// </summary>
-        public void CalculateDissolvedNInLeaching()
+        public void CalculateDissolvedNInLeaching_Method1()
         {
             try
             {
@@ -304,8 +312,8 @@ namespace HowLeaky_SimulationEngine.Engine
                             deltaDepth;
                         double LE = InputModel.NitrateLeachingEfficiency; //Leaching efficiency (INPUT)
                         double D = Engine.SoilModule.DeepDrainage; //Drainage (mm)
-                        double LN = nSoilKgPerHa * 1000000.0 / (soilWater * 10000.0);
-                        double LL = (LN / 1000000.0) * D * 10000.0 * LE;
+                        double LN = nSoilKgPerHa * 1000000.0 / (soilWater * 10000.0) * LE;// (* LE)added Rattray 1/09/22
+                        double LL = (LN / 1000000.0) * D * 10000.0;// (* LE)removed  Rattray 1/09/22
 
                         NO3NStoreBotLayer = nSoilKgPerHa;
                         NO3NDissolvedLeaching = LN;
@@ -331,7 +339,7 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
-        private void CalculateDissolvedNInLeaching_SafeGauge()
+        private void CalculateDissolvedNInLeaching_Method2_SafeGauge()
         {
             try
             {
@@ -340,6 +348,11 @@ namespace HowLeaky_SimulationEngine.Engine
 
                 //Excess N - calc from yesterdays values
                 ExcessN = Math.Max(ExcessN + NitrogenApplication + Mineralisation - CropUseActual - Denitrification - NO3NLeachingLoad - NO3NRunoffLoad, 0);
+
+                if(CanResetExcessNToday())
+                {
+                    ExcessN = InputModel.ExcessNResetValue;
+                }
 
                 //if (InputModel.DenitficationOption == DenitrificationOption.SafeGauge)
                 //{
@@ -372,18 +385,17 @@ namespace HowLeaky_SimulationEngine.Engine
                 NitrogenApplication = 0;
                 //if (StageType == StageType.Plant)
                 //{
-                    if (InputModel.FertilizerInputDateSequences.ContainsDate(Engine.TodaysDate))
-                    {
-                        NitrogenApplication = InputModel.FertilizerInputDateSequences.ValueAtDate(Engine.TodaysDate);
-                    }
+
+                NitrogenApplication = ExtractFertiliserRate();
+                    
                 //}
 
                 //Mineralisation
-                if (InputModel.MineralisationOption == 0)
+                if (InputModel.MineralisationOption == MineralisatinOption.Static)
                 {
                     Mineralisation = Math.Min(Engine.SoilModule.InputModel.OrganicCarbon * InputModel.CMRSlope, InputModel.CMRMax) / 365.0;
                 }
-                else
+                else if (InputModel.MineralisationOption == MineralisatinOption.Dynamic)
                 {
                     Mineralisation = CalculateMineralisationFreebairn();
                 }
@@ -396,7 +408,7 @@ namespace HowLeaky_SimulationEngine.Engine
 
                 if (!Engine.InFallow())// && StageType == StageType.Plant)
                 {
-                    if (InputModel.CropUseOption == CropUseOption.SafeGauge)
+                    if (InputModel.CropUseOption == CropUseOption.LogisticCurve)
                     {
                         CropUsePlant = (1 / (1 + (Math.Exp((das - InputModel.PlantA) * (-InputModel.PlantB))))) * InputModel.PlantDaily;
                         CropUseActual = CropUsePlant;
@@ -440,6 +452,29 @@ namespace HowLeaky_SimulationEngine.Engine
             }
         }
 
+        private bool CanResetExcessNToday()
+        {
+            return InputModel.ResetExcessN == ResetExcessNType.True && InputModel.ExcessNResetDate.MatchesDate(Engine.TodaysDate);
+        }
+
+        public void CalculateDissolvedNInLeaching_Method3_FixedEMC()
+        {
+            try
+            {
+
+                NO3NStoreBotLayer = MathTools.MISSING_DATA_VALUE;
+                NO3NDissolvedLeaching = InputModel.FixedEMC_Leaching;
+                NO3NLeachingLoad = InputModel.FixedEMC_Leaching * Engine.SoilModule.DeepDrainage / 100.0;
+
+            }
+            catch (Exception ex)
+            {
+                throw ErrorLogger.CreateException(ex);
+            }
+        }
+        
+
+
         protected double CalculateMineralisationFreebairn()
         {
             double moistfactor;
@@ -465,6 +500,15 @@ namespace HowLeaky_SimulationEngine.Engine
 
         }
 
+
+
+        //NO3NLeachingLoad = PropVolSat* ExcessN * InputModel.NitrateLeachingEfficiency;
+
+
+        //        NO3NStoreBotLayer = MathTools.MISSING_DATA_VALUE;
+        //        if (Math.Abs(Engine.SoilModule.DeepDrainage) > 0.000001)
+        //        {
+        //            NO3NDissolvedLeaching
         // Particulate N Losses in runoff are modelled in a similar way to particulate P
         // PN = beta*E*SDR*TNsoil*NER
         // where PN is the particulate N load (kg/ha)
@@ -617,5 +661,133 @@ namespace HowLeaky_SimulationEngine.Engine
                 throw ErrorLogger.CreateException(ex);
             }
         }
+
+        private double ExtractFertiliserRate()
+        {
+            if (InputModel.FertAppOptions == FertiliserApplicationOption.SingleCycle)
+            {
+                return ExtractRateFromSingleCycle(Engine.TodaysDate);
+            }
+            else if (InputModel.FertAppOptions == FertiliserApplicationOption.DualCycle)
+            {
+                return ExtractRateFromDualCycle(Engine.TodaysDate);
+            }
+            else if (InputModel.FertAppOptions == FertiliserApplicationOption.DatesAndRates)
+            {
+                return InputModel.FertilizerInputDateSequences.ValueAtDate(Engine.TodaysDate);
+            }
+            return 0;
+        }
+
+        private double ExtractRateFromSingleCycle(BrowserDate date)
+        {
+            var delay1 = InputModel.FertAppCycle1_DelayStart_wks;
+            var length1 = InputModel.FertAppCycle1_Length_wks;
+            var noapps1 = InputModel.FertAppCycle1_NoApplications;
+            var total1 = InputModel.FertAppCycle1_TotalN_kgPerha;
+            CollateSingleCycleDates(delay1, length1, noapps1);
+            if (DateExistsInCycle1(date))
+            {
+                return total1 / ((double)noapps1);
+            }
+            return 0;
+        }
+
+        private double ExtractRateFromDualCycle(BrowserDate date)
+        {
+
+            var delay1 = InputModel.FertAppCycle1_DelayStart_wks;
+            var length1 = InputModel.FertAppCycle1_Length_wks;
+            var noapps1 = InputModel.FertAppCycle1_NoApplications;
+            var total1 = InputModel.FertAppCycle1_TotalN_kgPerha;
+            var delay2 = InputModel.FertAppCycle2_DelayStart_wks;
+            var length2 = InputModel.FertAppCycle2_Length_wks;
+            var noapps2 = InputModel.FertAppCycle2_NoApplications;
+            var total2 = InputModel.FertAppCycle2_TotalN_kgPerha;
+            var repeats = InputModel.FertApp2Cycle_Repeats;
+            CollateDualCycleDates(delay1, length1, noapps1, delay2, length2, noapps2, repeats);
+            if (DateExistsInCycle1(date))
+            {
+                return total1 / ((double)noapps1);
+            }
+            if (DateExistsInCycle2(date))
+            {
+                return total2 / ((double)noapps2);
+            }
+
+            return 0;
+        }
+        private List<BrowserDate> BuildCycleApplicationDates(int totalPeriod, int delay, int length, int noapps, int repeats)
+        {
+            var dates = new List<BrowserDate>();
+            var startDate = Engine.StartDate;
+            var endDate = Engine.EndDate;
+            var gap = noapps > 1 ? (length / (noapps)) : 0;
+            var yearCycle = CalcYearCycle(totalPeriod);
+            var totalDays = totalPeriod * 365;
+            var totalapps = noapps * repeats;
+            if (noapps > 0 && length > 0)
+            {
+                for (int year = startDate.Year; year <= endDate.Year; year = year + yearCycle)
+                {
+                    var firstDate = new BrowserDate(year, 1, 1);
+                    var lastAllowableDate=firstDate.AddDays(totalDays);
+                    var periodStart = firstDate.AddDays(delay * 7 );
+                    dates.Add(periodStart);
+                    for (var i = 1; i < totalapps; ++i)
+                    {
+                        var date = periodStart.AddDays((i*gap) * 7 );
+                        if (date.DateInt <= lastAllowableDate.DateInt)
+                        {
+                            dates.Add(date);
+                        }
+                    }
+                }
+            }
+            return dates;
+        }
+        private void CollateSingleCycleDates(int delay1, int length1, int noapps1)
+        {
+            if (Cycle1ApplicationDates == null)
+            {
+                var totalperiod = delay1 + length1;
+                Cycle1ApplicationDates = BuildCycleApplicationDates(totalperiod,delay1, length1, noapps1, 1);
+            }
+        }
+
+        private void CollateDualCycleDates(int delay1, int length1, int noapps1, int delay2, int length2, int noapps2, int repeat)
+        {
+            var totalPeriod = delay1 + length1 + (delay2 + length2) * repeat;
+            if (Cycle1ApplicationDates == null)
+            {
+                Cycle1ApplicationDates = BuildCycleApplicationDates(totalPeriod, delay1, length1, noapps1,1);
+            }
+            if (Cycle2ApplicationDates == null)
+            {
+                var delay = delay1 + length1 + delay2;
+                Cycle2ApplicationDates = BuildCycleApplicationDates(totalPeriod, delay, length2, noapps2, repeat);
+            }
+        }
+
+        private bool DateExistsInCycle1(BrowserDate date)
+        {
+            return (Cycle1ApplicationDates.Any(x => x.DateInt == date.DateInt));
+        }
+        private bool DateExistsInCycle2(BrowserDate date)
+        {
+            return (Cycle2ApplicationDates.Any(x => x.DateInt == date.DateInt));
+        }
+
+       
+        private int CalcYearCycle(int totalPeriod)
+        {
+            
+            var yearsLength = (totalPeriod) * 7.0 / 365.0;
+
+            return (int)Math.Ceiling(yearsLength);
+            
+        }
+
+        
     }
 }

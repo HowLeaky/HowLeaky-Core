@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace HowLeaky_SimulationEngine.Errors
 {
 
-     public class SourceInfo
+    public class SourceInfo
     {
         public SourceInfo (string className, string methodName, string lineNumber)
         {
@@ -89,8 +89,7 @@ namespace HowLeaky_SimulationEngine.Errors
             return null;
         }
 
-        
-
+       
         private static string ExtractBracketed(string str)
         {
             string s;

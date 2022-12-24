@@ -191,10 +191,6 @@ namespace HowLeaky_IO
             return null;
         }
 
-
-
-
-
         private List<_CustomCropInputsModel> GenerateCropInputs(List<_CustomCropInputsModel> inputslist, List<ParameterDataSetPtr> vegData)
         {
             if (vegData != null && vegData.Count > 0)

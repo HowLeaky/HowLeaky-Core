@@ -417,8 +417,9 @@ namespace HowLeaky_SimulationEngine.Inputs
                 }
                 else if (type == typeof(Sequence))
                 {
-                    var canInterpolate = property.Name != "FertilizerInputDateSequences";
-                    var results = new Sequence(stringvalue, canInterpolate);                    
+                    var dontInterpolate = property.Name == "FertilizerInputDateSequences" || property.Name == "IrrigationDates" || property.Name == "IrrigSequence" || property.Name== "PestApplicationDateList";
+                    var canInterpolate = !dontInterpolate;
+                    var results = new  Sequence(stringvalue, canInterpolate);                    
                     property.SetValue(source, results);
                     return true;
 
@@ -485,6 +486,33 @@ namespace HowLeaky_SimulationEngine.Inputs
                     if (int.TryParse(stringvalue, out value))
                     {
                         property.SetValue(source, (DenitrificationOption)value);
+                        return true;
+                    }
+                }
+                else if (type == typeof(MineralisatinOption))
+                {
+                    int value;
+                    if (int.TryParse(stringvalue, out value))
+                    {
+                        property.SetValue(source, (MineralisatinOption)value);
+                        return true;
+                    }
+                }
+                else if (type == typeof(FertiliserApplicationOption))
+                {
+                    int value;
+                    if (int.TryParse(stringvalue, out value))
+                    {
+                        property.SetValue(source, (FertiliserApplicationOption)value);
+                        return true;
+                    }
+                }
+                else if (type == typeof(ResetExcessNType))
+                {
+                    int value;
+                    if (int.TryParse(stringvalue, out value))
+                    {
+                        property.SetValue(source, (ResetExcessNType)value);
                         return true;
                     }
                 }

@@ -9,7 +9,10 @@ namespace HowLeaky_SimulationEngine.Outputs
 {
     public class HowLeakyOutputSummary_Pesticide
     {
+        public HowLeakyOutputSummary_Pesticide()
+        {
 
+        }
         public HowLeakyOutputSummary_Pesticide(double conc)
         {
             PestApplied = new List<double>(new double[12]);

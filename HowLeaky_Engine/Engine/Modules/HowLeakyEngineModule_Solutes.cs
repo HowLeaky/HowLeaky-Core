@@ -1,4 +1,5 @@
-﻿using HowLeaky_SimulationEngine.Attributes;
+﻿using HowLeaky_Engine.Outputs.Summaries;
+using HowLeaky_SimulationEngine.Attributes;
 using HowLeaky_SimulationEngine.Errors;
 using HowLeaky_SimulationEngine.Inputs;
 using HowLeaky_SimulationEngine.Tools;
@@ -20,8 +21,8 @@ namespace HowLeaky_SimulationEngine.Engine
         }
 
         public HowLeakyInputs_Solute InputModel { get; set; }
+        public HowLeakyOutputSummary_Solutes Summary { get; set; }
 
-     
         [Output] public double total_soil_solute_mg_per_kg { get; set; }
         [Output] public double total_soil_solute_mg_per_L { get; set; }
         [Output] public double total_soil_solute_kg_per_ha { get; set; }
@@ -30,7 +31,7 @@ namespace HowLeaky_SimulationEngine.Engine
         [Output] public List<double> solute_load_layer_kg_per_ha { get; set; }
         [Output] public double solute_leaching_conc_mg_per_L { get; set; }
         [Output] public double solute_leaching_load_kg_per_ha { get; set; }
-
+      
 
         public override void Initialise()
         {
@@ -62,6 +63,7 @@ namespace HowLeaky_SimulationEngine.Engine
                     solute_conc_layer_mg_per_kg[i] = InputModel.Layer10InitialConc;
 
             }
+            Summary = new HowLeakyOutputSummary_Solutes();
         }
 
         public override void Simulate()
@@ -112,6 +114,8 @@ namespace HowLeaky_SimulationEngine.Engine
                     double total_soil_mass_kg = 0;
                     double total_SW_rel_OD = 0;
                     total_soil_solute_kg_per_ha = 0;
+                    //double sum_actual_drained_solute_mg = 0;
+                    //double sum_kgs_soil_in_next_layer = 0;
                     //Route solutes down through layer.
                     for (int i = 0; i < Engine.SoilModule.LayerCount; ++i)
                     {
@@ -119,7 +123,7 @@ namespace HowLeaky_SimulationEngine.Engine
                         total_SW_rel_OD += SW_rel_OD;
                         double StartOfDay_SW_rel_OD = SW_rel_OD + Engine.SoilModule.Seepage[i + 1];
 
-
+                        
                         if (MathTools.NotZero(StartOfDay_SW_rel_OD) && MathTools.NotZero(SW_rel_OD))
                         {
                             double kgs_soil_in_layer = Engine.SoilModule.InputModel.BulkDensity[i] * 1000.0 * (Engine.SoilModule.Depth[i + 1] - Engine.SoilModule.Depth[i]) * 10000.0 / 1000.0;
@@ -192,6 +196,8 @@ namespace HowLeaky_SimulationEngine.Engine
                                     solute_conc_layer_mg_per_kg[i + 1] = 0;
 
                                 }
+                            //    sum_actual_drained_solute_mg += actual_drained_solute_mg;
+                            //    sum_kgs_soil_in_next_layer += kgs_soil_in_next_layer;
                             }
                             else
                             {
@@ -203,6 +209,7 @@ namespace HowLeaky_SimulationEngine.Engine
                                     solute_leaching_conc_mg_per_L = solute_conc_layer_mg_per_L[i];  // ????
                                 else
                                     solute_leaching_conc_mg_per_L = 0;
+                                
                             }
                         }
                         else
@@ -213,6 +220,8 @@ namespace HowLeaky_SimulationEngine.Engine
                     }
                     total_soil_solute_mg_per_kg = total_soil_solute_kg_per_ha / total_soil_mass_kg * 1000000.0;
                     total_soil_solute_mg_per_L = total_soil_solute_kg_per_ha / (total_SW_rel_OD * 10.0) * 1000.0;
+                   
+
 
                     UpdateSolutesSummaryValues();
                 }
@@ -227,6 +236,7 @@ namespace HowLeaky_SimulationEngine.Engine
 
         public void UpdateSolutesSummaryValues()
         {
+            Summary.Update(Engine);
         }
 
         public bool CanSimulateSolutes()

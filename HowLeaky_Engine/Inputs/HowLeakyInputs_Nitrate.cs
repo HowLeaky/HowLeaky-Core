@@ -8,16 +8,19 @@ namespace HowLeaky_SimulationEngine.Inputs
     public enum DissolvedNinLeachingType
     {
         None=0,
-        HowLeaky2012=1,        
-        ModifiedSafegaugeModel=2
+        FixedEMC = 1,
+        HowLeaky2012 =2,        
+        ModifiedSafegaugeModel=3,
+        
 
     }
      public enum DissolvedNinRunoffType
     {
        None=0,
-       HowLeaky2012=1,
-       BananaEmpiricalModel=2,
-       FixedEMC=3
+       FixedEMC = 1,
+       HowLeaky2012 =2,
+       BananaEmpiricalModel=3,
+       
 
         
     }
@@ -30,8 +33,14 @@ namespace HowLeaky_SimulationEngine.Inputs
     }
     public enum CropUseOption
     {
-        SafeGauge,
-        Freebairn
+        LogisticCurve,
+        Transpiration
+    }
+
+    public enum MineralisatinOption
+    {
+        Static,
+        Dynamic
     }
 
     public enum DenitrificationOption
@@ -40,7 +49,19 @@ namespace HowLeaky_SimulationEngine.Inputs
         Freebairn
     }
 
+    public enum FertiliserApplicationOption
+    {
+        DatesAndRates,
+        SingleCycle,
+        DualCycle
+        
+    }
 
+    public enum ResetExcessNType
+    {
+        False,
+        True
+    }
     public class HowLeakyInputs_Nitrate:_CustomHowLeakyInputsModel
     {
         public HowLeakyInputs_Nitrate():base(null,null)
@@ -118,18 +139,38 @@ namespace HowLeaky_SimulationEngine.Inputs
         public CropUseOption CropUseOption { get;set;}
         public double NCropUseEfficiency { get;set;}
 
-        public double FixedEMC { get;set;}
+        public double FixedEMC_Runoff { get;set;}
+        public double FixedEMC_Leaching { get; set; }
 
         //public DenitrificationOption DenitficationOption { get;set;}
-         //public TimeSeriesData SoilNitrateTimeseries { get; set; }        
-         //public List<XYXData> SoilNitrateLevels { get; set; } = null;
-         //public double Mineralisation { get; set; } 
-         //public double VolSat { get; set; } 
-         //public double NitrogenApplication { get; set; }
-         //public double NitrogenFrequency { get; set; } 
-         //public double SoilCarbon { get; set; } 
+        //public TimeSeriesData SoilNitrateTimeseries { get; set; }        
+        //public List<XYXData> SoilNitrateLevels { get; set; } = null;
+        //public double Mineralisation { get; set; } 
+        //public double VolSat { get; set; } 
+        //public double NitrogenApplication { get; set; }
+        //public double NitrogenFrequency { get; set; } 
+        //public double SoilCarbon { get; set; } 
 
-        public int MineralisationOption { get;set;}
+        public MineralisatinOption MineralisationOption { get;set;}
         public double NitrateMineralisationCoefficient { get; set; }
+
+
+        public FertiliserApplicationOption FertAppOptions { get; set; }
+        public int FertAppCycle1_Length_wks { get; set; }
+        public int FertAppCycle1_TotalN_kgPerha { get; set; }
+        public int FertAppCycle1_NoApplications { get; set; }
+        public int FertAppCycle1_DelayStart_wks { get; set; }
+
+        public int FertAppCycle2_Length_wks { get; set; }
+        public int FertAppCycle2_TotalN_kgPerha { get; set; }
+        public int FertAppCycle2_NoApplications { get; set; }
+        public int FertAppCycle2_DelayStart_wks { get; set; }
+        public int FertApp2Cycle_Repeats { get; set; }
+
+
+        public ResetExcessNType ResetExcessN { get; set; }
+        public DayMonthData ExcessNResetDate { get; set; }
+        public double ExcessNResetValue { get; set; }
+
     }
 }

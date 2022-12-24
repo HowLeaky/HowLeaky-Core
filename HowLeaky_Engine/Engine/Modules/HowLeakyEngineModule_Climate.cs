@@ -11,14 +11,18 @@ namespace HowLeaky_SimulationEngine.Engine
 {
     public class HowLeakyEngineModule_Climate : _CustomHowLeakyEngineModule
     {
+
+        public HowLeakyEngineModule_Climate()
+        {
+
+        }
         public HowLeakyEngineModule_Climate(HowLeakyEngine parent, HowLeakyInputs_Climate inputs) : base(parent)
         {
             InputModel = inputs;
         }
 
-        public HowLeakyEngineModule_Climate()
-        {
-        }
+
+        
 
         public HowLeakyInputs_Climate InputModel { get; set; }
 

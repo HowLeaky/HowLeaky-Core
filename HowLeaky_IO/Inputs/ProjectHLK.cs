@@ -145,6 +145,10 @@ namespace HowLeaky_IO
 
                             foreach (var item in parameterdatasets)
                             {
+                                if(File.Exists(item)==false)
+                                {
+                                    throw new Exception($"File not found:{item}");
+                                }
                                 if (IsValidateType(item))
                                 {
                                     var itemfilename = Path.GetFileName(item);
@@ -712,7 +716,7 @@ namespace HowLeaky_IO
                 codename = name;
             }
 
-            var param = new InputParameter()
+            var param = new DataSetParameter()
             {
                 Id = Guid.NewGuid(),
                 NameInFile = name,

@@ -10,10 +10,25 @@ namespace HowLeaky_SimulationEngine.Outputs
     {
         //public HowLeakyOutputTimeseries(HowLeakyOutputDefinition outputtype, int? index, Action<HowLeakyOutputTimeseries> action)
         //{
-           
+
         //  //  Action=action;
         //    Index=index;
         //}
+        public HowLeakyOutputTimeseriesActive(string name, BrowserDate start, BrowserDate end, List<double> values, bool canAccumulate) : base()
+        {
+            Name = name;
+            StartDate = new BrowserDate(start);
+            EndDate = new BrowserDate(end);
+            DailyValues = values.Select(x=>(double?)x).ToList();
+            CanAccumulate = canAccumulate;
+        }
+
+        public string GetName()
+        {
+            if(OutputDefn!=null)
+                return OutputDefn.Name;
+            return Name;
+        }
 
         public HowLeakyOutputTimeseriesActive(HowLeakyOutputDefinition outputtype,  BrowserDate start, BrowserDate end):base()
         {

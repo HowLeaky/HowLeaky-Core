@@ -23,16 +23,16 @@ namespace HowLeaky_IO
     {
         public HowLeakyOutputType OutputType { get; set; }
         public ProjectHLK Project { get; set; }
-        //   public HowLeakySQLiteOutput SQLite{get;set;}
+     
         public HowLeakyEngine HLEngine { get; set; }
         public List<Simulation> Simulations { get; set; }
-        //   public string SQLiteFilename{get;set;}
+
 
         public SimulationThread(ProjectHLK project, KeyValuePair<string, List<Simulation>> pair, HowLeakyOutputType outputType = HowLeakyOutputType.DailyBin)
         {
             var remapdict = BuildOutputsRemapDict(project.OutputsCSV.Split(',').ToList());
             OutputType = outputType;
-            //    SQLiteFilename=Path.Combine(project.OutputsDirectory,$"{pair.Key}.sqlite");
+      
             HLEngine = new HowLeakyEngine(project.OutputsCSV, remapdict);
             Simulations = pair.Value;
             Project = project;
@@ -42,7 +42,7 @@ namespace HowLeaky_IO
         {
             var remapdict = BuildOutputsRemapDict(project.OutputsCSV.Split(',').ToList());
             OutputType = outputType;
-            //    SQLiteFilename=Path.Combine(project.OutputsDirectory,$"Outputs.sqlite");
+        
             HLEngine = new HowLeakyEngine(project.OutputsCSV, remapdict);
             Simulations = simulations;
             Project = project;
@@ -78,8 +78,7 @@ namespace HowLeaky_IO
             {
 
                 var path = Project.OutputsDirectory;
-                //var outputscsv=GenerateOutputCSV();
-                // var SQLite=new HowLeakySQLiteOutput(SQLiteFilename,outputscsv);  
+        
                 foreach (var sim in Simulations)
                 {
                     if (ct.IsCancellationRequested)

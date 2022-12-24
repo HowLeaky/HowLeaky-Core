@@ -347,7 +347,7 @@ namespace HowLeaky_Engine.UnitTests
           //  inputs.MaxAllowTotalCover = 100;
             inputs.MaxRootDepth = 2000;
             inputs.SWPropForNoStress = 0.3;
-            inputs.MaximumRootDepth = 2000;
+           // inputs.MaximumRootDepth = 2000;
             // engine.VegetationModules[0].Initialise();
         }
         public void LoadLAIVeg_FixedPlant(HowLeakyEngine engine)

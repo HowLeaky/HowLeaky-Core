@@ -10,9 +10,9 @@ namespace HowLeaky_IO
     {
         public ParameterDataSet()
         {
-            Parameters=new List<InputParameter>();
+            Parameters=new List<DataSetParameter>();
         }
-        //public ParameterDataSet(ApplicationDbContext db, ParameterDataSet dataset, Study study, ApplicationUser appUser)
+        //public ParameterDataSet(NewApplicationDbContext db, ParameterDataSet dataset, Study study, ApplicationUser appUser)
         //{
         //    Id=Guid.NewGuid();
         //    StudyId=study.Id;
@@ -38,11 +38,11 @@ namespace HowLeaky_IO
         //    var sourcestudyname=sourcestudy!=null?sourcestudy.Name:"Unknown Study";
 
         //    Source=$"Copied {DateTime.Now:dd/MM/yyy} from {dataset.Name} ({GetOwnerName(db)}) from study \"{sourcestudyname}\"";
-        //    var sourceparams=db.InputParameters.Where(x=>x.DataSetId==dataset.Id).ToList();
-        //    var newlist=new List<InputParameter>();
+        //    var sourceparams=db.InputParameters.Where(x=>x.ParentId==dataset.Id).ToList();
+        //    var newlist=new List<DataSetParameter>();
         //    foreach(var myparam in sourceparams)
         //    {
-        //        var newparam=new InputParameter(myparam,dataset, appUser);
+        //        var newparam=new DataSetParameter(myparam,dataset, appUser);
         //        db.InputParameters.Add(newparam);
         //        newlist.Add(newparam);
         //        db.SaveChanges();
@@ -71,11 +71,11 @@ namespace HowLeaky_IO
         public string TypeName { get; set; }
         public string Description { get; set; }
         public string Source{get;set;}
-        public List<InputParameter>Parameters{get;set;}
+        public List<DataSetParameter>Parameters{get;set;}
         public string CodeName { get; set; }
         public HowLeakyDataType DataType { get; set; }
 
-        internal void AddParameter(InputParameter param)
+        internal void AddParameter(DataSetParameter param)
         {
             Parameters.Add(param);
             //var id=param.Id.ToString();

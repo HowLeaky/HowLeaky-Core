@@ -188,7 +188,7 @@ namespace HowLeaky_IO.Outputs
                             for(var index1=0;index1<timeseriescount;++index1)
                             {
                                 var name=binaryReader.ReadString();
-                                var vm=new HowLeakyOutputTimeSeries(simindex,name,"#000000",1,start,end,datacount,true);
+                                var vm=new HowLeakyOutputTimeSeries(simindex,name,start,end,datacount,true);
                                 for(var i=0;i<datacount;++i)
                                 {
                                     vm.DailyValues[i]=binaryReader.ReadDouble();

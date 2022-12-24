@@ -9,12 +9,23 @@ namespace HowLeaky_SimulationEngine.Engine
 {
     public partial class HowLeakyEngine
     {
-
+        public void PreloadClimateFile(HowLeakyInputs_Climate climateInputs)
+        {
+            if (ClimateModule == null)
+            {
+                ClimateModule = new HowLeakyEngineModule_Climate(this, climateInputs);
+                if(Modules==null)
+                {
+                    Modules = new List<_CustomHowLeakyEngineModule>();
+                }
+                Modules.Add(ClimateModule);
+            }
+        }
         public bool LoadInputs(HowLeakyInputsModel model)
         {
             try
             {
-                if(model.Climate==null)
+                if(model.Climate==null&&ClimateModule==null)
                 {
                     return false;
                 }
@@ -27,7 +38,10 @@ namespace HowLeaky_SimulationEngine.Engine
                     return false;
                 }
                 SimulationName = model.Name;
-                Modules = new List<_CustomHowLeakyEngineModule>();
+                if (Modules == null)
+                {
+                    Modules = new List<_CustomHowLeakyEngineModule>();
+                }
                 if (model.Climate != null)
                 {
                     ClimateModule = new HowLeakyEngineModule_Climate(this, model.Climate);

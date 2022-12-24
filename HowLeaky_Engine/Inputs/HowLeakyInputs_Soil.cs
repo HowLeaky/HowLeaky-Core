@@ -28,7 +28,7 @@ namespace HowLeaky_SimulationEngine.Inputs
             MaxDailyDrainRate=new List<double>();
             BulkDensity=new List<double>();
         }
-
+        
         public int LayerCount { get; set; }
         public List<double> Depths { get; set; }
         public List<double> AirDryLimit { get; set; }

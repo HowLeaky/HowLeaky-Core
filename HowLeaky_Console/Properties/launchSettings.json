@@ -2,7 +2,7 @@
   "profiles": {
     "HowLeakyConsole": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\PreMay2022\\aaTestHL\\howleaky.hlk -d -o\"Rain,PanEvap,IrrigationRunoff,Runoff,DeepDrainage,OffSiteSedDelivery,NO3NDissolvedInRunoff,NO3NRunoffLoad,NO3NDissolvedLeaching,NO3NLeachingLoad\""
+      "commandLineArgs": "c:\\Test2\\howleaky.hlk -d -o\"Rain,Runoff,TotalPConc,TotalP\""
     }
   }
 }

@@ -20,7 +20,7 @@ namespace HowLeaky_IO
         InputTimeSeries=700,
         Output = 800
     }
-    public class InputParameterTemplate
+    public class DataSetParameterTemplate
     {
         public Guid Id { get; set; }
         public Guid? DataSetTemplateId { get;  set; }
