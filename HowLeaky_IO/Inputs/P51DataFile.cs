@@ -60,7 +60,7 @@ namespace HowLeaky_IO
             return 0;
         }
 
-        public List<List<double>>TimeSeries{get;set;}
+        public List<List<double?>>TimeSeries{get;set;}
             
         
 
@@ -418,10 +418,10 @@ namespace HowLeaky_IO
 
         private void CreateTimeSeries(int count)
         {
-            TimeSeries=new List<List<double>>();
+            TimeSeries=new List<List<double?>>();
             for(var i=0;i<count;++i)
             {
-                TimeSeries.Add(new List<double>());
+                TimeSeries.Add(new List<double?>());
             }
         }
 

@@ -54,6 +54,8 @@ namespace HowLeaky_SimulationEngine.Outputs
             CanAccumulate = canAccumulate;
    
         }
+
+        
         public HowLeakyOutputTimeSeries(string name, Guid? id, int? index, BrowserDate start, BrowserDate end, List<double> values, bool canAccomulate)
         {
             Id = id;
@@ -67,8 +69,9 @@ namespace HowLeaky_SimulationEngine.Outputs
         }
         public Guid? Id { get;set;}
         public Guid? SimulationId { get;set;}
-        public string DisplayName { get { return $"{SimulationIndex}. {Name}"; } }
+        public string DisplayedName { get { return $"{SimulationIndex}. {Name}"; } }
         public string Name { get; set; }
+        public string Units { get; set; }
         public bool CanAccumulate { get; set; }
         public int OrderIndex { get;set;}
         public int? SimulationIndex { get; set; }
@@ -81,6 +84,7 @@ namespace HowLeaky_SimulationEngine.Outputs
         public List<BrowserDate> DateValues { get; set; }
 
         public int? Index { get; set; }
+        public double AnnualAverage { get; set; }
 
         public void Initialise(int count)
         {
@@ -92,7 +96,38 @@ namespace HowLeaky_SimulationEngine.Outputs
             //not going to check ranges in here... looking for speed.
             DailyValues[index] = value;
         }
+        public void CombineScaledValues(HowLeakyOutputTimeSeries otherTimeSeries, double scale)
+        {
+            for (var i = 0; i < DailyValues.Count; i++)
+            {
+                var newValue = otherTimeSeries.DailyValues[i];
+                if (newValue != null)
+                {
+                    if (DailyValues[i] != null)
+                    {
+                        DailyValues[i] = DailyValues[i].Value + (newValue * scale);
+                    }
+                    else
+                    {
+                        DailyValues[i] = newValue.Value * scale;
+                    }
+                }
+            }
+        }
 
+        public void ScaleValues(double scale)
+        {
+            if (Math.Abs(scale - 1) > 0.000001)
+            {
+                for (var i = 0; i < DailyValues.Count; i++)
+                {
+                    if (DailyValues[i] != null)
+                    {
+                        DailyValues[i] = DailyValues[i].Value * scale;
+                    }
+                }
+            }
+        }
 
         public List<double?> MonthlyValues()
         {

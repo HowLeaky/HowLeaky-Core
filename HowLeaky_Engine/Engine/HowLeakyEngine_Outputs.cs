@@ -1,13 +1,9 @@
 ﻿using HowLeaky_SimulationEngine.Errors;
 using HowLeaky_SimulationEngine.Outputs;
 using HowLeaky_SimulationEngine.Outputs.Definitions;
-using HowLeaky_SimulationEngine.Outputs.maries;
-using HowLeaky_SimulationEngine.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 
 namespace HowLeaky_SimulationEngine.Engine
 {
@@ -25,17 +21,21 @@ namespace HowLeaky_SimulationEngine.Engine
             try
             {
                 Outputs = new HowLeakyOutputs(StartDate, EndDate);
-                foreach (var outputtype in Definitions.Where(x => x.IsActive()).ToList())
+                foreach (var outputtype in Definitions) //.Where(x => x.IsActive()).ToList())
                 {
 
                     foreach (var action in outputtype.Actions)
                     {
-                        Outputs.TimeSeries.Add(new HowLeakyOutputTimeseriesActive(outputtype, StartDate, EndDate));
+                        
+                        
+                        var simId = SimulationId;
+                        var name = SimulationName;
+                        Outputs.TimeSeries.Add(new HowLeakyOutputTimeseriesActive(SimulationName, SimulationId,outputtype, StartDate, EndDate));
                     }
                 }
                 if (IncludeSummaries)
                 {
-                    WaterBalanceSummary = new HowLeakyOutputSummary_WaterBalance();
+                    WaterBalanceSummary = new HowLeakyOutputSummary_WaterBalance(this);
                 }
             }
             catch (Exception ex)
@@ -52,15 +52,15 @@ namespace HowLeaky_SimulationEngine.Engine
             try
             {
                 Definitions = new List<HowLeakyOutputDefinition>();
-                if (ClimateModule != null) LoadDefaultDefinitions(GetOutputProp(ClimateModule), "ClimateModule", remapdict);
-                if (SoilModule != null) LoadDefaultDefinitions(GetOutputProp(SoilModule), "SoilModule", remapdict);
-                if (IrrigationModule != null) LoadDefaultDefinitions(GetOutputProp(IrrigationModule), "IrrigationModule", remapdict);
-                if (PhosphorusModule != null) LoadDefaultDefinitions(GetOutputProp(PhosphorusModule), "PhosphorusModule", remapdict);
-                if (NitrateModule != null) LoadDefaultDefinitions(GetOutputProp(NitrateModule), "NitrateModule", remapdict);
-                if (SolutesModule != null) LoadDefaultDefinitions(GetOutputProp(SolutesModule), "SolutesModule", remapdict);
-                if (VegetationModules != null && VegetationModules.Count > 0) foreach (var veg in VegetationModules) LoadDefaultDefinitions2(GetOutputProp(veg), "VegetationModule", veg.GetName(), VegetationModules.IndexOf(veg), remapdict);
-                if (PesticideModules != null && PesticideModules.Count > 0) foreach (var pest in PesticideModules) LoadDefaultDefinitions2(GetOutputProp(pest), "PesticideModule", pest.GetName(), PesticideModules.IndexOf(pest), remapdict);
-                if (TillageModules != null && TillageModules.Count > 0) foreach (var till in TillageModules) LoadDefaultDefinitions2(GetOutputProp(till), "TillageModule", till.InputModel.Name, TillageModules.IndexOf(till), remapdict);
+                if (ClimateModule != null) LoadDefaultDefinitions(ClimateModule, "ClimateModule", remapdict);
+                if (SoilModule != null) LoadDefaultDefinitions(SoilModule, "SoilModule", remapdict);
+                if (IrrigationModule != null) LoadDefaultDefinitions(IrrigationModule, "IrrigationModule", remapdict);
+                if (PhosphorusModule != null) LoadDefaultDefinitions(PhosphorusModule, "PhosphorusModule", remapdict);
+                if (NitrateModule != null) LoadDefaultDefinitions(NitrateModule, "NitrateModule", remapdict);
+                if (SolutesModule != null) LoadDefaultDefinitions(SolutesModule, "SolutesModule", remapdict);
+                if (VegetationModules != null && VegetationModules.Count > 0) foreach (var veg in VegetationModules) LoadDefaultDefinitions2(veg, "VegetationModule", veg.GetName(), VegetationModules.IndexOf(veg), remapdict);
+                if (PesticideModules != null && PesticideModules.Count > 0) foreach (var pest in PesticideModules) LoadDefaultDefinitions2(pest, "PesticideModule", pest.GetName(), PesticideModules.IndexOf(pest), remapdict);
+                if (TillageModules != null && TillageModules.Count > 0) foreach (var till in TillageModules) LoadDefaultDefinitions2(till, "TillageModule", till.InputModel.Name, TillageModules.IndexOf(till), remapdict);
                 SelectTimeSeries(timeseriescsv);
                 AssignDelegates();
             }
@@ -71,36 +71,40 @@ namespace HowLeaky_SimulationEngine.Engine
         }
 
 
-        public void LoadDefaultDefinitions(List<System.Reflection.PropertyInfo> props, string module, Dictionary<string, OutputAttributes> remapdict)
+        public void LoadDefaultDefinitions(_CustomHowLeakyEngineModule module, string moduleName, Dictionary<string, OutputAttributes> remapdict)
         {
             try
             {
+                 List<System.Reflection.PropertyInfo> props;
+                props = GetOutputProp(module);
                 foreach (var prop in props)
                 {
-                    if(remapdict!=null)//&&remapdict.ContainsKey(prop.Name))
+                    if(remapdict!=null && remapdict.ContainsKey(prop.Name))
                     { 
-                        Definitions.Add(new HowLeakyOutputDefinition(prop, module, remapdict, "", null));
+                        Definitions.Add(new HowLeakyOutputDefinition(prop, moduleName, remapdict, "", null));
                     }
-                }
+                } 
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 throw ErrorLogger.CreateException(ex);
             }
-        }
+        }  
 
-        public void LoadDefaultDefinitions2(List<System.Reflection.PropertyInfo> props, string module, string prefix, int index, Dictionary<string, OutputAttributes> remapdict)
+        public void LoadDefaultDefinitions2(_CustomHowLeakyEngineModule module, string moduleName, string prefix, int index, Dictionary<string, OutputAttributes> remapdict)
         {
             try
             {
+                List<System.Reflection.PropertyInfo> props;
+                props = GetOutputProp(module);
                 foreach (var prop in props)
                 {
-                    if (remapdict != null)// && remapdict.ContainsKey(prop.Name))
+                    if (remapdict != null && remapdict.ContainsKey(prop.Name))
                     {
                         //var attribute=remapdict[prop.Name];
                         //if(attribute.DataIndex==index)
                         //{ 
-                            Definitions.Add(new HowLeakyOutputDefinition(prop, module, remapdict, prefix, index));
+                            Definitions.Add(new HowLeakyOutputDefinition(prop, moduleName, remapdict, prefix, index));
                        // }
                     }
                 }
@@ -176,7 +180,7 @@ namespace HowLeaky_SimulationEngine.Engine
             try
             {
 
-                foreach (var definition in Definitions.Where(x => x.IsActive()).ToList())
+                foreach (var definition in Definitions)//.Where(x => x.IsActive()).ToList())
                 {
                     var engineType = this.GetType();
                     var methodInfo = engineType.GetMethod(definition.GetMethodName());
@@ -252,8 +256,11 @@ namespace HowLeaky_SimulationEngine.Engine
         {
             try
             {
-                var index = TodaysDate.DateInt - StartDate.DateInt;
-                Outputs.UpdateDailyTimeseries(index);
+                if (Outputs != null)
+                {
+                    var index = TodaysDate.DateInt - StartDate.DateInt;
+                    Outputs.UpdateDailyTimeseries(index);
+                }
                 if (IncludeSummaries)
                 {
                     WaterBalanceSummary.Update(this);

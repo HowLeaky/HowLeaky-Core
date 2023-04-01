@@ -27,22 +27,33 @@ namespace HowLeaky_SimulationEngine.Engine
             {
                 if(model.Climate==null&&ClimateModule==null)
                 {
-                    return false;
+                    throw new Exception("Climate data was not defined");
+                }else if(ClimateModule!=null)
+                {
+                    if (model.StartDate == null)
+                    {
+                        model.StartDate = ClimateModule.InputModel.StartDate;
+                    }
+                    if (model.EndDate == null)
+                    {
+                        model.EndDate = ClimateModule.InputModel.EndDate;
+                    }
+                    TodaysDate = model.StartDate;
                 }
                 if(model.Soil==null)
                 {
-                    return false;
+                    throw new Exception("Soil data was not defined");
                 }
                 if(model.Crops==null||model.Crops.Count==0)
                 {
-                    return false;
+                    throw new Exception("Crop data was not defined");
                 }
-                SimulationName = model.Name;
+                //SimulationName = model.Name;
                 if (Modules == null)
                 {
                     Modules = new List<_CustomHowLeakyEngineModule>();
                 }
-                if (model.Climate != null)
+                if (model.Climate != null && ClimateModule==null)
                 {
                     ClimateModule = new HowLeakyEngineModule_Climate(this, model.Climate);
                     Modules.Add(ClimateModule);
@@ -125,6 +136,10 @@ namespace HowLeaky_SimulationEngine.Engine
                 if (StartDate != null)
                 {
                     TodaysDate = new BrowserDate(StartDate);
+                }
+                else
+                {
+                    TodaysDate = new BrowserDate(1970, 1, 1);
                 }
                 if (ClimateModule == null)
                 {

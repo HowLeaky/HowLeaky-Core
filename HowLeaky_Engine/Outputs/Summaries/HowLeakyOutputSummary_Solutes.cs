@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HowLeaky_Engine.Outputs.Summaries
+namespace HowLeaky_SimulationEngine.Outputs
 {
-    public class HowLeakyOutputSummary_Solutes
+    public class HowLeakyOutputSummary_Solutes:HowLeakyOutputSummary_Custom
     {
         public HowLeakyOutputSummary_Solutes()
+        {
+
+        }
+        public HowLeakyOutputSummary_Solutes(HowLeakyEngine sim)
         {
             SoluteLeach_kg_per_ha = new List<double>(new double[12]);
             SoluteLeach_mg_per_L = new List<double>(new double[12]);
@@ -24,6 +28,7 @@ namespace HowLeaky_Engine.Outputs.Summaries
         {
             try
             {
+                Name = Sim.SolutesModule.Name;
                 var month = Sim.TodaysDate.Month - 1;
                 SoluteLeach_kg_per_ha[month] += Sim.SolutesModule.solute_leaching_load_kg_per_ha;
                 SoluteLeach_mg_per_L[month] += Sim.SolutesModule.solute_leaching_conc_mg_per_L;
@@ -76,6 +81,15 @@ namespace HowLeaky_Engine.Outputs.Summaries
         {
             return SoluteLeach_mg_per_L.Sum() / ((float)Counts.Sum() / 365.25);
         }
-        
+
+        public void ScaleValues(double scale)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CombineScaledValues(HowLeakyOutputSummary_Solutes solutes, double scale)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

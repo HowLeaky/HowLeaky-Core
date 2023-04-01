@@ -1,13 +1,11 @@
 ﻿using HowLeaky_SimulationEngine.Engine;
-using HowLeaky_SimulationEngine.Outputs.Summaries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace HowLeaky_SimulationEngine.Outputs
 {
-    public class HowLeakyOutputSummary_Pesticide
+    public class HowLeakyOutputSummary_Pesticide : HowLeakyOutputSummary_Custom
     {
         public HowLeakyOutputSummary_Pesticide()
         {
@@ -50,6 +48,7 @@ namespace HowLeaky_SimulationEngine.Outputs
         {
             try
             {
+                Name = module.Name;
                 var month = Sim.TodaysDate.Month - 1;
                 PestApplied[month]+=module.pest_application;
                 PestRunoffWater[month] += module.PestLostInRunoffWater;
@@ -68,6 +67,12 @@ namespace HowLeaky_SimulationEngine.Outputs
                 throw new Exception(e.Message);
             }
         }
+
+        public void ScaleValues(double scale)
+        {
+            throw new NotImplementedException();
+        }
+
         public double GetTotalPestApplied()
         {
             return PestApplied.Sum();
@@ -83,6 +88,11 @@ namespace HowLeaky_SimulationEngine.Outputs
         public double GetTotalPestRunoffTotal()
         {
             return PestRunoffTotal.Sum();
+        }
+
+        public void CombineScaledValues(List<HowLeakyOutputSummary_Pesticide> pesticides, double scale)
+        {
+            throw new NotImplementedException();
         }
 
         //public double GetTotalDaysGreaterCrit1()

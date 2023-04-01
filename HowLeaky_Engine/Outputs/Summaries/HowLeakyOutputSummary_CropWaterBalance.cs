@@ -1,14 +1,20 @@
 ﻿using HowLeaky_SimulationEngine.Engine;
-using HowLeaky_SimulationEngine.Outputs.Summaries;
 using HowLeaky_SimulationEngine.Tools;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HowLeaky_SimulationEngine.Outputs
 {
     public class HowLeakyOutputSummary_CropWaterBalance:HowLeakyOutputSummary_Custom
     {
+
+        public HowLeakyOutputSummary_CropWaterBalance()
+        {
+
+        }
+        public HowLeakyOutputSummary_CropWaterBalance(HowLeakyEngine Sim)
+        {
+
+        }
         public override void ConnectToSimulation(HowLeakyEngine sim)
         {
         }

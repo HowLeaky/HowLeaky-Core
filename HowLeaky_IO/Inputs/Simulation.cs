@@ -148,11 +148,11 @@ namespace HowLeaky_IO
                     if (climateData.HasLoaded)
                     {
                         inputs = new HowLeakyInputs_Climate();
-                        inputs.MaxT = climateData.TimeSeries[0].Select(x => (double)x).ToList();//MaxTempValues
-                        inputs.MinT = climateData.TimeSeries[1].Select(x => (double)x).ToList();//MinTempValues
-                        inputs.Rain = climateData.TimeSeries[2].Select(x => (double)x).ToList(); //RainfallValues
-                        inputs.PanEvap = climateData.TimeSeries[3].Select(x => (double)x).ToList();//PanEvapValues
-                        inputs.Radiation = climateData.TimeSeries[4].Select(x => (double)x).ToList();//SolarRadValues
+                        inputs.MaxT = climateData.TimeSeries[0];//.Select(x => (double?)x).ToList();//MaxTempValues
+                        inputs.MinT = climateData.TimeSeries[1];//.Select(x => (double?)x).ToList();//MinTempValues
+                        inputs.Rain = climateData.TimeSeries[2];//.Select(x => (double?)x).ToList(); //RainfallValues
+                        inputs.PanEvap = climateData.TimeSeries[3];//.Select(x => (double?)x).ToList();//PanEvapValues
+                        inputs.Radiation = climateData.TimeSeries[4];//.Select(x => (double?)x).ToList();//SolarRadValues
                         inputs.StartDate = climateData.StartDate;
                         inputs.EndDate = climateData.EndDate;
                         return inputs;

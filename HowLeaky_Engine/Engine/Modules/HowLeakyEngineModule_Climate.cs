@@ -53,21 +53,21 @@ namespace HowLeaky_SimulationEngine.Engine
                 if (CurrentIndex >= 0 && CurrentIndex < InputModel.Rain.Count)
                 {
 
-                    Temperature = (InputModel.MaxT[CurrentIndex] + InputModel.MinT[CurrentIndex]) / 2.0;
-                    Rain = InputModel.Rain[CurrentIndex] * InputModel.RainfallMultiplier;
+                    Temperature = (InputModel.MaxT[CurrentIndex].Value + InputModel.MinT[CurrentIndex].Value) / 2.0;
+                    Rain = InputModel.Rain[CurrentIndex].Value * InputModel.RainfallMultiplier;
                     if (CurrentIndex > 0)
                     {
-                        YesterdaysRain = InputModel.Rain[CurrentIndex - 1];
+                        YesterdaysRain = InputModel.Rain[CurrentIndex - 1].Value;
                     }
                     else
                     {
                         YesterdaysRain = 0;
                     }
-                    MaxTemp = InputModel.MaxT[CurrentIndex];
-                    MinTemp = InputModel.MinT[CurrentIndex];
+                    MaxTemp = InputModel.MaxT[CurrentIndex].Value;
+                    MinTemp = InputModel.MinT[CurrentIndex].Value;
 
-                    PanEvap = InputModel.PanEvap[CurrentIndex] * InputModel.PanEvapMultiplier;
-                    SolarRadiation = InputModel.Radiation[CurrentIndex];
+                    PanEvap = InputModel.PanEvap[CurrentIndex].Value * InputModel.PanEvapMultiplier;
+                    SolarRadiation = InputModel.Radiation[CurrentIndex].Value;
                 }
                 else
                 {
@@ -88,7 +88,7 @@ namespace HowLeaky_SimulationEngine.Engine
 
                 if (index > 0 && index <= InputModel.Rain.Count - 1)
                 {
-                    return InputModel.Rain[index];
+                    return InputModel.Rain[index].Value;
                 }
                 
             }
@@ -110,7 +110,7 @@ namespace HowLeaky_SimulationEngine.Engine
                     index = CurrentIndex - i - delay;
                     if (index >= 0)
                     {
-                        sumrain += InputModel.Rain[index];
+                        sumrain += InputModel.Rain[index].Value;
                     }
                 }
                 return sumrain;

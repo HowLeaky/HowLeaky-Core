@@ -29,11 +29,14 @@ namespace HowLeaky_SimulationEngine.Outputs
                 if(remapdict.ContainsKey(prop.Name))
                 {
                     var attrs=remapdict[prop.Name];
-                    DisplayName=attrs.DisplayName;
+                    DisplayName=attrs.Name;
                     ColorValue=attrs.ColorValue;
                     Width=attrs.Width;
                     CanAccumulate=attrs.CanAccumulate;
                     OrderIndex=attrs.OrderIndex;
+                    Id = attrs.Id;
+                    Displayed = attrs.Active;
+                    IncludeSimReference = attrs.IncludeSimReference;
                 }
                 else
                 {
@@ -41,14 +44,16 @@ namespace HowLeaky_SimulationEngine.Outputs
                     ColorValue="#000000";
                     Width=1;
                     CanAccumulate=true;
+                    IncludeSimReference = true;
                 }
             }
           
             Module=module;
         }
 
-
+        public Guid? Id { get; set; }
         
+        public bool IncludeSimReference { get; set; }
         public int OrderIndex { get;set;}
         public int? VectorIndex{get;set;}
         public List<Action<HowLeakyOutputTimeseriesActive,int>> Actions { get; set; }
@@ -62,9 +67,11 @@ namespace HowLeaky_SimulationEngine.Outputs
         public bool UserDefinedActive{get;set;}// Means that user as asked to be able to save this output to an outptus file OR display it in the interface
         public bool SummaryDefinedActive{get;set;}//Means that there is an monthly or annual summary analysis that needs to use this time-series
 
-        public bool IsActive(){
-            return UserDefinedActive||SummaryDefinedActive;
-        }
+
+        public bool Displayed { get; set; }// This is to do with caching.... 
+        //public bool IsActive(){
+        //    return UserDefinedActive||SummaryDefinedActive;
+        //}
         public bool CanAccumulate{get;set;}
         public OutputVectorType VectorType{get;set;}
        

@@ -109,7 +109,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 FirstIrrigation = true;
                 if (InputModel.UseRingTank)
                 {
-                    RingTankSummary = new HowLeakyOutputSummary_RingTank();
+                    RingTankSummary = new HowLeakyOutputSummary_RingTank(Engine);
                 }
             }
             catch (Exception ex)

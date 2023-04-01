@@ -21,12 +21,12 @@ namespace HowLeaky_SimulationEngine.Inputs
         public BrowserDate EndDate { get; set; } = null;
         public BrowserDate StartDate { get; set; } = null;
 
-        public List<double> Rain { get; set; }
-        public List<double> MaxT { get; set; }
-        public List<double> MinT { get; set; }
-        public List<double> PanEvap { get; set; }
-        public List<double> Radiation { get; set; }
-        public List<double> VP { get; set; }
+        public List<double?> Rain { get; set; }
+        public List<double?> MaxT { get; set; }
+        public List<double?> MinT { get; set; }
+        public List<double?> PanEvap { get; set; }
+        public List<double?> Radiation { get; set; }
+        public List<double?> VP { get; set; }
 
         public EEvaporationInputOptions EvaporationInputOptions { get; set; } = EEvaporationInputOptions.Use_EPan;
         

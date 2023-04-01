@@ -1,19 +1,19 @@
 ﻿using HowLeaky_SimulationEngine.Engine;
-using HowLeaky_SimulationEngine.Outputs.Summaries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace HowLeaky_SimulationEngine.Outputs
 {
-    public class HowLeakyOutputSummary_RingTank:HowLeakyOutputSummary_Custom
+    public class HowLeakyOutputSummary_RingTank : HowLeakyOutputSummary_Custom
     {
-
         public HowLeakyOutputSummary_RingTank()
         {
+        }
+        public HowLeakyOutputSummary_RingTank(HowLeakyEngine Sim)
+        {
             RainfallInflow = new List<double>(new double[12]);
-            RunoffCaptureInflow  = new List<double>(new double[12]);
+            RunoffCaptureInflow = new List<double>(new double[12]);
             AdditionalInflow = new List<double>(new double[12]);
             EvaporationLosses = new List<double>(new double[12]);
             SeepageLosses = new List<double>(new double[12]);
@@ -22,7 +22,7 @@ namespace HowLeaky_SimulationEngine.Outputs
             Counts = new List<int>(new int[12]);
         }
         public List<double> RainfallInflow { get; set; }
-        public List<double> RunoffCaptureInflow  { get; set; }
+        public List<double> RunoffCaptureInflow { get; set; }
         public List<double> AdditionalInflow { get; set; }
 
         public List<double> EvaporationLosses { get; set; }
@@ -37,9 +37,10 @@ namespace HowLeaky_SimulationEngine.Outputs
         {
             try
             {
+                Name = Sim.IrrigationModule.Name;
                 var month = Sim.TodaysDate.Month - 1;
                 RainfallInflow[month] += Sim.IrrigationModule.RingTankRainfalInflow;
-                RunoffCaptureInflow [month] += Sim.IrrigationModule.RingTankRunoffCaptureInflow;
+                RunoffCaptureInflow[month] += Sim.IrrigationModule.RingTankRunoffCaptureInflow;
                 AdditionalInflow[month] += Sim.IrrigationModule.RingTankTotalAdditionalInflow;
 
                 EvaporationLosses[month] += Sim.IrrigationModule.RingTankEvaporationLosses;
@@ -59,10 +60,16 @@ namespace HowLeaky_SimulationEngine.Outputs
         {
             return RainfallInflow.Sum();
         }
-        public double GetTotalRunoffCaptureInflow ()
+        public double GetTotalRunoffCaptureInflow()
         {
-            return RunoffCaptureInflow .Sum();
+            return RunoffCaptureInflow.Sum();
         }
+
+        public void ScaleValues(double scale)
+        {
+            throw new NotImplementedException();
+        }
+
         public double GetTotalAdditionalInflow()
         {
             return AdditionalInflow.Sum();
@@ -92,10 +99,16 @@ namespace HowLeaky_SimulationEngine.Outputs
         {
             return RainfallInflow.Select(x => x / (((double)Counts[RainfallInflow.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
-        public List<double> GetMonthlyAvgRunoffCaptureInflow ()
+        public List<double> GetMonthlyAvgRunoffCaptureInflow()
         {
-            return RunoffCaptureInflow .Select(x => x / (((double)Counts[RunoffCaptureInflow .IndexOf(x)]) / 365.25 * 12.0)).ToList();
+            return RunoffCaptureInflow.Select(x => x / (((double)Counts[RunoffCaptureInflow.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
+
+        public void CombineScaledValues(HowLeakyOutputSummary_RingTank ringTank, double scale)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<double> GetMonthlyAvgAdditionalInflow()
         {
             return AdditionalInflow.Select(x => x / (((double)Counts[AdditionalInflow.IndexOf(x)]) / 365.25 * 12.0)).ToList();
@@ -126,9 +139,9 @@ namespace HowLeaky_SimulationEngine.Outputs
             var yrs = ((float)Counts.Sum() / 365.25);
             return RainfallInflow.Sum() / yrs;
         }
-        public double GetAnnualAvgRunoffCaptureInflow ()
+        public double GetAnnualAvgRunoffCaptureInflow()
         {
-            return RunoffCaptureInflow .Sum() / ((float)Counts.Sum() / 365.25);
+            return RunoffCaptureInflow.Sum() / ((float)Counts.Sum() / 365.25);
         }
         public double GetAnnualAvgAdditionalInflow()
         {

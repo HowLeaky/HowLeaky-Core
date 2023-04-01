@@ -435,7 +435,7 @@ namespace HowLeaky_IO.Outputs
         }
 
 
-        public string FormatValue(double value)
+        public string FormatValue(double? value)
         {
             return $"{value:F6}";
             //if(value<0.00000001)
@@ -507,6 +507,24 @@ namespace HowLeaky_IO.Outputs
 
     public class TimeSeriesViewModel
     {
+        public TimeSeriesViewModel(HowLeakyOutputTimeseriesActive timeSeries)
+        {
+            SimIndex = -1;
+            Name = timeSeries.Name;
+            StartDate = timeSeries.StartDate;
+            EndDate = timeSeries.EndDate;
+            Values = timeSeries.DailyValues;
+        }
+
+        public TimeSeriesViewModel(HowLeakyOutputTimeSeries timeSeries)
+        {
+            SimIndex = -1;
+            Name = timeSeries.Name;
+            StartDate = timeSeries.StartDate;
+            EndDate = timeSeries.EndDate;
+            Values = timeSeries.DailyValues;
+        }
+
         public TimeSeriesViewModel(string name, BrowserDate start, BrowserDate end)
         {
             SimIndex=-1;
@@ -514,7 +532,7 @@ namespace HowLeaky_IO.Outputs
             StartDate=new BrowserDate(start);
             EndDate=new BrowserDate(end);
             var count=end.DateInt-start.DateInt+1;
-             Values=new List<double>(new double[count]);
+             Values=new List<double?>(new double?[count]);
         }
         public TimeSeriesViewModel(int simindex,string name, BrowserDate start, BrowserDate end)
         {
@@ -523,13 +541,46 @@ namespace HowLeaky_IO.Outputs
             StartDate=start;
             EndDate=end;
             var count=end.DateInt-start.DateInt+1;
-            Values=new List<double>(new double[count]);
+            Values=new List<double?>(new double?[count]);
         }
         public int SimIndex{get;set;}
         public string Name{get;set;}
-        public List<double>Values{get;set;}
+        public List<double?>Values{get;set;}
         public BrowserDate StartDate{get;set;}
         public BrowserDate EndDate{get;set;}
         public double AnnualAverage { get;set;}
+
+        public void CombineScaledValues(TimeSeriesViewModel vm, double scale)
+        {
+            for (var i = 0; i < Values.Count; i++)
+            {
+                var newValue = vm.Values[i];
+                if (newValue != null)
+                {
+                    if (Values[i] != null)
+                    {
+                        Values[i] = Values[i].Value + (newValue * scale);
+                    }
+                    else
+                    {
+                        Values[i] = newValue.Value * scale;
+                    }
+                }
+            }
+        }
+
+        public void ScaleValues(double scale)
+        {
+            if (Math.Abs(scale - 1) > 0.000001)
+            {
+                for (var i = 0; i < Values.Count; i++)
+                {
+                    if (Values[i] != null)
+                    {
+                        Values[i] = Values[i].Value * scale;
+                    }
+                }
+            }
+        }
     }
 }

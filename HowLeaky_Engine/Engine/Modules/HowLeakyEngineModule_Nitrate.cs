@@ -1,13 +1,12 @@
-﻿using HowLeaky_Engine.Outputs.Summaries;
-using HowLeaky_SimulationEngine.Attributes;
+﻿using HowLeaky_SimulationEngine.Attributes;
 using HowLeaky_SimulationEngine.Enums;
 using HowLeaky_SimulationEngine.Errors;
 using HowLeaky_SimulationEngine.Inputs;
+using HowLeaky_SimulationEngine.Outputs;
 using HowLeaky_SimulationEngine.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace HowLeaky_SimulationEngine.Engine
 {
@@ -98,7 +97,7 @@ namespace HowLeaky_SimulationEngine.Engine
             PropVolSat = 0;
             //DINDrainage = 0;
 
-            Summary = new HowLeakyOutputSummary_Nitrate();
+            Summary = new HowLeakyOutputSummary_Nitrate(Engine);
 
         }
 
@@ -406,8 +405,9 @@ namespace HowLeaky_SimulationEngine.Engine
 
 
 
-                if (!Engine.InFallow())// && StageType == StageType.Plant)
+                if (!Engine.InFallow() && ExcessN>0)// && StageType == StageType.Plant)
                 {
+
                     if (InputModel.CropUseOption == CropUseOption.LogisticCurve)
                     {
                         CropUsePlant = (1 / (1 + (Math.Exp((das - InputModel.PlantA) * (-InputModel.PlantB))))) * InputModel.PlantDaily;
@@ -418,6 +418,11 @@ namespace HowLeaky_SimulationEngine.Engine
 
                         CropUsePlant = Engine.TotalTranspiration * InputModel.NCropUseEfficiency;
                         CropUseActual = CropUsePlant;
+                    }
+                    if(CropUsePlant>ExcessN)
+                    {
+                        CropUsePlant=ExcessN;
+                        CropUseActual = ExcessN;
                     }
                 }
                 else

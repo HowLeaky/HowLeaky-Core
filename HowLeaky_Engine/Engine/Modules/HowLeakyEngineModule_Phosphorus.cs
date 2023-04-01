@@ -1,11 +1,9 @@
-﻿using HowLeaky_Engine.Outputs.Summaries;
-using HowLeaky_SimulationEngine.Attributes;
+﻿using HowLeaky_SimulationEngine.Attributes;
 using HowLeaky_SimulationEngine.Errors;
 using HowLeaky_SimulationEngine.Inputs;
+using HowLeaky_SimulationEngine.Outputs;
 using HowLeaky_SimulationEngine.Tools;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HowLeaky_SimulationEngine.Engine
 {
@@ -83,7 +81,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 TotalP = 0;
                 PPHLC = 0;
                 PhosExportDissolve = 0;
-                Summary = new HowLeakyOutputSummary_Phosphorus();
+                Summary = new HowLeakyOutputSummary_Phosphorus(Engine);
             }
             catch (Exception ex)
             {

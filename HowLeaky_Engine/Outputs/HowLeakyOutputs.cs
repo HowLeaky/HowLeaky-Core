@@ -1,10 +1,9 @@
-﻿using HowLeaky_SimulationEngine.Engine;
-using HowLeaky_SimulationEngine.Outputs.Summaries;
+﻿using HowLeaky_Engine.Outputs;
+using HowLeaky_SimulationEngine.Engine;
 using HowLeaky_SimulationEngine.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace HowLeaky_SimulationEngine.Outputs
 {
@@ -18,21 +17,26 @@ namespace HowLeaky_SimulationEngine.Outputs
             TimeSeries=new List<HowLeakyOutputTimeseriesActive>();
          //   Definitions=new List<HowLeakyOutputDefinition>();
         }
+
+        public HowLeakyOutputs()
+        {
+        }
+
         public BrowserDate StartDate{get;set;}
         public BrowserDate EndDate{get;set;}
 
-        
+        public SimulationSummaryResults Summaries { get; set; }
 
-        //public List<int>DateInts{get;set;}
-      //  public List<HowLeakyOutputDefinition>Definitions{get;set;}
+       //public List<int>DateInts{get;set;}
+       //  public List<HowLeakyOutputDefinition>Definitions{get;set;}
 
-        //public void LoadDefaultDefinitions(List<System.Reflection.PropertyInfo> props, string module)
-        //{
-        //    foreach(var prop in props)
-        //    {
-        //        Definitions.Add(new HowLeakyOutputDefinition(prop, module));
-        //    }
-        //}
+       //public void LoadDefaultDefinitions(List<System.Reflection.PropertyInfo> props, string module)
+       //{
+       //    foreach(var prop in props)
+       //    {
+       //        Definitions.Add(new HowLeakyOutputDefinition(prop, module));
+       //    }
+       //}
 
        public string GetNamesCSV()
         {
@@ -41,13 +45,12 @@ namespace HowLeaky_SimulationEngine.Outputs
 
 
         public List<HowLeakyOutputTimeseriesActive>TimeSeries{get;set;}
-        public List<HowLeakyOutputSummary_Custom>Summaries{get;set;}
-
-        public void LoadFromFile(string filename)
+        
+        public void LoadSummaries(HowLeakyEngine engine)
         {
-
+            Summaries = new SimulationSummaryResults(engine);
         }
-
+      
         public string GetValueString(int tsindex, int dayindex)
         {
             return $"{TimeSeries[tsindex].DailyValues[dayindex]:F4}";
@@ -138,11 +141,13 @@ namespace HowLeaky_SimulationEngine.Outputs
 
         public void UpdateDailyTimeseries(int index)
         {
-            
-            foreach(var output in TimeSeries)
+            if (TimeSeries != null)
             {
-                
-                output.UpdateTimeseries(index);
+                foreach (var output in TimeSeries)
+                {
+
+                    output.UpdateTimeseries(index);
+                }
             }
            
         }

@@ -1,11 +1,10 @@
-﻿using HowLeaky_Engine.Outputs.Summaries;
-using HowLeaky_SimulationEngine.Attributes;
+﻿using HowLeaky_SimulationEngine.Attributes;
 using HowLeaky_SimulationEngine.Errors;
 using HowLeaky_SimulationEngine.Inputs;
+using HowLeaky_SimulationEngine.Outputs;
 using HowLeaky_SimulationEngine.Tools;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HowLeaky_SimulationEngine.Engine
 {
@@ -63,7 +62,7 @@ namespace HowLeaky_SimulationEngine.Engine
                     solute_conc_layer_mg_per_kg[i] = InputModel.Layer10InitialConc;
 
             }
-            Summary = new HowLeakyOutputSummary_Solutes();
+            Summary = new HowLeakyOutputSummary_Solutes(Engine);
         }
 
         public override void Simulate()

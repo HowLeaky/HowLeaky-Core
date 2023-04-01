@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HowLeaky_SimulationEngine.Outputs.maries
+namespace HowLeaky_SimulationEngine.Outputs
 {
-    public class HowLeakyOutputSummary_WaterBalance
+    public class HowLeakyOutputSummary_WaterBalance : HowLeakyOutputSummary_Custom
     {
+
         public HowLeakyOutputSummary_WaterBalance()
         {
+
+        }
+        public HowLeakyOutputSummary_WaterBalance(HowLeakyEngine howLeakyEngine)
+        { 
             Rainfall = new List<double>(new double[12]);
             Irrigation = new List<double>(new double[12]);
             Runoff = new List<double>(new double[12]);
@@ -23,7 +28,7 @@ namespace HowLeaky_SimulationEngine.Outputs.maries
             SoilErosion = new List<double>(new double[12]);
             OffSiteSedDelivery = new List<double>(new double[12]);
             Counts = new List<int>(new int[12]);
-        }
+        } 
         public List<double> Rainfall { get; set; }
         public List<double> Irrigation { get; set; }
         public List<double> Runoff { get; set; }
@@ -37,6 +42,39 @@ namespace HowLeaky_SimulationEngine.Outputs.maries
         public List<double> SoilErosion { get; set; }
         public List<double> OffSiteSedDelivery { get; set; }
         public List<int> Counts { get; set; }
+         
+        public void ScaleValues(double scale)
+        {
+            ScaleArray(Rainfall, scale);
+            ScaleArray(Irrigation, scale);
+            ScaleArray(Runoff, scale);
+            ScaleArray(Potevap, scale);
+            ScaleArray(SoilEvaporation, scale);
+            ScaleArray(Transpiration, scale);
+            ScaleArray(Evapotranspiration, scale);
+            ScaleArray(Overflow, scale);
+            ScaleArray(Drainage, scale);
+            ScaleArray(LateralFlow, scale);
+            ScaleArray(SoilErosion, scale);
+            ScaleArray(OffSiteSedDelivery, scale);
+        }
+        public void CombineScaledValues(HowLeakyOutputSummary_WaterBalance waterBalance, double scale)
+        {
+            CombineAndScaleArray(Rainfall, waterBalance.Rainfall, scale);
+            CombineAndScaleArray(Irrigation, waterBalance.Irrigation, scale);
+            CombineAndScaleArray(Runoff, waterBalance.Runoff, scale);
+            CombineAndScaleArray(Potevap, waterBalance.Potevap, scale);
+            CombineAndScaleArray(SoilEvaporation, waterBalance.SoilEvaporation, scale);
+            CombineAndScaleArray(Transpiration, waterBalance.Transpiration, scale);
+            CombineAndScaleArray(Evapotranspiration, waterBalance.Evapotranspiration, scale);
+            CombineAndScaleArray(Overflow, waterBalance.Overflow, scale);
+            CombineAndScaleArray(Drainage, waterBalance.Drainage, scale);
+            CombineAndScaleArray(LateralFlow, waterBalance.LateralFlow, scale);
+            CombineAndScaleArray(SoilErosion, waterBalance.SoilErosion, scale);
+            CombineAndScaleArray(OffSiteSedDelivery, waterBalance.OffSiteSedDelivery, scale);
+        }
+
+        
 
         //public double AnnualAvgRainfall { get;set;}
         // public double AnnualAvgIrrigation { get; set; }
@@ -50,6 +88,7 @@ namespace HowLeaky_SimulationEngine.Outputs.maries
         {
             try
             {
+                
                 var month = Sim.TodaysDate.Month - 1;
                 Rainfall[month] += Sim.ClimateModule.Rain;
                 Irrigation[month] += Sim.SoilModule.Irrigation;
@@ -70,6 +109,8 @@ namespace HowLeaky_SimulationEngine.Outputs.maries
                 throw new Exception(e.Message);
             }
         }
+
+        
 
         public double GetTotalRainfall()
         {

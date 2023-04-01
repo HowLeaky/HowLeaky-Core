@@ -13,6 +13,7 @@ namespace HowLeaky_SimulationEngine.Engine
         public Dictionary<string, OutputAttributes> RemapDict { get; private set; }
         public string OutputsCSV { get; set; }
         public string SimulationName { get; set; }
+        public Guid? SimulationId { get; set; }
         public HowLeakyEngineModule_Climate ClimateModule { get; set; } = null;
         public HowLeakyEngineModule_Soil SoilModule { get; set; } = null;
         public HowLeakyEngineModule_Irrigation IrrigationModule { get; set; } = null;

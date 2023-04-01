@@ -5,10 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HowLeaky_SimulationEngine.Outputs.Summaries
+namespace HowLeaky_SimulationEngine.Outputs
 {
-    class HowLeakyOutputSummary_CropYield
+    public class HowLeakyOutputSummary_CropYield : HowLeakyOutputSummary_Custom
     {
+        public HowLeakyOutputSummary_CropYield()
+        {
+
+        }
+
+        public HowLeakyOutputSummary_CropYield(HowLeakyEngine Sim)
+        {
+
+        }
+
 
         //Summary variables
         [Output] public double YieldPerHarvest { get; set; }

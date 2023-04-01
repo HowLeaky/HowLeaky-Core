@@ -30,9 +30,18 @@ namespace HowLeaky_SimulationEngine.Outputs
             return Name;
         }
 
-        public HowLeakyOutputTimeseriesActive(HowLeakyOutputDefinition outputtype,  BrowserDate start, BrowserDate end):base()
+        public HowLeakyOutputTimeseriesActive(string simulationname, Guid?simulationId, HowLeakyOutputDefinition outputtype,  BrowserDate start, BrowserDate end):base()
         {
-            Name=outputtype.DisplayName;//$"{outputtype.DisplayName}";
+            Id = outputtype.Id;
+            SimulationId = simulationId;
+            if (outputtype.IncludeSimReference)
+            {
+                Name = $"{simulationname} {outputtype.DisplayName}";//$"{outputtype.DisplayName}";
+            }
+            else
+            {
+                Name = outputtype.Name;
+            }
             StartDate=new BrowserDate(start);
             EndDate=new BrowserDate(end);
             OutputDefn=outputtype;
@@ -42,10 +51,18 @@ namespace HowLeaky_SimulationEngine.Outputs
             Width= outputtype.Width;
             DailyValues=new List<double?>(new double?[EndDate.DateInt-StartDate.DateInt+1]);
             CanAccumulate=outputtype.CanAccumulate;
+            Displayed = outputtype.Displayed;
+            Units=outputtype.Units;
         }
 
-        
+        public HowLeakyOutputTimeseriesActive(int? simindex, string name, BrowserDate start, BrowserDate end, int count, bool canAccumulate):
+            base(simindex,name,start,end,count,canAccumulate)
+        {
+        }
 
+        public bool Displayed { get; set; }
+        
+        
        
         
         public HowLeakyOutputDefinition OutputDefn {get;set;}
@@ -62,13 +79,13 @@ namespace HowLeaky_SimulationEngine.Outputs
 
         public double GetAverageAnnualValue()
         {
-            if(DailyValues!=null)
+            if(DailyValues!=null&&DailyValues.Count>0)
             {
                 var sum = DailyValues.Sum(x=>x??0);
                 var length=EndDate.DateInt-StartDate.DateInt+1;
                 if(length>0)
                 {
-                    if(OutputDefn.CanAccumulate)
+                    if(OutputDefn!=null?OutputDefn.CanAccumulate:true)
                     { 
                         return sum/(length/365.0);
                     }

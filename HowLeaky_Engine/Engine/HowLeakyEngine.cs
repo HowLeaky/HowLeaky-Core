@@ -15,14 +15,10 @@ namespace HowLeaky_SimulationEngine.Engine
         public HowLeakyEngine()
         {
             InitialPAW = 0.5;
+            IncludeSummaries = true;
         }
        
-        public HowLeakyEngine(string outputs, Dictionary<string,OutputAttributes>remapdict=null)
-        {
-            RemapDict=remapdict;
-            OutputsCSV = outputs;
-            
-        }
+        
 
         public static string GetAppVersion()
         {
@@ -30,33 +26,43 @@ namespace HowLeaky_SimulationEngine.Engine
 
             return string.Format("V{0}_{1}_{2}", appVersion.Major, appVersion.Minor, appVersion.Build, appVersion.Revision);
         }
+         
 
 
-
-        public void Execute(HowLeakyInputsModel inputs, Action<HowLeakyOutputs> onCompletion, Action<Exception> onError)
+        public bool InitialiseOutputs(string outputs, Dictionary<string, OutputAttributes> remapdict = null)
         {
             try
             {
-                if (LoadInputs(inputs))
+               
+                RemapDict = remapdict;
+                OutputsCSV = outputs;
+                BuildOutputDefinitions(OutputsCSV, RemapDict);
+                InitialiseOutputObject();
+                return true;
+            }
+            catch(Exception ex)
+            {
+
+            }
+            
+
+            return false;
+        }
+
+
+        public void Execute( Action<HowLeakyOutputs> onCompletion, Action<Exception> onError)
+        {
+            try
+            {
+               
+                PrepareForNewSimulation();
+                while (TodaysDate.DateInt <= EndDate.DateInt)
                 {
-                    PrepareForNewSimulation();
-                    while (TodaysDate.DateInt <= EndDate.DateInt)
-                    {
-                        SimulateDay();
-                        TodaysDate.IncrementDay();
-                    }
-
-                    onCompletion(Outputs);
-
+                    SimulateDay();
+                    TodaysDate.IncrementDay();
                 }
-                else
-                {
-                    if(onError!=null)
-                    {
-                        onError(new Exception("Could not load inputs"));
-                    }
-                }
-
+                Outputs.LoadSummaries(this);
+                onCompletion(Outputs);
             }
             catch (Exception ex)
             {

@@ -5,11 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HowLeaky_Engine.Outputs.Summaries
+namespace HowLeaky_SimulationEngine.Outputs
 {
-    public class HowLeakyOutputSummary_Nitrate
+    public class HowLeakyOutputSummary_Nitrate : HowLeakyOutputSummary_Custom
     {
         public HowLeakyOutputSummary_Nitrate()
+        {
+
+
+        }
+        public HowLeakyOutputSummary_Nitrate(HowLeakyEngine Sim)
         {
             NO3NRunoff = new List<double>(new double[12]);
             ParticulateNRunoff = new List<double>(new double[12]);
@@ -35,13 +40,14 @@ namespace HowLeaky_Engine.Outputs.Summaries
         public List<double> CropUse { get; set; }
         public List<double> Denitrification { get; set; }
         public List<double> Pool { get; set; }
-        public bool Extended { get;set;}
+        public bool Extended { get; set; }
 
         public List<int> Counts { get; set; }
         public void Update(HowLeakyEngine Sim)
         {
             try
             {
+                Name = Sim.NitrateModule.Name;
                 var month = Sim.TodaysDate.Month - 1;
                 NO3NRunoff[month] += Sim.NitrateModule.NO3NRunoffLoad;
                 ParticulateNRunoff[month] += Sim.NitrateModule.ParticNInRunoff;
@@ -54,7 +60,7 @@ namespace HowLeaky_Engine.Outputs.Summaries
                 Denitrification[month] += Sim.NitrateModule.Denitrification;
                 Pool[month] += Sim.NitrateModule.ExcessN;
 
-                Extended = Sim.NitrateModule.InputModel.DissolvedNinLeachingOptions== DissolvedNinLeachingType.ModifiedSafegaugeModel;
+                Extended = Sim.NitrateModule.InputModel.DissolvedNinLeachingOptions == DissolvedNinLeachingType.ModifiedSafegaugeModel;
 
                 Counts[month] += 1;
             }
@@ -76,6 +82,9 @@ namespace HowLeaky_Engine.Outputs.Summaries
         {
             return NO3NLeachate.Sum();
         }
+
+        
+
         public double GetTotalApplication()
         {
             return Application.Sum();
@@ -106,6 +115,8 @@ namespace HowLeaky_Engine.Outputs.Summaries
         {
             return ParticulateNRunoff.Select(x => x / (((double)Counts[ParticulateNRunoff.IndexOf(x)]) / 365.25 * 12.0)).ToList();
         }
+
+        
         public List<double> GetMonthlyAvgNO3NLeachate()
         {
             return NO3NLeachate.Select(x => x / (((double)Counts[NO3NLeachate.IndexOf(x)]) / 365.25 * 12.0)).ToList();
@@ -187,6 +198,32 @@ namespace HowLeaky_Engine.Outputs.Summaries
         }
 
 
+        
+        public void ScaleValues(double scale)
+        {
+            ScaleArray(NO3NRunoff, scale);
+            ScaleArray(ParticulateNRunoff, scale);
+            ScaleArray(NO3NLeachate, scale);
+            ScaleArray(Application, scale);
+            ScaleArray(Mineralisation, scale);
+            ScaleArray(CropUse, scale);
+            ScaleArray(Denitrification, scale);
+            ScaleArray(Pool, scale);
+        }
 
+        public void CombineScaledValues(HowLeakyOutputSummary_Nitrate nitrate, double scale)
+        {
+            if (nitrate != null)
+            {
+                CombineAndScaleArray(NO3NRunoff, nitrate.NO3NRunoff, scale);
+                CombineAndScaleArray(ParticulateNRunoff, nitrate.ParticulateNRunoff, scale);
+                CombineAndScaleArray(NO3NLeachate, nitrate.NO3NLeachate, scale);
+                CombineAndScaleArray(Application, nitrate.Application, scale);
+                CombineAndScaleArray(Mineralisation, nitrate.Mineralisation, scale);
+                CombineAndScaleArray(CropUse, nitrate.CropUse, scale);
+                CombineAndScaleArray(Denitrification, nitrate.Denitrification, scale);
+                CombineAndScaleArray(Pool, nitrate.Pool, scale);
+            }
+        }
     }
 }

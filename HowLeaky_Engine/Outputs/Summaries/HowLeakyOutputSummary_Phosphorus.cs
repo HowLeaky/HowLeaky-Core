@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HowLeaky_Engine.Outputs.Summaries
+namespace HowLeaky_SimulationEngine.Outputs
 {
-    public class HowLeakyOutputSummary_Phosphorus
+    public class HowLeakyOutputSummary_Phosphorus : HowLeakyOutputSummary_Custom
     {
-
         public HowLeakyOutputSummary_Phosphorus()
+        {
+        }
+        public HowLeakyOutputSummary_Phosphorus(HowLeakyEngine Sim)
         {
             PDissolved = new List<double>(new double[12]);
             PParticulate = new List<double>(new double[12]);
@@ -20,7 +22,7 @@ namespace HowLeaky_Engine.Outputs.Summaries
         public List<double> PParticulate { get; set; }
         public List<double> PTotal { get; set; }
 
-     
+
 
 
         public List<int> Counts { get; set; }
@@ -28,11 +30,12 @@ namespace HowLeaky_Engine.Outputs.Summaries
         {
             try
             {
+                Name = Sim.PhosphorusModule.Name;
                 var month = Sim.TodaysDate.Month - 1;
                 PDissolved[month] += Sim.PhosphorusModule.PhosExportDissolve;
                 PParticulate[month] += Sim.PhosphorusModule.ParticPExport;
                 PTotal[month] += Sim.PhosphorusModule.TotalP;
-               
+
                 Counts[month] += 1;
             }
             catch (Exception e)
@@ -79,6 +82,20 @@ namespace HowLeaky_Engine.Outputs.Summaries
         public double GetAnnualAvgPTotal()
         {
             return PTotal.Sum() / ((float)Counts.Sum() / 365.25);
+        }
+
+        public void ScaleValues(double scale)
+        {
+            ScaleArray(PDissolved, scale);
+            ScaleArray(PParticulate, scale);
+            ScaleArray(PTotal, scale);
+        }
+
+        public void CombineScaledValues(HowLeakyOutputSummary_Phosphorus phosphorus, double scale)
+        {
+            CombineAndScaleArray(PDissolved, phosphorus.PDissolved, scale);
+            CombineAndScaleArray(PParticulate, phosphorus.PParticulate, scale);
+            CombineAndScaleArray(PTotal, phosphorus.PTotal, scale);
         }
     }
 }

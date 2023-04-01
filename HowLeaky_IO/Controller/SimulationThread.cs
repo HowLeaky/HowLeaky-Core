@@ -30,22 +30,22 @@ namespace HowLeaky_IO
 
         public SimulationThread(ProjectHLK project, KeyValuePair<string, List<Simulation>> pair, HowLeakyOutputType outputType = HowLeakyOutputType.DailyBin)
         {
-            var remapdict = BuildOutputsRemapDict(project.OutputsCSV.Split(',').ToList());
-            OutputType = outputType;
+            //var remapdict = BuildOutputsRemapDict(project.OutputsCSV.Split(',').ToList());
+            //OutputType = outputType;
       
-            HLEngine = new HowLeakyEngine(project.OutputsCSV, remapdict);
-            Simulations = pair.Value;
-            Project = project;
+            //HLEngine = new HowLeakyEngine(project.OutputsCSV, remapdict);
+            //Simulations = pair.Value;
+            //Project = project;
         }
 
         public SimulationThread(ProjectHLK project, List<Simulation> simulations, HowLeakyOutputType outputType = HowLeakyOutputType.DailyBin)
         {
-            var remapdict = BuildOutputsRemapDict(project.OutputsCSV.Split(',').ToList());
-            OutputType = outputType;
+            //var remapdict = BuildOutputsRemapDict(project.OutputsCSV.Split(',').ToList());
+            //OutputType = outputType;
         
-            HLEngine = new HowLeakyEngine(project.OutputsCSV, remapdict);
-            Simulations = simulations;
-            Project = project;
+            //HLEngine = new HowLeakyEngine(project.OutputsCSV, remapdict);
+            //Simulations = simulations;
+            //Project = project;
         }
 
         private Dictionary<string, HowLeaky_SimulationEngine.Outputs.Definitions.OutputAttributes> BuildOutputsRemapDict(List<string> outputs)
@@ -90,7 +90,7 @@ namespace HowLeaky_IO
                         var inputs = sim.GenerateInputs();
                         if (inputs != null)
                         {
-                            HLEngine.Execute(inputs, (outputs) =>
+                            HLEngine.Execute((outputs) =>
                             {
 
                                 //SQLite.UpdateDataTable(sim,outputs);

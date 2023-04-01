@@ -26,8 +26,7 @@ namespace HowLeaky_SimulationEngine.Engine
                 InitialiseVegetationModules();
                 InitialisePesticideModules();
                 InitialiseTillageModules();
-                BuildOutputDefinitions(OutputsCSV,RemapDict);
-                InitialiseOutputObject();
+                
             }
             catch (Exception ex)
             {
